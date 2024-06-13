@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <Button
+        android:id="@+id/switchAutoTimeButton"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:text="切换ntp自动校时"
+        android:background="@color/red" />
+
+    <Button
+        android:id="@+id/openNTP"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:text="打开ntp自动校时"
+        android:background="@color/green" />
+
+    <Button
+        android:id="@+id/closeNTP"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:text="关闭ntp自动校时"
+        android:background="@color/blue" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

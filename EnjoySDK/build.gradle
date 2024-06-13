@@ -23,6 +23,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    libraryVariants.all { variant ->
+        if (variant.name == 'debug') {
+            variant.outputs.all { output ->
+                outputFileName = "EnjoySDK.aar"
+            }
+        }
+    }
 }
 
 dependencies {
