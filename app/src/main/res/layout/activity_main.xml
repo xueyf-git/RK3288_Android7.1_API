@@ -13,19 +13,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <Button
-        android:id="@+id/timeButton"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="ntp校时测试"
-        tools:ignore="MissingConstraints" />
+        <Button
+            android:id="@+id/timeButton"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="ntp校时测试"
+            tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/shooter"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="截图"
-        tools:ignore="MissingConstraints" />
+        <Button
+            android:id="@+id/shooter"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="截图"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/barShow"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="状态栏"
+            tools:ignore="MissingConstraints" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

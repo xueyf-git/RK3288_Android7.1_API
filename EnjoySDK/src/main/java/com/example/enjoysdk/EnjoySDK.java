@@ -39,9 +39,32 @@ public class EnjoySDK {
         this.mActivity = activity;
     }
 
-    /* --------------------------------------- */
-    /*            以下为截图相关的API             */
-    /* --------------------------------------- */
+    /* ------------------------------------------------------- */
+    /*            以下为显示/隐藏导航栏、状态栏相关的API             */
+    /* ------------------------------------------------------- */
+    public int setStatusBarShowStatus(boolean status) {
+        Intent NavigationBarStatus = new Intent("android.intent.action.systembar_action");
+
+        if (mActivity == null) {
+            throw new IllegalStateException("No activity provided.");
+        }
+        if (status) {
+            NavigationBarStatus.putExtra("isHide", false);
+        } else {
+            NavigationBarStatus.putExtra("isHide", true);
+        }
+        try {
+            mActivity.sendBroadcast(NavigationBarStatus);
+            return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_SUCCESSFUL;
+        } catch (Exception e) {
+            return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
+        }
+    }
+
+
+    /* ------------------------------------------------------- */
+    /*                   以下为截图相关的API                      */
+    /* ------------------------------------------------------- */
     public int takeScreenshot() {
         View rootView = mActivity.getWindow().getDecorView().getRootView();
 
@@ -93,9 +116,9 @@ public class EnjoySDK {
 
 
 
-    /* --------------------------------------- */
-    /*            以下为ntp相关的API             */
-    /* --------------------------------------- */
+    /* ------------------------------------------------------- */
+    /*             以下为ntp网络自动对时相关的API                  */
+    /* ------------------------------------------------------- */
     /**
      * 根据布尔参数切换自动日期和时间
      * @param enable 时间配置参数（true 表示打开，false 表示关闭）

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sharedUserId="android.uid.system"
+    package="com.example.henglangapi_test"
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" tools:ignore="ScopedStorage" />
@@ -30,6 +32,10 @@
 
         <activity
             android:name=".TimeTestActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".BarShowActivity"
             android:exported="true" />
 
     </application>
