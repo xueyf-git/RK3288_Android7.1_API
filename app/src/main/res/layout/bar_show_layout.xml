@@ -10,17 +10,45 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/statusBarShow"
+            android:id="@+id/BarAndNavigationShow"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:text="状态栏导航栏同时显示"
+            android:background="@color/red" />
+
+        <Button
+            android:id="@+id/BarAndNavigationHide"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:text="状态栏导航栏同时隐藏"
+            android:background="@color/green" />
+
+        <Button
+            android:id="@+id/BarShow"
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:text="状态栏显示"
             android:background="@color/red" />
 
         <Button
-            android:id="@+id/statusBarHide"
+            android:id="@+id/BarHide"
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:text="状态栏隐藏"
+            android:background="@color/green" />
+
+        <Button
+            android:id="@+id/NavigationShow"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:text="导航栏显示"
+            android:background="@color/red" />
+
+        <Button
+            android:id="@+id/NavigationHide"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:text="导航栏隐藏"
             android:background="@color/green" />
 
 

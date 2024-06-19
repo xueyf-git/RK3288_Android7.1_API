@@ -39,22 +39,68 @@ public class EnjoySDK {
         this.mActivity = activity;
     }
 
+
+
     /* ------------------------------------------------------- */
     /*            以下为显示/隐藏导航栏、状态栏相关的API             */
     /* ------------------------------------------------------- */
-    public int setStatusBarShowStatus(boolean status) {
-        Intent NavigationBarStatus = new Intent("android.intent.action.systembar_action");
 
-        if (mActivity == null) {
-            throw new IllegalStateException("No activity provided.");
-        }
-        if (status) {
-            NavigationBarStatus.putExtra("isHide", false);
-        } else {
-            NavigationBarStatus.putExtra("isHide", true);
-        }
+    public int setStatusBarShowStatus(boolean status) {
+        Intent StatusBarHide = new Intent("android.intent.action.HIDE_STATUS_BAR");
+        Intent StatusBarShow = new Intent("android.intent.action.SHOW_STATUS_BAR");
+
         try {
-            mActivity.sendBroadcast(NavigationBarStatus);
+            if (mActivity == null) {
+                throw new IllegalStateException("No activity provided.");
+            }
+            if (status) {
+                mActivity.sendBroadcast(StatusBarShow);
+            } else {
+                mActivity.sendBroadcast(StatusBarHide);
+            }
+            return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_SUCCESSFUL;
+        } catch (Exception e) {
+            return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
+        }
+
+    }
+
+    public int setNavigationBarShowStatus(boolean status) {
+        Intent NavigationBarHide = new Intent("android.intent.action.HIDE_NAVIGATION_BAR");
+        Intent NavigationBarShow = new Intent("android.intent.action.SHOW_NAVIGATION_BAR");
+
+        try {
+            if (mActivity == null) {
+                throw new IllegalStateException("No activity provided.");
+            }
+            if (status) {
+                mActivity.sendBroadcast(NavigationBarShow);
+            } else {
+                mActivity.sendBroadcast(NavigationBarHide);
+            }
+            return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_SUCCESSFUL;
+        } catch (Exception e) {
+            return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
+        }
+
+    }
+
+    public int switchStatusBarAndNavigationOverwrite(boolean isShow) {
+        Intent NavigationBarHide = new Intent("android.intent.action.HIDE_NAVIGATION_BAR");
+        Intent NavigationBarShow = new Intent("android.intent.action.SHOW_NAVIGATION_BAR");
+        Intent StatusBarHide = new Intent("android.intent.action.HIDE_STATUS_BAR");
+        Intent StatusBarShow = new Intent("android.intent.action.SHOW_STATUS_BAR");
+        try {
+            if (mActivity == null) {
+                throw new IllegalStateException("No activity provided.");
+            }
+            if (isShow) {
+                mActivity.sendBroadcast(NavigationBarShow);
+                mActivity.sendBroadcast(StatusBarShow);
+            } else {
+                mActivity.sendBroadcast(NavigationBarHide);
+                mActivity.sendBroadcast(StatusBarHide);
+            }
             return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_SUCCESSFUL;
         } catch (Exception e) {
             return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
