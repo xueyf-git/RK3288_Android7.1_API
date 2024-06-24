@@ -2,6 +2,7 @@ package com.example.henglangapi_test;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         EnjoySDK enjoySDK = new EnjoySDK(this);
         Application context = (Application) getApplicationContext();
+
+
+
 
         // ntp校时按钮
         Button timeButton = findViewById(R.id.timeButton);
@@ -65,7 +69,16 @@ public class MainActivity extends Activity {
         setPackage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.setHomePackage("com.example.test");
+                enjoySDK.setHomeScreenApp();
+            }
+        });
+
+        // 传参方式发送page包名
+        Button launcherButton = findViewById(R.id.launcherButton);
+        launcherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enjoySDK.setHomePackage("com.example.henglangapi_test");
             }
         });
 

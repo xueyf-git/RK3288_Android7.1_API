@@ -52,6 +52,7 @@ public class EnjoySDK {
             intent.setComponent(new ComponentName("android", "com.android.internal.app.ResolverActivity"));
             intent.addCategory("android.intent.category.HOME");
             intent.addCategory("android.intent.category.DEFAULT");
+            intent.putExtra("packageName", packageName);
             mActivity.startActivity(intent);
             return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_SUCCESSFUL;
         } catch (Exception e) {
@@ -68,6 +69,19 @@ public class EnjoySDK {
             return resolveInfo.activityInfo.packageName;
         }
         return null;
+    }
+
+    public int setHomeScreenApp() {
+        try {
+            Intent intent = new Intent("android.intent.action.MAIN");
+            intent.setComponent(new ComponentName("android", "com.android.internal.app.ResolverActivity"));
+            intent.addCategory("android.intent.category.HOME");
+            intent.addCategory("android.intent.category.DEFAULT");
+            mActivity.startActivity(intent);
+            return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_SUCCESSFUL;
+        } catch (Exception e) {
+            return com.example.enjoysdk.EnjoyErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
+        }
     }
 
 
