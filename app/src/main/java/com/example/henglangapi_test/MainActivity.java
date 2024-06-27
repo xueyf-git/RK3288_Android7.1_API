@@ -22,8 +22,15 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         EnjoySDK enjoySDK = new EnjoySDK(this);
         Application context = (Application) getApplicationContext();
-
-
+        // 日志记录按钮
+        Button logrecordButton = findViewById(R.id.logrcorder);
+        logrecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 创建 LogRecorderActivity 活动
+                startActivity(new Intent(MainActivity.this, LogRecorderActivity.class));
+            }
+        });
 
 
         // ntp校时按钮
@@ -81,6 +88,9 @@ public class MainActivity extends Activity {
                 enjoySDK.setHomePackage("com.example.henglangapi_test");
             }
         });
+
+
+
 
 
 

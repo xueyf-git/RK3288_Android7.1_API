@@ -5,13 +5,13 @@ plugins {
 android {
     signingConfigs {
         debug {
-            storeFile file('E:\\rk3288_apk_platform\\debug.keystore')
+            storeFile file('D:\\RK3288_Android7.1_API\\rk3288_apk_platform\\debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
         release {
-            storeFile file('E:\\rk3288_apk_platform\\debug.keystore')
+            storeFile file('D:\\RK3288_Android7.1_API\\rk3288_apk_platform\\debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'

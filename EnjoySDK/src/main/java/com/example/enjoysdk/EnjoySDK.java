@@ -41,11 +41,13 @@ public class EnjoySDK {
     private final HomeDesktop mHomeDesktop;
     private final SystemFunctions mSystemFunctions;
     private final TimeManagement mTimeManagement;
+    private final LogDumper mlogDumper;
     public EnjoySDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
         this.mHomeDesktop = new HomeDesktop(activity);
         this.mSystemFunctions = new SystemFunctions(activity);
         this.mTimeManagement = new TimeManagement(activity);
+        this.mlogDumper = new LogDumper(activity);
     }
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
@@ -65,6 +67,18 @@ public class EnjoySDK {
     public void openAutoTime() { mTimeManagement.openAutoTime(); }
     public void closeAutoTime() { mTimeManagement.closeAutoTime(); }
     public void toggleAutoTime() { mTimeManagement.toggleAutoTime(); }
+
+    //日志记录
+    public int enableLogRecorder(boolean enable){return mlogDumper.enableLogRecorder(enable);}
+    public int setRecorderTime(int hour){return  mlogDumper.setRecorderTime(hour);}
+    public int getRecorderTime(){return mlogDumper.getRecorderTime();}
+    public boolean isLogRecorderEnabled(){return mlogDumper.isLogRecorderEnabled();}
+    public String logExport(){return mlogDumper.exportLog();}
+
+
+
+
+
 
 
 }

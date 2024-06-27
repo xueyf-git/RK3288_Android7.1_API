@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogRecorderActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/enableLogRecorder"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:text="开启日志记录"
+                android:background="@color/blue" />
+
+            <Button
+                android:id="@+id/disableLogRecorder"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:text="禁用日志记录"
+                android:background="@color/blue" />
+
+            <Button
+                android:id="@+id/isLogRecorderEnable"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:text="返回日志记录状态"
+                android:background="@color/blue" />
+
+            <Button
+                android:id="@+id/getLogRecorderTime"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:text="返回日志记录工作时间"
+                android:background="@color/blue" />
+
+            <Button
+                android:id="@+id/setLogRecorderTime"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:text="设置日志记录工作时间"
+                android:background="@color/blue" />
+
+            <Button
+                android:id="@+id/exportLog"
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:text="导出日志"
+                android:background="@color/blue" />
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/isLogRecorderEnable_tv"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:text="日志记录状态信息"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/logRecorderTime_tv"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:text="日志记录时间信息"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/setLogRecorderTime_ev"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:hint="Enter a number"
+                android:inputType="number"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/exportLog_tv"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="日志导出信息"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
