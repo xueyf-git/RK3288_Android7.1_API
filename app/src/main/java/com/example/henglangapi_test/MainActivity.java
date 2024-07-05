@@ -1,5 +1,6 @@
 package com.example.henglangapi_test;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentName;
@@ -13,6 +14,9 @@ import android.widget.Toast;
 
 import com.example.enjoysdk.EnjoySDK;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends Activity {
 
@@ -22,6 +26,31 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         EnjoySDK enjoySDK = new EnjoySDK(this);
         Application context = (Application) getApplicationContext();
+
+        List<String> stringList = new ArrayList<>();
+        stringList.add("com.example.myapplication");
+
+
+        Button keepaliveButton = findViewById(R.id.keepalive);
+        keepaliveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enjoySDK.addKeepAliveAPP(stringList);
+                enjoySDK.enableKeepAlive(true);
+            }
+        });
+
+        Button testButton = findViewById(R.id.test);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enjoySDK.removeKeepAliveAPP();
+            }
+        });
+
+
+
+
         // 日志记录按钮
         Button logrecordButton = findViewById(R.id.logrcorder);
         logrecordButton.setOnClickListener(new View.OnClickListener() {

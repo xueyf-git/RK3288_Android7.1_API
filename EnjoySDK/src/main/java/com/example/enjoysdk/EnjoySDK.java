@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,12 +43,15 @@ public class EnjoySDK {
     private final SystemFunctions mSystemFunctions;
     private final TimeManagement mTimeManagement;
     private final LogDumper mlogDumper;
+    private final KeepAlive mKeepAlive;
+
     public EnjoySDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
         this.mHomeDesktop = new HomeDesktop(activity);
         this.mSystemFunctions = new SystemFunctions(activity);
         this.mTimeManagement = new TimeManagement(activity);
         this.mlogDumper = new LogDumper(activity);
+        this.mKeepAlive = new KeepAlive(activity);
     }
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
@@ -75,9 +79,13 @@ public class EnjoySDK {
     public boolean isLogRecorderEnabled(){return mlogDumper.isLogRecorderEnabled();}
     public String logExport(){return mlogDumper.exportLog();}
 
-
-
-
+    // 应用保活
+    public int enableKeepAlive(boolean enable) { return mKeepAlive.enableKeepAlive(enable);}
+    public int addKeepAliveAPP(List<String> stringList) { return mKeepAlive.addKeepAliveAPP(stringList);}
+    public int removeKeepAliveAPP() { return mKeepAlive.removeKeepAliveAPP();}
+    public boolean isKeepAliveOpen() { return mKeepAlive.isKeepAliveOpen();}
+    public List<String> getKeepAliveAPP() { return mKeepAlive.getKeepAliveAPP();}
+    public boolean isKeepAliveApp(String appname) { return mKeepAlive.isKeepAliveApp(appname);}
 
 
 

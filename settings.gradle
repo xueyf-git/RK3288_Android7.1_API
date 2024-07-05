@@ -19,6 +19,9 @@ dependencyResolutionManagement {
         flatDir(
                 dirs: 'app/libs'
         )
+        flatDir(
+                dirs: 'EnjoySDK/libs'
+        )
     }
 }
 
