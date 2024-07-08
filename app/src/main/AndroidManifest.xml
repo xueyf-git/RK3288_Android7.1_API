@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.henglangapi_test"
-    android:sharedUserId="android.uid.system">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -17,6 +15,11 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-permission android:name="android.permission.SET_TIME"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.SET_TIME_ZONE"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -48,6 +51,9 @@
             android:exported="true" />
         <activity
             android:name=".LogRecorderActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".PowerManagementTest"
             android:exported="true"/>
         <activity
             android:name=".Wifi"

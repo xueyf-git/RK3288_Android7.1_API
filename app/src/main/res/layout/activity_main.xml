@@ -99,6 +99,13 @@
             android:text="HOME lunch"
             tools:ignore="MissingConstraints" />
 
+        <Button
+            android:id="@+id/powerManagementButton"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="powermanagement测试"
+            tools:ignore="MissingConstraints" />
+
 
     </LinearLayout>
 

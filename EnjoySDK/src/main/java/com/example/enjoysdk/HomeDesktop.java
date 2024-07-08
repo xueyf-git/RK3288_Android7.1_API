@@ -32,7 +32,7 @@ public class HomeDesktop {
 
     /**
      * 获取默认的主屏幕应用程序包名
-     * @param 无
+     * @param
      * @return 成功返回 获取到的包名
      */
     public String getHomePackage() {
@@ -48,7 +48,7 @@ public class HomeDesktop {
 
     /**
      * 设置默认的主屏幕应用
-     * @param 无
+     * @param
      * @return 成功返回 ENJOY_COMMON_SUCCESSFUL
      */
     public int setHomeScreenApp() {

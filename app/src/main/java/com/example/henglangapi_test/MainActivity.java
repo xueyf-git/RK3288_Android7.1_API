@@ -58,6 +58,15 @@ public class MainActivity extends Activity {
             }
         });
 
+        // 电源管理按钮
+        Button powerManagementButton = findViewById(R.id.powerManagementButton);
+        powerManagementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PowerManagementTest.class));
+            }
+        });
+
 
 
 

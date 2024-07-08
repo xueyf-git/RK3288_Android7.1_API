@@ -11,6 +11,7 @@ public class EnjoySDK {
     private final TimeManagement mTimeManagement;
     private final LogDumper mlogDumper;
     private final KeepAlive mKeepAlive;
+    private final PowerManagement powerManagement;
     private final WlanManagement mWlanManagement;
 
     public EnjoySDK(Activity activity) {
@@ -21,6 +22,7 @@ public class EnjoySDK {
         this.mlogDumper = new LogDumper(activity);
         this.mKeepAlive = new KeepAlive(activity);
         this.mWlanManagement = new WlanManagement(activity);
+        this.powerManagement =new PowerManagement(activity);
     }
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
@@ -63,6 +65,16 @@ public class EnjoySDK {
     public List<String> refreshWiFiList() { return mWlanManagement.refreshWiFiList(); }
     public List<WlanManagement.WiFiInfo> showConnectedWiFiInfo() { return mWlanManagement.showConnectedWiFiInfo(); }
 
+    //电源管理
+    public int reboot(){return powerManagement.reboot();}
+    public int shutdown(boolean confirm){return powerManagement.shutdown(confirm);}
+    public int batteryLevel(){return powerManagement.getBatteryLevel();}
+    public String chargeStatus(){return powerManagement.getChargingStatus();}
+    public void registerLowBatteryReceiver(){powerManagement.registerLowBatteryReceiver();}
+    public void unregisterLowBatteryReceiver(){powerManagement.unregisterLowBatteryReceiver();}
+    public boolean getIsLowBatteryWarning(){return powerManagement.getIsLowBatteryWarning();}
+    public void setIsLowBatteryWarning(boolean isLBW){powerManagement.isLowBatteryWarning(isLBW);}
+    public void setScreenBrightness(int inputBrightness){powerManagement.setScreenBrightness(inputBrightness);}
 
 
 

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.henglangapi_test.powerManagementTest">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+        android:background="#EEEEEE"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/reboot_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="reboot" />
+
+            <Button
+                android:id="@+id/shutdown_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="Shutdown" />
+
+            <Button
+                android:id="@+id/isLBW_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="切换低电量警告状态" />
+
+            <TextView
+                android:id="@+id/screenBrightness_tv"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="屏幕亮度"
+                android:textAlignment="center" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/batteryLevel_tv"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="当前电量"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/chargingStatus_tv"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="充电状态"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/isLowBatteryStatus_tv"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="是否低电量警告状态"
+                android:textAlignment="center"/>
+
+            <SeekBar
+                android:id="@+id/screenBrightnessCtl"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:max="255" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
