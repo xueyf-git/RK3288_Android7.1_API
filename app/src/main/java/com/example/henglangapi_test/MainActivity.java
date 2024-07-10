@@ -31,6 +31,16 @@ public class MainActivity extends Activity {
         stringList.add("com.example.myapplication");
 
 
+        //wifi测试
+        Button wifiShow = findViewById(R.id.wifiShow);
+        wifiShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Wifi.class));
+            }
+        });
+
+
         Button keepaliveButton = findViewById(R.id.keepalive);
         keepaliveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,10 +128,14 @@ public class MainActivity extends Activity {
             }
         });
 
-
-
-
-
+        // 传参方式发送page包名设置原来的luncher
+        Button launcher3Button = findViewById(R.id.launcher3Button);
+        launcher3Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enjoySDK.setHomePackage("com.android.launcher3");
+            }
+        });
 
 
     }

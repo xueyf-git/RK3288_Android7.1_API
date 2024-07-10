@@ -49,6 +49,9 @@
         <activity
             android:name=".LogRecorderActivity"
             android:exported="true"/>
+        <activity
+            android:name=".Wifi"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -1,40 +1,7 @@
 package com.example.enjoysdk;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-import androidx.annotation.Nullable;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.os.Environment;
-import android.widget.Toast;
-import android.util.Log;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 
 public class EnjoySDK {
@@ -44,6 +11,7 @@ public class EnjoySDK {
     private final TimeManagement mTimeManagement;
     private final LogDumper mlogDumper;
     private final KeepAlive mKeepAlive;
+    private final WlanManagement mWlanManagement;
 
     public EnjoySDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
@@ -52,6 +20,7 @@ public class EnjoySDK {
         this.mTimeManagement = new TimeManagement(activity);
         this.mlogDumper = new LogDumper(activity);
         this.mKeepAlive = new KeepAlive(activity);
+        this.mWlanManagement = new WlanManagement(activity);
     }
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
@@ -86,6 +55,14 @@ public class EnjoySDK {
     public boolean isKeepAliveOpen() { return mKeepAlive.isKeepAliveOpen();}
     public List<String> getKeepAliveAPP() { return mKeepAlive.getKeepAliveAPP();}
     public boolean isKeepAliveApp(String appname) { return mKeepAlive.isKeepAliveApp(appname);}
+
+    // wlan管理
+    public int enableWiFi(boolean enable) { return mWlanManagement.enableWiFi(enable); }
+    public List<String> getWiFiList() { return mWlanManagement.getWiFiList(); }
+    public int connectToWiFi(String ssid, String password) { return mWlanManagement.connectToWiFi(ssid, password); }
+    public List<String> refreshWiFiList() { return mWlanManagement.refreshWiFiList(); }
+    public List<WlanManagement.WiFiInfo> showConnectedWiFiInfo() { return mWlanManagement.showConnectedWiFiInfo(); }
+
 
 
 
