@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeviceInfoUtilTest">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+        android:background="#EEEEEE"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/getFactoryInfo_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取生产商信息" />
+
+            <Button
+                android:id="@+id/getProductInfo_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取产品型号" />
+
+            <Button
+                android:id="@+id/getSpecialInfo_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取定制化信息" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/getCpuTypeInfo_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取CPU型号" />
+
+            <Button
+                android:id="@+id/getCpuSerial_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取CPU序列号" />
+
+            <Button
+                android:id="@+id/getAndroidVersionInfo_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取Android版本号" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/getPlatformVersionInfo_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取平台版本信息" />
+
+            <Button
+                android:id="@+id/getSystemVersionInfo_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取系统版本信息" />
+
+            <Button
+                android:id="@+id/getTouchPointerCount_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取触点数量" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/getbootVersion_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取Boot版本" />
+
+            <Button
+                android:id="@+id/getOemVersion_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取Oem版本" />
+
+            <Button
+                android:id="@+id/setTouchPointerCount_bt"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="设置触点数量" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/getFirmwareVersion_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取固件版本信息" />
+
+            <Button
+                android:id="@+id/getFirmwareVersionCode_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取固件版本号" />
+
+            <EditText
+                android:id="@+id/setTouchPointerCount_ed"
+                android:layout_width="match_parent"
+                android:layout_height="80dp" />
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="380dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <FrameLayout
+            android:id="@+id/touchView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:background="#EEEEEE"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

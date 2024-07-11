@@ -119,6 +119,13 @@
                 android:text="时间设置测试"
                 tools:ignore="MissingConstraints" />
 
+            <Button
+                android:id="@+id/deviceUtilTest_bt"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="固件信息测试"
+                tools:ignore="MissingConstraints" />
+
 
         </LinearLayout>
     </ScrollView>

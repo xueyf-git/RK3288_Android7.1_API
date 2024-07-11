@@ -14,6 +14,7 @@ public class EnjoySDK {
     private final PowerManagement powerManagement;
     private final WlanManagement mWlanManagement;
     private final TimeUtil timeUtil;
+    private final DeviceInfoUtil deviceInfoUtil;
 
     public EnjoySDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
@@ -25,6 +26,7 @@ public class EnjoySDK {
         this.mWlanManagement = new WlanManagement(activity);
         this.powerManagement =new PowerManagement(activity);
         this.timeUtil = new TimeUtil(activity);
+        this.deviceInfoUtil = new DeviceInfoUtil(activity);
     }
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
@@ -89,5 +91,20 @@ public class EnjoySDK {
     public void setTime(int hour,int minute,int second){timeUtil.setTime(hour,minute,second);}
     public void setDate(int year,int month,int day){timeUtil.setDate(year,month,day);}
 
+    //固件信息
+    public String getFactoryInfo(){return deviceInfoUtil.getFactoryInfo();}
+    public String getProductInfo(){return deviceInfoUtil.getProductInfo();}
+    public String getSpecialInfo(){return deviceInfoUtil.getSpecialInfo();}
+    public String getCpuTypeInfo(){return deviceInfoUtil.getCpuTypeInfo();}
+    public String getCpuSerial(){return deviceInfoUtil.getCpuSerial();}
+    public String getAndroidVersionInfo(){return deviceInfoUtil.getAndroidVersionInfo();}
+    public String getPlatformVersionInfo(){return deviceInfoUtil.getPlatformVersionInfo();}
+    public String getSystemVersion(){return deviceInfoUtil.getSystemVersionInfo();}
+    public String getBootVersion(){return deviceInfoUtil.getBootVersion();}
+    public String getOemVersion(){return deviceInfoUtil.getOemVersion();}
+    public int setTouchPointerCount(int count){return deviceInfoUtil.setTouchPointerCount(count);}
+    public int getTouchPointerCount(){return deviceInfoUtil.getTouchPointerCount();}
+    public String getFirmwareVersion(){return deviceInfoUtil.getFirmwareVersion();}
+    public int getFirmwareVersionCode(){return deviceInfoUtil.getFirmwareVersionCode();}
 
 }

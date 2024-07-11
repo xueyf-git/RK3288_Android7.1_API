@@ -43,26 +43,26 @@ public class LogDumper implements Runnable {
      */
     public int enableLogRecorder(boolean enable){
         if (mActivity == null) {                                                                    //相关服务未启动
-
             throw new IllegalStateException("No activity provided.");
+
         }
 
         if (!hasWriteSettingsPermission(mActivity)) {
         requestWriteSettingsPermission();
-            return -1;                                                                              // 返回一个特定的值，表示权限未授予并已请求
+            return McErrorCode.ENJOY_COMMON_ERROR_WRITE_SETTINGS_ERROR;                                                                              // 返回一个特定的值，表示权限未授予并已请求
         }
 
         try {
             if (enable) {
                 start();
+
             } else {
                 stop();
-            }
-            return 0;                                                                               // 成功
-
+            }             // 成功
+            return  McErrorCode.ENJOY_COMMON_SUCCESSFUL;
         } catch (Exception e) {
             Log.e("EnableLogRecorder", "Error while toggling log recorder", e);
-            return -1701;                                                                           // 相关服务未启动
+            return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;                                                                           // 相关服务未启动
         }
     }
 
@@ -76,16 +76,9 @@ public class LogDumper implements Runnable {
 
         if (!hasWriteSettingsPermission(mActivity)) {
             requestWriteSettingsPermission();
-            return -2;
+            return McErrorCode.ENJOY_COMMON_ERROR_WRITE_SETTINGS_ERROR;
         }
-
-        try{
             return hour;
-
-        }catch (Exception e){
-            Log.e("isLogRecorderEnabled", "Error checking recorder time", e);
-            throw new IllegalStateException("Error while checking recorder time.", e);        //暂时没想好怎么抛出异常
-        }
     }
 
     /**
@@ -120,7 +113,7 @@ public class LogDumper implements Runnable {
 
         if (!hasWriteSettingsPermission(mActivity)) {
             requestWriteSettingsPermission();
-            return -2;
+            return McErrorCode.ENJOY_COMMON_ERROR_WRITE_SETTINGS_ERROR;
         }
 
         try{
@@ -128,10 +121,10 @@ public class LogDumper implements Runnable {
                 throw new IOException("不允许设置非正数!");
             }
             this.hour =hour;
-            return 0;
+            return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
 
         }catch (Exception e){
-            return -1;
+            return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
         }
     }                                                                                               //返回设置的运行时间
 

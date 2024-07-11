@@ -77,7 +77,15 @@ public class MainActivity extends Activity {
             }
         });
 
-
+        // 固件信息按钮
+        Button deviceUtil_bt = findViewById(R.id.deviceUtilTest_bt);
+        deviceUtil_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 创建 TimeTestActivity 活动
+                startActivity(new Intent(MainActivity.this, DeviceInfoUtilActivity.class));
+            }
+        });
 
 
         // 日志记录按钮

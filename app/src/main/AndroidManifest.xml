@@ -9,6 +9,9 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
@@ -79,6 +82,9 @@
             android:exported="true"/>
         <activity
             android:name=".TimeUtilActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DeviceInfoUtilActivity"
             android:exported="true" />
     </application>
 

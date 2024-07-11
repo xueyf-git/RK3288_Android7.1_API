@@ -29,6 +29,8 @@ public class PowerManagement {
     private PowerManager.WakeLock wakeLock;
     private DevicePolicyManager devicePolicyManager;
     private ComponentName componentName;
+    private boolean touchWakeState = false;
+    private boolean timedTouchWakeState = false;
 
     public PowerManagement(Activity mActivity) {
         this.mActivity = mActivity;
@@ -46,7 +48,7 @@ public class PowerManagement {
 
         if (!hasWriteSettingsPermission(mActivity)) {
             requestWriteSettingsPermission();
-            return -1;                                                                              // 返回一个特定的值，表示权限未授予并已请求
+            return McErrorCode.ENJOY_COMMON_ERROR_WRITE_SETTINGS_ERROR;                                                                              // 返回一个特定的值，表示权限未授予并已请求
         }
 
         try {
@@ -337,7 +339,44 @@ public class PowerManagement {
         Settings.System.putInt(mActivity.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeInMs);
     }
 
+    //设置触摸唤醒
+    public int setTouchWake(boolean enable) {
+        //当定时唤醒开启时，无法启动触摸唤醒
+        this.touchWakeState = enable;
+        if(timedTouchWakeState){
+            touchWakeState = false;
+            return McErrorCode.ENJOY_COMMON_ERROR_SERVICE_NOT_START;
+        }
+        if(!touchWakeState){
+            return McErrorCode.ENJOY_COMMON_ERROR_SERVICE_NOT_START;
+        }
+        else {
+            enableTouchWake();
+            return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
+        }
 
+
+    }
+
+    public void enableTouchWake(){
+        PowerManager powerManager = (PowerManager) mActivity.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MyApp::TouchWakeLock");
+        wakeLock.acquire();
+        // 释放唤醒锁，因为这里我们只需要一次性唤醒操作
+        wakeLock.release();
+    }
+
+    //获取触摸唤醒状态
+    public int getTouchWakeState(){
+        if(touchWakeState)return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
+        else return McErrorCode.ENJOY_COMMON_ERROR_SERVICE_NOT_START;
+    }
+
+
+
+    /* ------------------------------------------------------- */
+    /*             以下为内部类                  */
+    /* ------------------------------------------------------- */
 
     // 内部类：低电量广播接收器
     private class LowBatteryReceiver extends BroadcastReceiver {
