@@ -16,97 +16,110 @@
         android:layout_centerInParent="true"
         tools:ignore="MissingConstraints" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_below="@id/messageTextView"
+        tools:ignore="MissingConstraints">
 
-        <Button
-            android:id="@+id/wifiShow"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="wifi"
-            tools:ignore="MissingConstraints" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/keepalive"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="keepalive"
-            tools:ignore="MissingConstraints" />
+            <Button
+                android:id="@+id/wifiShow"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="wifi"
+                tools:ignore="MissingConstraints" />
 
-        <Button
-            android:id="@+id/test"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="test"
-            tools:ignore="MissingConstraints" />
+            <Button
+                android:id="@+id/keepalive"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="keepalive"
+                tools:ignore="MissingConstraints" />
 
-
-        <Button
-            android:id="@+id/logrcorder"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="日志记录"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/timeButton"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="ntp校时测试"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/shooter"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="截图"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/barShow"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="状态栏"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/getPackage"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="获取当前lunch名称"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/setPackage"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="设置当前桌面lunch"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/launcherButton"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="lunch测试"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/launcher3Button"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="HOME lunch"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/powerManagementButton"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:text="powermanagement测试"
-            tools:ignore="MissingConstraints" />
+            <Button
+                android:id="@+id/test"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="test"
+                tools:ignore="MissingConstraints" />
 
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/logrcorder"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="日志记录"
+                tools:ignore="MissingConstraints" />
 
+            <Button
+                android:id="@+id/timeButton"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="ntp校时测试"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/shooter"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="截图"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/barShow"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="状态栏"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/getPackage"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="获取当前lunch名称"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/setPackage"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="设置当前桌面lunch"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/launcherButton"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="lunch测试"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/launcher3Button"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="HOME lunch"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/powerManagementButton"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="powermanagement测试"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/timeUtilTest_bt"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:text="时间设置测试"
+                tools:ignore="MissingConstraints" />
+
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

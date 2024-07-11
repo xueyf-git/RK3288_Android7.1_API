@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 定义设备管理员可以执行的策略 -->
+    <uses-policies>
+        <!-- 强制锁屏 -->
+        <force-lock />
+        <!-- 擦除设备数据 -->
+        <wipe-data />
+    </uses-policies>
+</device-admin>

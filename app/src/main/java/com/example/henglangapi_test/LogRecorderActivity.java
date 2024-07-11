@@ -40,13 +40,13 @@ public class LogRecorderActivity extends Activity {
 
         // 获取 getLogRecorderButton 按钮
         Button getLogRecorderButton = findViewById(R.id.isLogRecorderEnable);
-        TextView getLofRecorder_tv = findViewById(R.id.isLogRecorderEnable_tv);
+        TextView getLogRecorder_tv = findViewById(R.id.isLogRecorderEnable_tv);
         getLogRecorderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 调用 enjoySDK 中的 isLogRecorderEnabled 方法
                 boolean recStatus = enjoySDK.isLogRecorderEnabled();
-                getLofRecorder_tv.setText(String.valueOf(recStatus));
+                getLogRecorder_tv.setText(String.valueOf(recStatus));
             }
         });
 

@@ -6,11 +6,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.henglangapi_test.powerManagementTest">
+    tools:context="com.example.henglangapi_test.PowerManagementTest">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="1000dp"
         android:layout_marginTop="80dp"
         android:orientation="horizontal"
         android:background="#EEEEEE"
@@ -48,6 +48,24 @@
                 android:text="屏幕亮度"
                 android:textAlignment="center" />
 
+            <Button
+                android:id="@+id/disableSystemGoToSleep_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="禁用系统休眠" />
+
+            <Button
+                android:id="@+id/setMaximumTimeToLock_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="设置系统休眠时间" />
+
+            <Button
+                android:id="@+id/setScreenOffTimeout_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="设置屏幕休眠时间" />
+
 
         </LinearLayout>
         <LinearLayout
@@ -83,6 +101,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:max="255" />
+
+            <Button
+                android:id="@+id/enableSystemGoToSleep_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="启用系统休眠" />
+
+            <EditText
+                android:id="@+id/setMaximumTimeToLock_ed"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:hint="Enter a number"
+                android:inputType="number"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/setScreenOffTimeout_ed"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:hint="Enter a number"
+                android:inputType="number"
+                android:textAlignment="center" />
 
 
         </LinearLayout>

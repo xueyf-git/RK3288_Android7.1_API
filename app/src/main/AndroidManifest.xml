@@ -16,11 +16,16 @@
     <uses-permission
         android:name="android.permission.WRITE_SECURE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-
-    <uses-permission android:name="android.permission.SET_TIME"
-        tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.SET_TIME_ZONE"
+    <uses-permission
+        android:name="android.permission.SHUTDOWN"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.REBOOT"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.SET_TIME"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +37,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HenglangAPI_test"
         tools:targetApi="31">
+
+        <!-- 声明设备管理员接收器 -->
+        <receiver android:name="com.example.enjoysdk.PowerManagement$DeviceAdminReceiver"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <!-- 指定设备管理员的配置文件 -->
+            <meta-data android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_sample" />
+            <!-- 声明设备管理员启用的动作 -->
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -58,6 +77,9 @@
         <activity
             android:name=".Wifi"
             android:exported="true"/>
+        <activity
+            android:name=".TimeUtilActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

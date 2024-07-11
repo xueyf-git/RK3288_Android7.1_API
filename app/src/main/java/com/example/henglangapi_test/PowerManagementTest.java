@@ -3,6 +3,7 @@ package com.example.henglangapi_test;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import com.example.enjoysdk.EnjoySDK;
 
 public class PowerManagementTest extends AppCompatActivity {
 
-    EnjoySDK enjoySDK = new EnjoySDK(this);
+    EnjoySDK enjoySDK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class PowerManagementTest extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_power_management_test);
 
+        enjoySDK = new EnjoySDK(this);
         //注册低电量警告
         enjoySDK.registerLowBatteryReceiver();
 
@@ -81,13 +83,81 @@ public class PowerManagementTest extends AppCompatActivity {
         chargeStatus_tv.setText(chargeStatus);
 
 
-        //系统关机shutdown,uncompleted
+        //系统关机
         Button shutdown = findViewById(R.id.shutdown_bt);
         shutdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean confirm = false;
+                boolean confirm = true;
                 enjoySDK.shutdown(confirm);
+            }
+        });
+
+        //禁用系统休眠
+        Button disableSystemGoToSleep_bt = findViewById(R.id.disableSystemGoToSleep_bt);
+        disableSystemGoToSleep_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                enjoySDK.enableScreenOn();
+            }
+        });
+
+        //启用系统休眠
+        Button enableSystemGoToSleep_bt = findViewById(R.id.enableSystemGoToSleep_bt);
+        enableSystemGoToSleep_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                enjoySDK.disableScreenOn();
+            }
+        });
+
+        //设置系统自动休眠最大间隔
+        Button setMaximumTimeoutToLock_bt = findViewById(R.id.setMaximumTimeToLock_bt);
+        EditText setMaximumTimeoutToLock_ed = findViewById(R.id.setMaximumTimeToLock_ed);
+        setMaximumTimeoutToLock_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String numberText = setMaximumTimeoutToLock_ed.getText().toString().trim();
+
+                if (!numberText.isEmpty()) {
+                    try {
+                        // 将文本内容转换为整数（如果输入的确实是数字）
+                        int timeout = Integer.parseInt(numberText);
+                        // 调用 enjoySDK 中的 setRecorderTime 方法
+                        enjoySDK.setMaximumTimeToLock(timeout);
+
+                    } catch (NumberFormatException e) {
+                        setMaximumTimeoutToLock_ed.setText("输入的数字不规范！请重新输入！");
+                    }
+                } else {
+                    // 如果 EditText 为空，可以提示用户输入内容
+                    setMaximumTimeoutToLock_ed.setText("输入不能为空！请重新输入！");
+                }
+            }
+        });
+
+        //设置屏幕自动休眠最大间隔
+        Button setScreenOffTimeout_bt = findViewById(R.id.setScreenOffTimeout_bt);
+        EditText setScreenOffTimeout_ed = findViewById(R.id.setScreenOffTimeout_ed);
+        setScreenOffTimeout_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String numberText = setScreenOffTimeout_ed.getText().toString().trim();
+
+                if (!numberText.isEmpty()) {
+                    try {
+                        // 将文本内容转换为整数（如果输入的确实是数字）
+                        int timeout = Integer.parseInt(numberText);
+                        // 调用 enjoySDK 中的 setRecorderTime 方法
+                        enjoySDK.setScreenOffTimeout(timeout);
+
+                    } catch (NumberFormatException e) {
+                        setScreenOffTimeout_ed.setText("输入的数字不规范！请重新输入！");
+                    }
+                } else {
+                    // 如果 EditText 为空，可以提示用户输入内容
+                    setScreenOffTimeout_ed.setText("输入不能为空！请重新输入！");
+                }
             }
         });
 
