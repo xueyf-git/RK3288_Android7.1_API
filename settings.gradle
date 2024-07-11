@@ -27,4 +27,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "HenglangAPI_test"
 include ':app'
-include ':EnjoySDK'
+include ':SDK'

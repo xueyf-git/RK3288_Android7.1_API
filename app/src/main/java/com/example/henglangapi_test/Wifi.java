@@ -16,14 +16,14 @@ import java.util.List;
 
 import android.widget.Switch;
 
-import com.example.enjoysdk.EnjoySDK;
-import com.example.enjoysdk.WlanManagement;
+import com.example.sdk.QYSDK;
+import com.example.sdk.WlanManagement;
 
 
 public class Wifi extends Activity {
     private ListView wifiListView;
     private List<String> wifiList;
-    EnjoySDK enjoySDK = new EnjoySDK(this);
+    QYSDK qySDK = new QYSDK(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class Wifi extends Activity {
         wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                enjoySDK.enableWiFi(isChecked);
+                qySDK.enableWiFi(isChecked);
                 if (isChecked) {
                     wifiListView.setVisibility(View.VISIBLE);
                 } else {
@@ -48,7 +48,7 @@ public class Wifi extends Activity {
         });
 
         wifiListView = findViewById(R.id.wifi_list_view);
-        wifiList = enjoySDK.getWiFiList();
+        wifiList = qySDK.getWiFiList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wifiList);
         wifiListView.setAdapter(adapter);
 
@@ -68,7 +68,7 @@ public class Wifi extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String password = input.getText().toString();
-                        enjoySDK.connectToWiFi(selectedSSID, password);
+                        qySDK.connectToWiFi(selectedSSID, password);
                     }
                 });
 
@@ -87,7 +87,7 @@ public class Wifi extends Activity {
         refreshWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                wifiList = enjoySDK.refreshWiFiList();
+//                wifiList = qySDK.refreshWiFiList();
                 showWiFiInfo();
             }
         });
@@ -96,7 +96,7 @@ public class Wifi extends Activity {
     }
 
     private void showWiFiInfo() {
-        List<WlanManagement.WiFiInfo> result = enjoySDK.showConnectedWiFiInfo();
+        List<WlanManagement.WiFiInfo> result = qySDK.showConnectedWiFiInfo();
 
         StringBuilder infoBuilder = new StringBuilder();
         for (WlanManagement.WiFiInfo wifiInfo : result) {

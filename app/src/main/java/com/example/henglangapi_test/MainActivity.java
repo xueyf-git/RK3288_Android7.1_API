@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.enjoysdk.EnjoySDK;
+import com.example.sdk.QYSDK;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EnjoySDK enjoySDK = new EnjoySDK(this);
+        QYSDK qySDK = new QYSDK(this);
         Application context = (Application) getApplicationContext();
 
         List<String> stringList = new ArrayList<>();
@@ -45,8 +45,8 @@ public class MainActivity extends Activity {
         keepaliveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.addKeepAliveAPP(stringList);
-                enjoySDK.enableKeepAlive(true);
+                qySDK.addKeepAliveAPP(stringList);
+                qySDK.enableKeepAlive(true);
             }
         });
 
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.removeKeepAliveAPP();
+                qySDK.removeKeepAliveAPP();
             }
         });
 
@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
         shooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.takeScreenshot();
+                qySDK.takeScreenshot();
             }
         });
 
@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
         getPackage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String receivedString = enjoySDK.getHomePackage();
+                String receivedString = qySDK.getHomePackage();
                 Toast.makeText(context, "Received: " + receivedString, Toast.LENGTH_LONG).show();
             }
         });
@@ -134,7 +134,7 @@ public class MainActivity extends Activity {
         setPackage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.setHomeScreenApp();
+                qySDK.setHomeScreenApp();
             }
         });
 
@@ -143,7 +143,7 @@ public class MainActivity extends Activity {
         launcherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.setHomePackage("com.example.henglangapi_test");
+                qySDK.setHomePackage("com.example.henglangapi_test");
             }
         });
 
@@ -152,7 +152,7 @@ public class MainActivity extends Activity {
         launcher3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.setHomePackage("com.android.launcher3");
+                qySDK.setHomePackage("com.android.launcher3");
             }
         });
 

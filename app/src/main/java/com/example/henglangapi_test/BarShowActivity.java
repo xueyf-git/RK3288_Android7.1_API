@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.enjoysdk.EnjoySDK;
+import com.example.sdk.QYSDK;
 
 
 public class BarShowActivity extends Activity {
@@ -14,14 +14,14 @@ public class BarShowActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bar_show_layout);
-        EnjoySDK enjoySDK = new EnjoySDK(this);
+        QYSDK qySDK = new QYSDK(this);
 
         // 同时显示状态栏导航栏按钮
         Button statusBarBarAndNavigationShow = findViewById(R.id.BarAndNavigationShow);
         statusBarBarAndNavigationShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.switchStatusBarAndNavigationOverwrite(true);
+                qySDK.switchStatusBarAndNavigationOverwrite(true);
             }
         });
 
@@ -30,7 +30,7 @@ public class BarShowActivity extends Activity {
         statusBarAndNavigationHide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.switchStatusBarAndNavigationOverwrite(false);
+                qySDK.switchStatusBarAndNavigationOverwrite(false);
             }
         });
 
@@ -39,7 +39,7 @@ public class BarShowActivity extends Activity {
         statusBarShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.setStatusBarShowStatus(true);
+                qySDK.setStatusBarShowStatus(true);
             }
         });
 
@@ -48,7 +48,7 @@ public class BarShowActivity extends Activity {
         statusBarHide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.setStatusBarShowStatus(false);
+                qySDK.setStatusBarShowStatus(false);
             }
         });
 
@@ -57,7 +57,7 @@ public class BarShowActivity extends Activity {
         statusNavigationShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.setNavigationBarShowStatus(true);
+                qySDK.setNavigationBarShowStatus(true);
             }
         });
 
@@ -66,7 +66,7 @@ public class BarShowActivity extends Activity {
         statusNavigationHide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enjoySDK.setNavigationBarShowStatus(false);
+                qySDK.setNavigationBarShowStatus(false);
             }
         });
 

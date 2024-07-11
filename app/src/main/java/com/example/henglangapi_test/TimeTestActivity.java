@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.enjoysdk.EnjoySDK;
+import com.example.sdk.QYSDK;
 
 
 public class TimeTestActivity extends Activity {
@@ -15,15 +15,15 @@ public class TimeTestActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.time_test_layout);
-        EnjoySDK enjoySDK = new EnjoySDK(this);
+        QYSDK qySDK = new QYSDK(this);
 
         // 获取 switchAutoTimeButton 按钮
         Button switchAutoTimeButton = findViewById(R.id.switchAutoTimeButton);
         switchAutoTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    // 调用 enjoySDK 中的 toggleAutoTime 方法
-                    enjoySDK.toggleAutoTime();
+                    // 调用 qySDK 中的 toggleAutoTime 方法
+                    qySDK.toggleAutoTime();
             }
         });
 
@@ -31,7 +31,7 @@ public class TimeTestActivity extends Activity {
         openNTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    enjoySDK.switchAutoDateAndTime(true);
+                    qySDK.switchAutoDateAndTime(true);
             }
         });
 
@@ -39,7 +39,7 @@ public class TimeTestActivity extends Activity {
         closeNTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    enjoySDK.switchAutoDateAndTime(false);
+                    qySDK.switchAutoDateAndTime(false);
             }
         });
 

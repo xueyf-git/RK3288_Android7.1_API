@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.enjoysdk.EnjoySDK;
+import com.example.sdk.QYSDK;
 
 public class LogRecorderActivity extends Activity {
 
@@ -16,15 +16,15 @@ public class LogRecorderActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_recorder);
-        EnjoySDK enjoySDK = new EnjoySDK(this);
+        QYSDK qySDK = new QYSDK(this);
 
         // 获取 enableLogRecorder 按钮
         Button enableLogRecorderButton = findViewById(R.id.enableLogRecorder);
         enableLogRecorderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 调用 enjoySDK 中的 enableLogRecorder 方法
-                enjoySDK.enableLogRecorder(true);
+                // 调用 qySDK 中的 enableLogRecorder 方法
+                qySDK.enableLogRecorder(true);
             }
         });
 
@@ -33,8 +33,8 @@ public class LogRecorderActivity extends Activity {
         disableLogRecorderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 调用 enjoySDK 中的 enableLogRecorder 方法
-                enjoySDK.enableLogRecorder(false);
+                // 调用 qySDK 中的 enableLogRecorder 方法
+                qySDK.enableLogRecorder(false);
             }
         });
 
@@ -44,8 +44,8 @@ public class LogRecorderActivity extends Activity {
         getLogRecorderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 调用 enjoySDK 中的 isLogRecorderEnabled 方法
-                boolean recStatus = enjoySDK.isLogRecorderEnabled();
+                // 调用 qySDK 中的 isLogRecorderEnabled 方法
+                boolean recStatus = qySDK.isLogRecorderEnabled();
                 getLogRecorder_tv.setText(String.valueOf(recStatus));
             }
         });
@@ -56,8 +56,8 @@ public class LogRecorderActivity extends Activity {
         getLogRecorderTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 调用 enjoySDK 中的 getRecorderTime 方法
-                int recTime = enjoySDK.getRecorderTime();
+                // 调用 qySDK 中的 getRecorderTime 方法
+                int recTime = qySDK.getRecorderTime();
                 getLogRecorderTime_tv.setText(String.valueOf(recTime));
             }
         });
@@ -75,8 +75,8 @@ public class LogRecorderActivity extends Activity {
                     try {
                         // 将文本内容转换为整数（如果输入的确实是数字）
                         int hour = Integer.parseInt(numberText);
-                        // 调用 enjoySDK 中的 setRecorderTime 方法
-                        enjoySDK.setRecorderTime(hour);
+                        // 调用 qySDK 中的 setRecorderTime 方法
+                        qySDK.setRecorderTime(hour);
 
                     } catch (NumberFormatException e) {
                         setLogReocrderTime_ev.setText("输入的数字不规范！请重新输入！");
@@ -94,8 +94,8 @@ public class LogRecorderActivity extends Activity {
         exportLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 调用 enjoySDK 中的 logExport 方法
-                String exp = enjoySDK.logExport();
+                // 调用 qySDK 中的 logExport 方法
+                String exp = qySDK.logExport();
                 exportLog_tv.setText(String.valueOf(exp));
             }
         });

@@ -39,7 +39,7 @@
         tools:targetApi="31">
 
         <!-- 声明设备管理员接收器 -->
-        <receiver android:name="com.example.enjoysdk.PowerManagement$DeviceAdminReceiver"
+        <receiver android:name="com.example.sdk.PowerManagement$DeviceAdminReceiver"
             android:exported="true"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <!-- 指定设备管理员的配置文件 -->
