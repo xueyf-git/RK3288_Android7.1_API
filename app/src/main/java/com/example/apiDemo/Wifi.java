@@ -23,12 +23,13 @@ import com.example.sdk.WlanManagement;
 public class Wifi extends Activity {
     private ListView wifiListView;
     private List<String> wifiList;
-    QYSDK qySDK = new QYSDK(this);
+    QYSDK qySDK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
+        qySDK = new QYSDK(this);
 
 
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch wifiSwitch = findViewById(R.id.wifi_switch);
