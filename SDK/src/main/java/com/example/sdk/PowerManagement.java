@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class PowerManagement {
@@ -270,67 +271,22 @@ public class PowerManagement {
         }
     }
 
-    //系统休眠
-    //该部分操作在manifest中添加了一个<receiver>,声明了一个设备管理员接收器，并指定了所需的权限和配置文件。这使得你的应用能够注册和接收设备管理员相关的事件;
-    //该部分操作在/res/xml中添加了一个device_admin_sample.xml,定义了设备管理员的配置，包括该管理员能够执行的策略和操作。这使得你的应用能够使用这些策略来管理设备的安全和电源状态;
-
-    // 获取一个WakeLock以阻止系统休眠，需求中只提到需要阻止屏幕熄灭，但是调查得知即使屏幕不熄灭，系统也可能进入休眠状态。所以留下这个方法。
-    // 方法powerManager.newWakeLock(int levelAndFlags,String tag)中,int levelAndFlags表示锁的类型，此处"PARTIAL_WAKE_LOCK"为使CPU处于运行状态，屏幕和键盘背光可以熄灭;
-    // String tag 表示锁的名字;
-    public void acquireWakeLock() {
-        PowerManager powerManager = (PowerManager) mActivity.getSystemService(Context.POWER_SERVICE);
-        if (powerManager != null) {
-            wakeLock = powerManager.newWakeLock(
-                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP,
-                    "PowerManagement::WakeLockTag"
-            );
-            wakeLock.acquire();                                                                     //void acquire() 持锁（就是启用该锁）。也有void acquire(long timeout)方法，可以持锁并在timeout毫秒后自动释放;
-        }
-    }
-
-    // 释放WakeLock
-    public void releaseWakeLock() {
-        if (wakeLock != null && wakeLock.isHeld()) {                                                //如果锁存在并且锁的状态为true（isHeld()函数返回true表示正被锁持）;
-            wakeLock.release();                                                                     //void release() 释放锁;
-        }
-    }
-
-    // Lock the device immediately
-    public void lockNow() {
-        if (devicePolicyManager.isAdminActive(componentName)) {                                     //boolean isAdminActive(ComponentName componentName)方法在设备管理员被激活时返回true;
-            devicePolicyManager.lockNow();                                                          //lockNow()方法（在设备管理员激活时）会立刻锁屏，相当于按下电源键;
-        } else {
-            // Prompt user to activate device admin
-            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);                //如果设备管理员未激活，则启动一个Intent,引导用户前往设备管理员激活界面;
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);                 //ComponentName是应用程序组件的唯一标识，用于系统在运行时定位组件;
-            mActivity.startActivity(intent);
-        }
-    }
-
-    // Set the maximum time to lock the device
-    // 设置系统自动进入休眠前的最大时间（需要设备管理员）;
     public void setMaximumTimeToLock(long timeInMs) {
         if (devicePolicyManager.isAdminActive(componentName)) {
             devicePolicyManager.setMaximumTimeToLock(componentName, timeInMs);
         }
     }
 
-    // 启用屏幕常亮
-    public void enableScreenOn() {
-        if (mActivity != null) {
-            mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            throw new IllegalStateException("No activity provided.");
-        }
+    // 使用root权限设置系统屏幕超时时间
+    public void setScreenAlwaysOn() {
+        executeRootCommand("settings put system screen_off_timeout 2147483647"); // 2147483647 是 Integer.MAX_VALUE
+        executeRootCommand("setprop poweroff.disabled 1");
     }
 
-    // 禁用屏幕常亮
-    public void disableScreenOn() {
-        if (mActivity != null) {
-            mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            throw new IllegalStateException("No activity provided.");
-        }
+    // 使用root权限恢复系统屏幕超时时间
+    public void restoreScreenTimeout() {
+        executeRootCommand("settings put system screen_off_timeout 60000"); // 恢复为 1 分钟
+        executeRootCommand("setprop poweroff.disabled 0");
     }
 
     // Set the screen off timeout
@@ -355,7 +311,6 @@ public class PowerManagement {
             return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
         }
 
-
     }
 
     public void enableTouchWake(){
@@ -371,6 +326,7 @@ public class PowerManagement {
         if(touchWakeState)return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
         else return McErrorCode.ENJOY_COMMON_ERROR_SERVICE_NOT_START;
     }
+
 
 
 
@@ -431,5 +387,32 @@ public class PowerManagement {
         mActivity.startActivity(intent);
     }
 
+
+    // 执行root命令的通用方法
+    private void executeRootCommand(String command) {
+        Process process = null;
+        DataOutputStream os = null;
+        try {
+            process = Runtime.getRuntime().exec("su");
+            os = new DataOutputStream(process.getOutputStream());
+            os.writeBytes(command + "\n");
+            os.writeBytes("exit\n");
+            os.flush();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            Log.e("PowerManagement", "Failed to execute root command", e);
+        } finally {
+            try {
+                if (os != null) {
+                    os.close();
+                }
+                if (process != null) {
+                    process.destroy();
+                }
+            } catch (IOException e) {
+                Log.e("PowerManagement", "Failed to close resources", e);
+            }
+        }
+    }
 
 }

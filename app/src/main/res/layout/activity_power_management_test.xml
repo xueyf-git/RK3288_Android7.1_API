@@ -55,16 +55,10 @@
                 android:text="禁用系统休眠" />
 
             <Button
-                android:id="@+id/setMaximumTimeToLock_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="设置系统休眠时间" />
-
-            <Button
                 android:id="@+id/setScreenOffTimeout_bt"
                 android:layout_width="150dp"
                 android:layout_height="80dp"
-                android:text="设置屏幕休眠时间" />
+                android:text="设置系统休眠时间" />
 
 
         </LinearLayout>
@@ -108,13 +102,6 @@
                 android:layout_height="80dp"
                 android:text="启用系统休眠" />
 
-            <EditText
-                android:id="@+id/setMaximumTimeToLock_ed"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:hint="Enter a number"
-                android:inputType="number"
-                android:textAlignment="center" />
 
             <EditText
                 android:id="@+id/setScreenOffTimeout_ed"

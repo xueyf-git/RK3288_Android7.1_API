@@ -79,12 +79,8 @@ public class EnjoySDK {
     public boolean getIsLowBatteryWarning(){return powerManagement.getIsLowBatteryWarning();}
     public void setIsLowBatteryWarning(boolean isLBW){powerManagement.isLowBatteryWarning(isLBW);}
     public void setScreenBrightness(int inputBrightness){powerManagement.setScreenBrightness(inputBrightness);}
-    public void enableScreenOn(){powerManagement.enableScreenOn();}
-    public void disableScreenOn(){powerManagement.disableScreenOn();}
-    public void acquireWakeLock(){powerManagement.acquireWakeLock();}
-    public void releaseWakeLock(){powerManagement.releaseWakeLock();}
-    public void lockNow(){powerManagement.lockNow();}
-    public void setMaximumTimeToLock(long timeout){powerManagement.setMaximumTimeToLock(timeout);}
+    public void enableScreenOn(){powerManagement.setScreenAlwaysOn();}
+    public void acquireWakeLock(){powerManagement.restoreScreenTimeout();}
     public void setScreenOffTimeout(int time){powerManagement.setScreenOffTimeout(time);}
 
     //时间设置
