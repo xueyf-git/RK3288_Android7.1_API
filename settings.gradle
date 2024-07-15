@@ -25,6 +25,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "HenglangAPI_test"
+rootProject.name = "apiDemo"
 include ':app'
 include ':SDK'

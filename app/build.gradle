@@ -17,11 +17,11 @@ android {
             keyPassword 'android'
         }
     }
-    namespace 'com.example.henglangapi_test'
+    namespace 'com.example.apiDemo'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.henglangapi_test"
+        applicationId "com.example.apiDemo"
         minSdk 25
         targetSdk 34
         versionCode 1
