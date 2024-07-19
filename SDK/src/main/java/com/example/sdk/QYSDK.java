@@ -84,6 +84,13 @@ public class QYSDK {
     public void enableScreenOn(){powerManagement.setScreenAlwaysOn();}
     public void disableScreenOn(){powerManagement.restoreScreenTimeout();}
     public void setScreenOffTimeout(int time){powerManagement.setScreenOffTimeout(time);}
+    public int setTouchWake(boolean enable){return powerManagement.setTouchWake(enable);}
+    public int getTouchWakeState(){return powerManagement.getTouchWakeState();}
+    public int setTimedTouchWake(boolean enable){return powerManagement.setTimedTouchWake(enable);}
+    public int addScheduleToTouchWake(String start,String end,boolean enable){return powerManagement.addScheduleToTouchWake(start,end,enable);}
+    public int deleteScheduleToTouchWake(String start,String end,boolean enable){return powerManagement.deleteScheduleToTouchWake(start,end,enable);}
+    public int cancelTimedToTouchWake(){return powerManagement.cancleTimedTouchWake();}
+    public int getTimedTouchWakeState(){return powerManagement.getTimedTouchWakeState();}
 
     //时间设置
     public void setTime(int hour,int minute,int second){timeUtil.setTime(hour,minute,second);}

@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1000dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="80dp"
         android:orientation="horizontal"
         android:background="#EEEEEE"
@@ -59,6 +59,42 @@
                 android:layout_width="150dp"
                 android:layout_height="80dp"
                 android:text="设置系统休眠时间" />
+
+            <Button
+                android:id="@+id/enableTouchWake_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="启用触摸唤醒" />
+
+            <Button
+                android:id="@+id/enableTimedToTouchWake_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="启用定时触摸唤醒"/>
+
+            <Button
+                android:id="@+id/addScheduleToTouchWake_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="增加定时唤醒计划" />
+
+            <Button
+                android:id="@+id/deleteScheduleToTouchWake_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="删除定时唤醒计划" />
+
+            <Button
+                android:id="@+id/cancelTimedToWake"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="清除定时唤醒计划" />
+
+            <Button
+                android:id="@+id/getTimedToWakeState_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取定时唤醒状态" />
 
 
         </LinearLayout>
@@ -110,6 +146,71 @@
                 android:hint="Enter a number"
                 android:inputType="number"
                 android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/disableTouchWake_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="禁用触摸唤醒" />
+
+            <Button
+                android:id="@+id/disableTimedToTouchWake_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="禁用定时触摸唤醒"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/addStartToTouchWake_ev"
+                    android:layout_width="160dp"
+                    android:layout_height="80dp"
+                    android:hint="输入起始时间"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/addEndToTouchWake_ev"
+                    android:layout_width="160dp"
+                    android:layout_height="80dp"
+                    android:hint="输入结束时间"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/deleteStartToTouchWake_ev"
+                    android:layout_width="160dp"
+                    android:layout_height="80dp"
+                    android:hint="输入起始时间"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/deleteEndToTouchWake_ev"
+                    android:layout_width="160dp"
+                    android:layout_height="80dp"
+                    android:hint="输入结束时间"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"/>
+
+            <TextView
+                android:id="@+id/getTimedTouchWakeState_tv"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="获取定时触摸唤醒状态"
+                android:textAlignment="center"/>
+
 
 
         </LinearLayout>

@@ -1,6 +1,10 @@
 package com.example.sdk;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -8,10 +12,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.PowerManager;
+import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.WindowManager;
@@ -20,7 +27,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class PowerManagement {
     private final Activity mActivity;
@@ -32,12 +47,25 @@ public class PowerManagement {
     private ComponentName componentName;
     private boolean touchWakeState = false;
     private boolean timedTouchWakeState = false;
+    private static final String TOUCH_WAKE_PROP = "persist.sys.touch_wake";
+    private PowerManager powerManager;
+    private int timeToSleep = 60000;
+    private AlarmManager alarmManager;
+    private List<PendingIntent> pendingIntents;
+    private static final String TAG = "AlarmReceiver";
+
+
+
 
     public PowerManagement(Activity mActivity) {
         this.mActivity = mActivity;
         this.lowBatteryReceiver = new LowBatteryReceiver();
         devicePolicyManager = (DevicePolicyManager) mActivity.getSystemService(mActivity.DEVICE_POLICY_SERVICE);
         componentName = new ComponentName(mActivity,DeviceAdminReceiver.class);
+        powerManager = (PowerManager) mActivity.getSystemService(Context.POWER_SERVICE);
+        alarmManager = (AlarmManager) mActivity.getSystemService(Context.ALARM_SERVICE);
+        this.pendingIntents = new ArrayList<>();
+
     }
 
     // 重启设备
@@ -271,12 +299,6 @@ public class PowerManagement {
         }
     }
 
-    public void setMaximumTimeToLock(long timeInMs) {
-        if (devicePolicyManager.isAdminActive(componentName)) {
-            devicePolicyManager.setMaximumTimeToLock(componentName, timeInMs);
-        }
-    }
-
     // 使用root权限设置系统屏幕超时时间
     public void setScreenAlwaysOn() {
         executeRootCommand("settings put system screen_off_timeout 2147483647"); // 2147483647 是 Integer.MAX_VALUE
@@ -285,50 +307,216 @@ public class PowerManagement {
 
     // 使用root权限恢复系统屏幕超时时间
     public void restoreScreenTimeout() {
-        executeRootCommand("settings put system screen_off_timeout 60000"); // 恢复为 1 分钟
+        executeRootCommand("settings put system screen_off_timeout "+timeToSleep); // 恢复为 1 分钟
         executeRootCommand("setprop poweroff.disabled 0");
     }
 
     // Set the screen off timeout
     // 设置屏幕自动熄灭的最大时间
     public void setScreenOffTimeout(int timeInMs) {
-        Settings.System.putInt(mActivity.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeInMs);
+        this.timeToSleep = timeInMs;
+        Settings.System.putInt(mActivity.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeToSleep);
     }
+
+    //使设备休眠
+    int goToSleep() {
+        try {
+            // 使用反射调用 goToSleep 方法
+            Method goToSleepMethod = powerManager.getClass().getMethod("goToSleep", long.class);
+            goToSleepMethod.invoke(powerManager, SystemClock.uptimeMillis());
+            return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
+        }
+    }
+
+    //使设备唤醒
+    public int wakeup() {
+        try {
+            // 使用反射调用 wakeUp 方法
+            Method wakeUpMethod = powerManager.getClass().getMethod("wakeUp", long.class);
+            wakeUpMethod.invoke(powerManager, SystemClock.uptimeMillis());
+            return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
+        }
+    }
+
+
 
     //设置触摸唤醒
+    /**
+     * 设置触摸唤醒功能
+     * @param enable true 打开触摸唤醒, false 关闭触摸唤醒
+     * @return 操作结果 0 表示成功, -1 表示失败
+     */
     public int setTouchWake(boolean enable) {
-        //当定时唤醒开启时，无法启动触摸唤醒
-        this.touchWakeState = enable;
+        try {
+            SystemProperties.set(TOUCH_WAKE_PROP, enable ? "1" : "0");
+
+            // 处理屏幕状态
+            if (!enable) {
+                // 如果禁用触摸唤醒，确保设备锁屏
+                if (wakeLock == null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyApp::TouchWakeLock");
+                }
+                wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/); // 确保设备在后台运行
+                goToSleep();
+                wakeLock.release();
+            } else {
+                // 如果启用触摸唤醒，确保设备唤醒
+                if (wakeLock == null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "MyApp::TouchWakeLock");
+                }
+                wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/); // 确保设备唤醒
+                wakeLock.release();
+            }
+
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * 获取当前触摸唤醒状态
+     * @return 1 表示开启, 0 表示关闭, -1 表示读取失败
+     */
+    public int getTouchWakeState() {
+        try {
+            String value = SystemProperties.get(TOUCH_WAKE_PROP, "0");
+            return "1".equals(value) ? 1 : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public int setTimedTouchWake(boolean enable) {
+        // Here you should add the logic to enable/disable timed touch wake
+        // This is a placeholder implementation
+        this.timedTouchWakeState = enable;
+        return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
+    }
+
+    //设置定时唤醒计划
+    public int addScheduleToTouchWake(String start, String end, boolean enable) {
         if(timedTouchWakeState){
-            touchWakeState = false;
-            return McErrorCode.ENJOY_COMMON_ERROR_SERVICE_NOT_START;
-        }
-        if(!touchWakeState){
-            return McErrorCode.ENJOY_COMMON_ERROR_SERVICE_NOT_START;
-        }
-        else {
-            enableTouchWake();
-            return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
+            try {
+                Calendar startCal = getCalendarFromTime(start);
+                Calendar endCal = getCalendarFromTime(end);
+
+                int startRequestCode = (int)(startCal.getTimeInMillis()/ 1000);
+                int endRequestCode = (int)(endCal.getTimeInMillis()/ 1000);
+                setAlarm(startCal, "START", enable,startRequestCode);
+                setAlarm(endCal, "END", enable,endRequestCode);
+                return McErrorCode.ENJOY_COMMON_SUCCESSFUL; // Success
+            } catch (Exception e) {
+                e.printStackTrace();
+                return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN; // Error
+            }
+        }else{
+            System.out.println("当前服务未启动！");
+            return McErrorCode.ENJOY_COMMON_ERROR_SDK_NOT_SUPPORT;
         }
 
     }
 
-    public void enableTouchWake(){
-        PowerManager powerManager = (PowerManager) mActivity.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MyApp::TouchWakeLock");
-        wakeLock.acquire();
-        // 释放唤醒锁，因为这里我们只需要一次性唤醒操作
-        wakeLock.release();
+    //取消定时唤醒计划
+    public int deleteScheduleToTouchWake(String start, String end, boolean enable) {
+        try {
+            Calendar startCal = getCalendarFromTime(start);
+            Calendar endCal = getCalendarFromTime(end);
+            cancelAlarm(startCal, "START", enable);
+            cancelAlarm(endCal, "END", enable);
+            return McErrorCode.ENJOY_COMMON_SUCCESSFUL; // Success
+        } catch (Exception e) {
+            e.printStackTrace();
+            return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN; // Error
+        }
     }
 
-    //获取触摸唤醒状态
-    public int getTouchWakeState(){
-        if(touchWakeState)return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
-        else return McErrorCode.ENJOY_COMMON_ERROR_SERVICE_NOT_START;
+    //取消所有定时唤醒计划
+    public int cancleTimedTouchWake() {
+        try {
+            for (PendingIntent pendingIntent : pendingIntents) {
+                alarmManager.cancel(pendingIntent);
+            }
+            pendingIntents.clear();
+            return 0; // Success
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Error
+        }
     }
 
+    //获取定时触摸唤醒计划开启状态
+    int getTimedTouchWakeState(){
+        return timedTouchWakeState?McErrorCode.ENJOY_COMMON_SUCCESSFUL:McErrorCode.ENJOY_COMMON_ERROR_SDK_NOT_SUPPORT;
+    }
 
+    //将字符串类型转换为calendar类型
+    private Calendar getCalendarFromTime(String time) throws Exception {
+        String[] parts = time.split(":");
+        int hour = Integer.parseInt(parts[0]);
+        int minute = Integer.parseInt(parts[1]);
+        int second = Integer.parseInt(parts[2]);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, second);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        return calendar;
+    }
+
+    //在alarmManager中设置alarm
+    private void setAlarm(Calendar calendar, String type, boolean enable,int requestCode) {
+        Log.d(TAG, "Setting alarm for type: " + type + " at time: " + calendar.getTime());
+
+        Intent intent = new Intent(mActivity, AlarmReceiver.class);
+        intent.setAction("com.example.apiDemo.ALARM_RECEIVER");
+        intent.putExtra("type", type);
+        intent.putExtra("enable", enable);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (alarmManager != null) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                Log.d(TAG, "Alarm set with setExactAndAllowWhileIdle for type: " + type);
+
+            } else {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                Log.d(TAG, "Alarm set with setExact for type: " + type);
+
+            }
+            pendingIntents.add(pendingIntent); // Track the pending intent
+            Log.d(TAG, "Alarm set successfully.");
+        } else {
+            Log.e(TAG, "Failed to set alarm: AlarmManager is null.");
+        }
+    }
+
+    //取消alarm
+    private void cancelAlarm(Calendar calendar, String type, boolean enable) {
+        Intent intent = new Intent(mActivity, AlarmReceiver.class);
+        intent.setAction("com.example.apiDemo.ALARM_RECEIVER");
+        intent.putExtra("type", type);
+        intent.putExtra("enable", enable);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, type.equals("START") ? 0 : 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+            pendingIntents.remove(pendingIntent); // Remove the pending intent from tracking
+            Log.d(TAG, "Alarm cancelled successfully.");
+        } else {
+            Log.e(TAG, "Failed to cancel alarm: AlarmManager is null.");
+        }
+    }
 
     /* ------------------------------------------------------- */
     /*             以下为内部类                  */
@@ -361,6 +549,49 @@ public class PowerManagement {
         @Override
         public void onDisabled(Context context, Intent intent) {
             Toast.makeText(context, "Device Admin Disabled", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //定时触摸唤醒方法内部类
+    public static class AlarmReceiver extends BroadcastReceiver {
+
+        private static PowerManager.WakeLock screenWakeLock;
+        public AlarmReceiver() {
+            // Default constructor
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "AlarmReceiver triggered");
+
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
+            String type = intent.getStringExtra("type");
+            boolean enable = intent.getBooleanExtra("enable", false);
+
+            Log.d(TAG, "Type: " + type + ", Enable: " + enable);
+
+            if ("START".equals(type)) {
+                // 获取 PARTIAL_WAKE_LOCK 和 FULL_WAKE_LOCK
+                if (screenWakeLock == null) {
+                    screenWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "apiDemo:SCREEN_WAKE_LOCK");
+                    screenWakeLock.acquire();
+                    Log.d(TAG, "ScreenWakeLock acquired at START");
+                }
+            } else if ("END".equals(type)) {
+                // 释放 FULL_WAKE_LOCK
+                if (screenWakeLock != null && screenWakeLock.isHeld()) {
+                    screenWakeLock.release();
+                    screenWakeLock = null;
+                    Log.d(TAG, "ScreenWakeLock released at END");
+                }
+            }
+
+            // 释放 PARTIAL_WAKE_LOCK
+            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "apiDemo:WAKE_LOCK");
+            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
+            wakeLock.release();
+            Log.d(TAG, "WakeLock released");
         }
     }
 

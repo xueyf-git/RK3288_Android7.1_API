@@ -4,6 +4,8 @@
     package="com.example.apiDemo"
     android:sharedUserId="android.uid.system">
 
+    <permission android:name="com.example.apiDemo.permission.SEND_ALARM" android:protectionLevel="signature" />
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
@@ -55,6 +57,14 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+
+
+        <receiver android:name="com.example.sdk.PowerManagement$AlarmReceiver"  android:exported="true" android:permission="com.example.apiDemo.permission.SEND_ALARM">
+            <intent-filter>
+                <action android:name="com.example.apiDemo.ALARM_RECEIVER"/>
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name=".MainActivity"

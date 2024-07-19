@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sdk.McErrorCode;
 import com.example.sdk.QYSDK;
 
 public class PowerManagementTest extends AppCompatActivity {
@@ -135,6 +136,103 @@ public class PowerManagementTest extends AppCompatActivity {
                 }
             }
         });
+
+        //启用触摸唤醒
+        Button enableTouchWake_bt = findViewById(R.id.enableTouchWake_bt);
+        enableTouchWake_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int a = qySDK.setTouchWake(true);
+            }
+        });
+
+        //禁用触摸唤醒
+        Button disableTouchWake_bt = findViewById(R.id.disableTouchWake_bt);
+        disableTouchWake_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int a = qySDK.setTouchWake(false);
+            }
+        });
+
+        //启用定时触摸唤醒
+        Button enableTimedToTouchWake = findViewById(R.id.enableTimedToTouchWake_bt);
+        enableTimedToTouchWake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int a = qySDK.setTimedTouchWake(true);
+            }
+        });
+
+        //禁用定时触摸唤醒
+        Button disableTimedToTouchWake = findViewById(R.id.disableTimedToTouchWake_bt);
+        disableTimedToTouchWake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int a = qySDK.setTimedTouchWake(false);
+            }
+        });
+
+
+        //增加定时触摸唤醒计划
+        Button addScheduleToTouchWake_bt = findViewById(R.id.addScheduleToTouchWake_bt);
+        EditText addStartToTouchWake_ev = findViewById(R.id.addStartToTouchWake_ev);
+        EditText addEndToTouchWake_ev = findViewById(R.id.addEndToTouchWake_ev);
+        addScheduleToTouchWake_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String start = addStartToTouchWake_ev.getText().toString().trim();
+                String end = addEndToTouchWake_ev.getText().toString().trim();
+                if(!start.isEmpty() || !end.isEmpty()){
+                    qySDK.addScheduleToTouchWake(start,end,false);
+                }else {
+                    addEndToTouchWake_ev.setText("两个输入都不能为空，请重输！");
+                }
+            }
+        });
+
+        //删除定时触摸计划
+        Button deleteScheduleToTouchWake_bt = findViewById(R.id.deleteScheduleToTouchWake_bt);
+        EditText deleteStartToTouchWake_ev = findViewById(R.id.deleteStartToTouchWake_ev);
+        EditText deleteEndToTouchWake_ev = findViewById(R.id.deleteEndToTouchWake_ev);
+        deleteScheduleToTouchWake_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String start = deleteStartToTouchWake_ev.getText().toString().trim();
+                String end = deleteEndToTouchWake_ev.getText().toString().trim();
+                if(!start.isEmpty() || !end.isEmpty()){
+                    qySDK.deleteScheduleToTouchWake(start,end,false);
+                }else {
+                    deleteEndToTouchWake_ev.setText("两个输入都不能为空，请重输！");
+                }
+            }
+        });
+
+        //清除定时触摸计划
+        Button cancelTimedTouchWake_bt = findViewById(R.id.cancelTimedToWake);
+        cancelTimedTouchWake_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int a = qySDK.cancelTimedToTouchWake();
+            }
+        });
+
+        //获取定时触摸计划状态
+        Button getTimedTouchWakeState_bt = findViewById(R.id.getTimedToWakeState_bt);
+        TextView getTimedTouchWakeState_tv = findViewById(R.id.getTimedTouchWakeState_tv);
+        getTimedTouchWakeState_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int a = qySDK.getTimedTouchWakeState();
+                if (a == McErrorCode.ENJOY_COMMON_SUCCESSFUL) {
+                    getTimedTouchWakeState_tv.setText("定时触摸计划已启用");
+                }
+                if (a == McErrorCode.ENJOY_COMMON_ERROR_SDK_NOT_SUPPORT) {
+                    getTimedTouchWakeState_tv.setText("定时触摸计划未启用");
+                }
+            }
+        });
+
 
     }
     //注销低电量警告
