@@ -63,6 +63,16 @@ public class MainActivity extends Activity {
             }
         });
 
+        // 日志记录按钮
+        Button ethernetConfig_bt = findViewById(R.id.EthernetConfigTest_bt);
+        ethernetConfig_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 创建 LogRecorderActivity 活动
+                startActivity(new Intent(MainActivity.this, EthernetConfigActivity.class));
+            }
+        });
+
         // 时间设置功能测试
         Button timeUtilButton = findViewById(R.id.timeUtilTest_bt);
         timeUtilButton.setOnClickListener(new View.OnClickListener() {

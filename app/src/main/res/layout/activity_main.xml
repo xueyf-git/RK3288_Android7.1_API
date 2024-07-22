@@ -126,6 +126,13 @@
                 android:text="固件信息测试"
                 tools:ignore="MissingConstraints" />
 
+            <Button
+                android:id="@+id/EthernetConfigTest_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="EthernetConfig测试"
+                tools:ignore="MissingConstraints" />
+
 
         </LinearLayout>
     </ScrollView>

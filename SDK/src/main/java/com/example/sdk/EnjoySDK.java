@@ -15,6 +15,7 @@ public class EnjoySDK {
     private final WlanManagement mWlanManagement;
     private final TimeUtil timeUtil;
     private final DeviceInfoUtil deviceInfoUtil;
+    private final EthernetManagement ethernetManagement;
 
     public EnjoySDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
@@ -27,6 +28,7 @@ public class EnjoySDK {
         this.powerManagement =new PowerManagement(activity);
         this.timeUtil = new TimeUtil(activity);
         this.deviceInfoUtil = new DeviceInfoUtil(activity);
+        this.ethernetManagement = new EthernetManagement(activity);
     }
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
@@ -109,4 +111,10 @@ public class EnjoySDK {
     public String getFirmwareVersion(){return deviceInfoUtil.getFirmwareVersion();}
     public int getFirmwareVersionCode(){return deviceInfoUtil.getFirmwareVersionCode();}
 
+    //以太网设置
+    public int switchEthernet(boolean enable,String ifname){return ethernetManagement.switchEthernet(enable,ifname);}
+    public boolean isEthernetEnable(String ifname){return ethernetManagement.isEthernetEnable(ifname);}
+    public int setEthernetConfig(EthernetConfigure ethernetConfigure,String ifname){return ethernetManagement.setEthernetConfig(ethernetConfigure,ifname);}
+    public EthernetConfigure getEthernetConfig(String ifname){return  ethernetManagement.getEthernetConfig(ifname);}
+    public void DHCP(){ethernetManagement.DHCP();}
 }
