@@ -116,5 +116,4 @@ public class EnjoySDK {
     public boolean isEthernetEnable(String ifname){return ethernetManagement.isEthernetEnable(ifname);}
     public int setEthernetConfig(EthernetConfigure ethernetConfigure,String ifname){return ethernetManagement.setEthernetConfig(ethernetConfigure,ifname);}
     public EthernetConfigure getEthernetConfig(String ifname){return  ethernetManagement.getEthernetConfig(ifname);}
-    public void DHCP(){ethernetManagement.DHCP();}
 }

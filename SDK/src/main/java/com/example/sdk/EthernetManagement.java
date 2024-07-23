@@ -7,13 +7,21 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EthernetManagement {
     private final Activity mActivity;
     private EthernetConfigure ethernetConfigure;
+    Enumeration<NetworkInterface> networkInterfaceEnumeration;
+    ArrayList<String> availableInterface = new ArrayList<>();
+    String[] interfaces = null;
 
     public EthernetManagement(Activity mActivity) {
         this.mActivity = mActivity;
@@ -91,25 +99,37 @@ public class EthernetManagement {
         }
     }
 
-    //测试
-    Enumeration<NetworkInterface> networkInterfaceEnumeration;
-    public void DHCP()
-    {
+    //获取所有以太网端口设备
+    public String[] getEthernetDevices() {
         try {
             networkInterfaceEnumeration = NetworkInterface.getNetworkInterfaces();
-            int count = 0;
+            InetAddress ia = null;
             while(networkInterfaceEnumeration.hasMoreElements()){
                 NetworkInterface next = networkInterfaceEnumeration.nextElement();
-                Log.d("network","getName获得网络设备名称=" + next.getName());
-                Log.d("network","getDisplayName获得网络设备显示名称=" + next.getDisplayName());
-                Log.d("network","getIndex获得网络接口的索引=" + next.getIndex());
-                Log.d("network","isUp是否已经开启并运行=" + next.isUp());
-                Log.d("network","isBoopback是否为回调接口=" + next.isLoopback());
-                Log.d("network","**********************" + count++);
+                Enumeration<InetAddress> ias = next.getInetAddresses();
+                while (ias.hasMoreElements()){
+                    ia = ias.nextElement();
+                    if(ia instanceof Inet6Address){
+                        continue;
+                    }
+                    String ip = ia.getHostAddress();
+                    if(next.getName().startsWith("eth")){
+                        availableInterface.add(next.getName());
+                    }
+                }
             }
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
+        int size = availableInterface.size();
+
+        if (size > 0) {
+            interfaces = new String[size];
+            for (int i = 0; i < size; i++) {
+                interfaces[i] = availableInterface.get(i);
+            }
+        }
+        return interfaces;
     }
 
 
@@ -169,6 +189,42 @@ public class EthernetManagement {
     private boolean isDhcpEnabled(String ifname) {
         String dhcpOutput = executeCommandAndGetOutput("busybox ps | grep udhcpc");
         return dhcpOutput != null && dhcpOutput.contains("udhcpc -i " + ifname);
+    }
+
+    // 获取以太网MAC地址
+    public String getEthernetMacAddress(String ifname){
+
+        String ifconfigOutput = executeCommandAndGetOutput("ifconfig " + ifname);
+        if (ifconfigOutput != null) {
+            // 使用正则表达式匹配 MAC 地址
+            Pattern pattern = Pattern.compile("((HWaddr|ether) ([0-9a-fA-F]{2}[:-]){5}([0-9a-fA-F]{2}))");
+            Matcher matcher = pattern.matcher(ifconfigOutput);
+            if (matcher.find()) {
+                return matcher.group(0).split(" ")[1].trim();
+            }
+        }
+        return null;
+    }
+
+    //获取以太网当前连接状态
+    public String getEthernetConnectState(String ifname){
+        String ifconfigOutput = executeCommandAndGetOutput("ifconfig " + ifname);
+        if (ifconfigOutput != null) {
+            boolean isUp = ifconfigOutput.contains("UP");
+            boolean isRunning = ifconfigOutput.contains("RUNNING");
+            boolean hasIp = ifconfigOutput.contains("inet addr:");
+
+            if (hasIp) {
+                return "CONNECTED";
+            } else if (isUp && isRunning && !hasIp) {
+                return "DISCONNECTING";
+            } else if (isUp && !isRunning) {
+                return "CONNECTING";
+            } else if (!isUp) {
+                return "DISCONNECTED";
+            }
+        }
+        return "UNKNOWN";
     }
 
     // 执行 shell 命令

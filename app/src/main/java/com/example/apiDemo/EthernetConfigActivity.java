@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -88,6 +89,59 @@ public class EthernetConfigActivity extends AppCompatActivity {
                 } else{
                     Log.e("EthernetConfig","Failed to apply DHCP configuration");
                 }
+            }
+        });
+
+        //获取Mac地址
+        Button getEthernetMacAddress_bt = findViewById(R.id.getEthernetMACAddress_bt);
+        EditText getEthernetMacAddress_et = findViewById(R.id.getEthernetMACAddress_et);
+        TextView getEthernetMacAddress_tv = findViewById(R.id.getEthernetMACAddress_tv);
+
+        getEthernetMacAddress_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ifname = getEthernetMacAddress_et.getText().toString().trim();
+                if (!ifname.isEmpty()) {
+                    String mac = qysdk.getEthernetMacAddress(ifname);
+                    getEthernetMacAddress_tv.setText(mac);
+                } else {
+                    // 如果 EditText 为空，可以提示用户输入内容
+                    getEthernetMacAddress_et.setText("输入不能为空！请重新输入！");
+                }
+            }
+        });
+
+        //获取Ethernet连接状态
+        Button getEthernetStatus_bt = findViewById(R.id.getEthernetStatus_bt);
+        EditText getEthernetStatus_et = findViewById(R.id.getEthernetStatus_et);
+        TextView getEthernetStatus_tv = findViewById(R.id.getEthernetStatus_tv);
+
+        getEthernetStatus_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ifname = getEthernetStatus_et.getText().toString().trim();
+                if (!ifname.isEmpty()) {
+                    String mac = qysdk.getEthernetConnectState(ifname);
+                    getEthernetStatus_tv.setText(mac);
+                } else {
+                    // 如果 EditText 为空，可以提示用户输入内容
+                    getEthernetStatus_et.setText("输入不能为空！请重新输入！");
+                }
+            }
+        });
+
+        //获取所有以太网连接设备
+        Button getEthernetDevices_bt = findViewById(R.id.getEthernetDevices_bt);
+        TextView getEthernetDevices_tv = findViewById(R.id.getEthernetDevices_tv);
+        getEthernetDevices_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String[] ethernetDevices = qysdk.getEthernetDevices();
+                StringBuilder arrayContent = new StringBuilder();
+                for(String str : ethernetDevices){
+                    arrayContent.append(str).append("\n");
+                }
+                getEthernetDevices_tv.setText(arrayContent.toString());
             }
         });
 

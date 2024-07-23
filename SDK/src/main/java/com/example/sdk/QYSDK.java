@@ -120,5 +120,7 @@ public class QYSDK {
     public boolean isEthernetEnable(String ifname){return ethernetManagement.isEthernetEnable(ifname);}
     public int setEthernetConfig(EthernetConfigure ethernetConfigure,String ifname){return ethernetManagement.setEthernetConfig(ethernetConfigure,ifname);}
     public EthernetConfigure getEthernetConfig(String ifname){return  ethernetManagement.getEthernetConfig(ifname);}
-    public void DHCP(){ethernetManagement.DHCP();}
+    public String getEthernetMacAddress(String ifname){return ethernetManagement.getEthernetMacAddress(ifname);}
+    public String getEthernetConnectState(String ifname){return ethernetManagement.getEthernetConnectState(ifname);}
+    public String[] getEthernetDevices() {return ethernetManagement.getEthernetDevices();}
 }
