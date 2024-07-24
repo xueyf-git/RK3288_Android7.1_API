@@ -157,7 +157,7 @@ public class MainActivity extends Activity {
         launcherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qySDK.setHomePackage("com.example.henglangapi_test");
+                qySDK.setHomePackage("com.example.apiDemo");
             }
         });
 

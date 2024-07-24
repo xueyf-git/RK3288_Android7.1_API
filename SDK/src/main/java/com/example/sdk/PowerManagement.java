@@ -2,9 +2,14 @@ package com.example.sdk;
 
 import static android.content.ContentValues.TAG;
 
+import static com.android.internal.policy.PhoneWindow.sendCloseSystemWindows;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.KeepAliveManager;
 import android.app.PendingIntent;
+import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -21,8 +26,8 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
+import android.app.QiyangJniManager;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -281,20 +286,13 @@ public class PowerManagement {
 
     //设备关机操作
     public int executeShutdown() {
+        @SuppressLint("WrongConstant")
+        QiyangJniManager qy = (QiyangJniManager) mActivity.getSystemService("qyown_service");
         try {
-            // 使用 "reboot -p" 命令执行关机操作
-            Process process = Runtime.getRuntime().exec(new String[]{"/system/bin/sh", "-c", "reboot -p"});     //Runtime.getRuntime()方法获取当前应用的运行时环境，exec()方法运行指定的系统命令;
-                                                                                                                //"/system/bin/sh"指定要使用的shell解释器，"-c"指定要执行的命令，"reboot "为重启设备，"-p"为关闭电源;
-            process.waitFor();                                                                      //使当前线程等待，直到由 exec 方法启动的进程终止;
+            qy.setPinLevelLow("254");
             return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
-        } catch (IOException e) {                                                                   //处理IO异常
-            Log.e("EnjoySDK", "Shutdown failed due to IOException with reboot -p", e);
-            return McErrorCode.ENJOY_COMMON_ERROR_WRITE_SETTINGS_ERROR;
-        } catch (InterruptedException e) {                                                          //处理线程中断异常
-            Log.e("EnjoySDK", "Shutdown failed due to InterruptedException with reboot -p", e);
-            return McErrorCode.ENJOY_COMMON_ERROR_SERVICE_NOT_START;
         } catch (Exception e) {
-            Log.e("EnjoySDK", "Shutdown failed due to unknown error with reboot -p", e);
+            Log.e("EnjoySDK", "Shutdown failed ", e);
             return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
         }
     }
@@ -485,7 +483,7 @@ public class PowerManagement {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (alarmManager != null) {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                 Log.d(TAG, "Alarm set with setExactAndAllowWhileIdle for type: " + type);
 
