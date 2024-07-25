@@ -133,6 +133,13 @@
                 android:text="EthernetConfig测试"
                 tools:ignore="MissingConstraints" />
 
+            <Button
+                android:id="@+id/BootAnimationTest_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="开机动画测试"
+                tools:ignore="MissingConstraints" />
+
 
         </LinearLayout>
     </ScrollView>

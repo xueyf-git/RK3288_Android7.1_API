@@ -16,6 +16,7 @@ public class EnjoySDK {
     private final TimeUtil timeUtil;
     private final DeviceInfoUtil deviceInfoUtil;
     private final EthernetManagement ethernetManagement;
+    private final BootAnimation bootAnimation;
 
     public EnjoySDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
@@ -29,6 +30,7 @@ public class EnjoySDK {
         this.timeUtil = new TimeUtil(activity);
         this.deviceInfoUtil = new DeviceInfoUtil(activity);
         this.ethernetManagement = new EthernetManagement(activity);
+        this.bootAnimation = new BootAnimation(activity);
     }
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
@@ -116,4 +118,11 @@ public class EnjoySDK {
     public boolean isEthernetEnable(String ifname){return ethernetManagement.isEthernetEnable(ifname);}
     public int setEthernetConfig(EthernetConfigure ethernetConfigure,String ifname){return ethernetManagement.setEthernetConfig(ethernetConfigure,ifname);}
     public EthernetConfigure getEthernetConfig(String ifname){return  ethernetManagement.getEthernetConfig(ifname);}
+    public String getEthernetMacAddress(String ifname){return ethernetManagement.getEthernetMacAddress(ifname);}
+    public String getEthernetConnectState(String ifname){return ethernetManagement.getEthernetConnectState(ifname);}
+    public String[] getEthernetDevices() {return ethernetManagement.getEthernetDevices();}
+
+    //开机动画
+    public int setBootAnimation(String bootAnimationPath){return bootAnimation.setBootAnimation(bootAnimationPath);}
+    public int resetBootAnimation(){return bootAnimation.resetBootAnimation();}
 }

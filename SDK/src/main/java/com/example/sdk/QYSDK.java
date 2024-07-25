@@ -18,6 +18,7 @@ public class QYSDK {
     private final TimeUtil timeUtil;
     private final DeviceInfoUtil deviceInfoUtil;
     private final EthernetManagement ethernetManagement;
+    private final BootAnimation bootAnimation;
 
     public QYSDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
@@ -31,6 +32,7 @@ public class QYSDK {
         this.timeUtil = new TimeUtil(activity);
         this.deviceInfoUtil = new DeviceInfoUtil(activity);
         this.ethernetManagement = new EthernetManagement(activity);
+        this.bootAnimation = new BootAnimation(activity);
     }
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
@@ -123,4 +125,8 @@ public class QYSDK {
     public String getEthernetMacAddress(String ifname){return ethernetManagement.getEthernetMacAddress(ifname);}
     public String getEthernetConnectState(String ifname){return ethernetManagement.getEthernetConnectState(ifname);}
     public String[] getEthernetDevices() {return ethernetManagement.getEthernetDevices();}
+
+    //开机动画
+    public int setBootAnimation(String bootAnimationPath){return bootAnimation.setBootAnimation(bootAnimationPath);}
+    public int resetBootAnimation(){return bootAnimation.resetBootAnimation();}
 }

@@ -27,6 +27,15 @@ public class MainActivity extends Activity {
         stringList.add("com.example.myapplication");
 
 
+        //开机动画测试
+        Button BootAnimation_bt = findViewById(R.id.BootAnimationTest_bt);
+        BootAnimation_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BootAnimationActivity.class));
+            }
+        });
+
         //wifi测试
         Button wifiShow = findViewById(R.id.wifiShow);
         wifiShow.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +72,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        // 日志记录按钮
+        // 以太网配置按钮
         Button ethernetConfig_bt = findViewById(R.id.EthernetConfigTest_bt);
         ethernetConfig_bt.setOnClickListener(new View.OnClickListener() {
             @Override
