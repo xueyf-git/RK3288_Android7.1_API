@@ -19,6 +19,7 @@ public class QYSDK {
     private final DeviceInfoUtil deviceInfoUtil;
     private final EthernetManagement ethernetManagement;
     private final BootAnimation bootAnimation;
+    private final ScreenRotation screenRotation;
 
     public QYSDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
@@ -33,7 +34,9 @@ public class QYSDK {
         this.deviceInfoUtil = new DeviceInfoUtil(activity);
         this.ethernetManagement = new EthernetManagement(activity);
         this.bootAnimation = new BootAnimation(activity);
+        this.screenRotation = new ScreenRotation(activity);
     }
+
     // 系统UI
     public int setStatusBarShowStatus(boolean status) { return mSystemUI.setStatusBarShowStatus(status); }
     public int setNavigationBarShowStatus(boolean status) { return mSystemUI.setNavigationBarShowStatus(status); }
@@ -129,4 +132,8 @@ public class QYSDK {
     //开机动画
     public int setBootAnimation(String bootAnimationPath){return bootAnimation.setBootAnimation(bootAnimationPath);}
     public int resetBootAnimation(){return bootAnimation.resetBootAnimation();}
+
+    //屏幕旋转
+    public int setScreenRotation(int rotation){return screenRotation.setSystemRotation(rotation);}
+    public int getSystemRotation(){return screenRotation.getSystemRotation();}
 }
