@@ -24,9 +24,6 @@ public class MainActivity extends Activity {
         QYSDK qySDK = new QYSDK(this);
         Application context = (Application) getApplicationContext();
 
-        List<String> stringList = new ArrayList<>();
-        stringList.add("com.example.myapplication");
-
 
         //屏幕旋转测试
         ImageButton ScreenRotation_bt = findViewById(R.id.ScreenRotationTest_bt);
@@ -60,18 +57,10 @@ public class MainActivity extends Activity {
         keepaliveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qySDK.addKeepAliveAPP(stringList);
-                qySDK.enableKeepAlive(true);
+                startActivity(new Intent(MainActivity.this,KeepAliveActivity.class));
             }
         });
 
-        ImageButton testButton = findViewById(R.id.test);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                qySDK.removeKeepAliveAPP();
-            }
-        });
 
         // 电源管理按钮
         ImageButton powerManagementButton = findViewById(R.id.powerManagementButton);
