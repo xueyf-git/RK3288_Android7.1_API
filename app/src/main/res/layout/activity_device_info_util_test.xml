@@ -16,12 +16,28 @@
         android:background="#EEEEEE"
         tools:ignore="MissingConstraints">
 
+
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginTop="80dp"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="固件信息"
+                    android:textSize="30sp"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/getFactoryInfo_bt"
@@ -50,6 +66,18 @@
             android:layout_weight="1"
             android:layout_marginTop="80dp"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/getCpuTypeInfo_bt"
@@ -78,6 +106,20 @@
             android:layout_marginTop="80dp"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
             <Button
                 android:id="@+id/getPlatformVersionInfo_bt"
                 android:layout_width="150dp"
@@ -104,6 +146,19 @@
             android:layout_weight="1"
             android:layout_marginTop="80dp"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/getbootVersion_bt"
@@ -131,6 +186,28 @@
             android:layout_weight="1"
             android:layout_marginTop="80dp"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/mainMenuButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="开机动画测试"
+                    android:src="@drawable/ic_mainmenu" />
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/getFirmwareVersion_bt"

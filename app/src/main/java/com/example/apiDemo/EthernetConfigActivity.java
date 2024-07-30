@@ -1,11 +1,13 @@
 package com.example.apiDemo;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -138,10 +140,24 @@ public class EthernetConfigActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String[] ethernetDevices = qysdk.getEthernetDevices();
                 StringBuilder arrayContent = new StringBuilder();
-                for(String str : ethernetDevices){
-                    arrayContent.append(str).append("\n");
+
+                if (ethernetDevices != null) {
+                    for (String str : ethernetDevices) {
+                        arrayContent.append(str).append("\n");
+                    }
+                } else {
+                    arrayContent.append("No Ethernet devices found.");
                 }
                 getEthernetDevices_tv.setText(arrayContent.toString());
+            }
+        });
+
+
+        ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EthernetConfigActivity.this, MainActivity.class));
             }
         });
 

@@ -1,10 +1,12 @@
 package com.example.apiDemo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.sdk.QYSDK;
@@ -98,6 +100,15 @@ public class LogRecorderActivity extends Activity {
                 exportLog_tv.setText(String.valueOf(exp));
             }
         });
+
+        ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LogRecorderActivity.this, MainActivity.class));
+            }
+        });
+
 
     }
 }

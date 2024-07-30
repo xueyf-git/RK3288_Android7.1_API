@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import java.util.List;
 
@@ -93,6 +95,13 @@ public class Wifi extends Activity {
             }
         });
 
+        ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Wifi.this, MainActivity.class));
+            }
+        });
 
     }
 
@@ -117,6 +126,8 @@ public class Wifi extends Activity {
         builder.setPositiveButton("OK", null);
         builder.show();
     }
+
+
 
 
 }

@@ -1,9 +1,11 @@
 package com.example.apiDemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -53,6 +55,15 @@ public class BootAnimationActivity extends AppCompatActivity {
                 int ret = qysdk.resetBootAnimation();
                 if(ret == McErrorCode.ENJOY_COMMON_SUCCESSFUL) resetBootAnimation_tv.setText("成功！");
                 else resetBootAnimation_tv.setText("失败！");
+            }
+        });
+
+
+        ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BootAnimationActivity.this, MainActivity.class));
             }
         });
 

@@ -1,9 +1,11 @@
 package com.example.apiDemo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.sdk.QYSDK;
 
@@ -66,6 +68,15 @@ public class BarShowActivity extends Activity {
             @Override
             public void onClick(View v) {
                 qySDK.setNavigationBarShowStatus(false);
+            }
+        });
+
+
+        ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BarShowActivity.this, MainActivity.class));
             }
         });
 

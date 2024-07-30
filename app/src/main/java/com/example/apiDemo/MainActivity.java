@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.sdk.QYSDK;
@@ -28,7 +29,7 @@ public class MainActivity extends Activity {
 
 
         //屏幕旋转测试
-        Button ScreenRotation_bt = findViewById(R.id.ScreenRotationTest_bt);
+        ImageButton ScreenRotation_bt = findViewById(R.id.ScreenRotationTest_bt);
         ScreenRotation_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +38,7 @@ public class MainActivity extends Activity {
         });
 
         //开机动画测试
-        Button BootAnimation_bt = findViewById(R.id.BootAnimationTest_bt);
+        ImageButton BootAnimation_bt = findViewById(R.id.BootAnimationTest_bt);
         BootAnimation_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +47,7 @@ public class MainActivity extends Activity {
         });
 
         //wifi测试
-        Button wifiShow = findViewById(R.id.wifiShow);
+        ImageButton wifiShow = findViewById(R.id.wifiShow);
         wifiShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +56,7 @@ public class MainActivity extends Activity {
         });
 
 
-        Button keepaliveButton = findViewById(R.id.keepalive);
+        ImageButton keepaliveButton = findViewById(R.id.keepalive);
         keepaliveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +65,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button testButton = findViewById(R.id.test);
+        ImageButton testButton = findViewById(R.id.test);
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +74,7 @@ public class MainActivity extends Activity {
         });
 
         // 电源管理按钮
-        Button powerManagementButton = findViewById(R.id.powerManagementButton);
+        ImageButton powerManagementButton = findViewById(R.id.powerManagementButton);
         powerManagementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +83,7 @@ public class MainActivity extends Activity {
         });
 
         // 以太网配置按钮
-        Button ethernetConfig_bt = findViewById(R.id.EthernetConfigTest_bt);
+        ImageButton ethernetConfig_bt = findViewById(R.id.EthernetConfigTest_bt);
         ethernetConfig_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +93,7 @@ public class MainActivity extends Activity {
         });
 
         // 时间设置功能测试
-        Button timeUtilButton = findViewById(R.id.timeUtilTest_bt);
+        ImageButton timeUtilButton = findViewById(R.id.timeUtilTest_bt);
         timeUtilButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,7 +103,7 @@ public class MainActivity extends Activity {
         });
 
         // 固件信息按钮
-        Button deviceUtil_bt = findViewById(R.id.deviceUtilTest_bt);
+        ImageButton deviceUtil_bt = findViewById(R.id.deviceUtilTest_bt);
         deviceUtil_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +114,7 @@ public class MainActivity extends Activity {
 
 
         // 日志记录按钮
-        Button logrecordButton = findViewById(R.id.logrcorder);
+        ImageButton logrecordButton = findViewById(R.id.logrcorder);
         logrecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +125,7 @@ public class MainActivity extends Activity {
 
 
         // ntp校时按钮
-        Button timeButton = findViewById(R.id.timeButton);
+        ImageButton timeButton = findViewById(R.id.timeButton);
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +135,7 @@ public class MainActivity extends Activity {
         });
 
         // 截图按钮
-        Button shooter = findViewById(R.id.shooter);
+        ImageButton shooter = findViewById(R.id.shooter);
         shooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +144,7 @@ public class MainActivity extends Activity {
         });
 
         //状态栏 导航栏 显示/隐藏 按钮
-        Button barShow = findViewById(R.id.barShow);
+        ImageButton barShow = findViewById(R.id.barShow);
         barShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +153,7 @@ public class MainActivity extends Activity {
         });
 
         // 获取当前lunch名称
-        Button getPackage = findViewById(R.id.getPackage);
+        ImageButton getPackage = findViewById(R.id.getPackage);
         getPackage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +163,7 @@ public class MainActivity extends Activity {
         });
 
         // 切换当前桌面lunch
-        Button setPackage = findViewById(R.id.setPackage);
+        ImageButton setPackage = findViewById(R.id.setPackage);
         setPackage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +172,7 @@ public class MainActivity extends Activity {
         });
 
         // 传参方式发送page包名
-        Button launcherButton = findViewById(R.id.launcherButton);
+        ImageButton launcherButton = findViewById(R.id.launcherButton);
         launcherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,7 +181,7 @@ public class MainActivity extends Activity {
         });
 
         // 传参方式发送page包名设置原来的luncher
-        Button launcher3Button = findViewById(R.id.launcher3Button);
+        ImageButton launcher3Button = findViewById(R.id.launcher3Button);
         launcher3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

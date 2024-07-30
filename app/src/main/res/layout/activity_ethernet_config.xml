@@ -21,6 +21,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WiFi"
+                    android:textSize="30sp"
+                    tools:ignore="HardcodedText" />
+
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/switchEthernet_enable_bt"
                 android:layout_width="150dp"
@@ -80,9 +96,28 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/mainMenuButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="Ethernet测试"
+                    android:src="@drawable/ic_mainmenu" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
