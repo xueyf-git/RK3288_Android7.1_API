@@ -57,6 +57,50 @@
         android:text="关闭ntp自动校时"
         android:background="@color/blue" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:id="@+id/setTime_bt"
+                android:text="设置时间"/>
+
+            <EditText
+                android:id="@+id/setTime_et"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="hh:mm:ss"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:id="@+id/setDate_bt"
+                android:text="设置日期"/>
+
+            <EditText
+                android:id="@+id/setDate_et"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="yyyy-MM-dd"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

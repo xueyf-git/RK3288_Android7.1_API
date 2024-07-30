@@ -92,15 +92,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        // 时间设置功能测试
-        ImageButton timeUtilButton = findViewById(R.id.timeUtilTest_bt);
-        timeUtilButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, TimeUtilActivity.class));
-
-            }
-        });
 
         // 固件信息按钮
         ImageButton deviceUtil_bt = findViewById(R.id.deviceUtilTest_bt);

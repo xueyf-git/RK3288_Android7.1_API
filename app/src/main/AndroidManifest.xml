@@ -111,9 +111,6 @@
             android:name=".Wifi"
             android:exported="true" />
         <activity
-            android:name=".TimeUtilActivity"
-            android:exported="true" />
-        <activity
             android:name=".DeviceInfoUtilActivity"
             android:exported="true" />
         <activity

@@ -13,7 +13,6 @@ public class EnjoySDK {
     private final KeepAlive mKeepAlive;
     private final PowerManagement powerManagement;
     private final WlanManagement mWlanManagement;
-    private final TimeUtil timeUtil;
     private final DeviceInfoUtil deviceInfoUtil;
     private final EthernetManagement ethernetManagement;
     private final BootAnimation bootAnimation;
@@ -27,7 +26,6 @@ public class EnjoySDK {
         this.mKeepAlive = new KeepAlive(activity);
         this.mWlanManagement = new WlanManagement(activity);
         this.powerManagement =new PowerManagement(activity);
-        this.timeUtil = new TimeUtil(activity);
         this.deviceInfoUtil = new DeviceInfoUtil(activity);
         this.ethernetManagement = new EthernetManagement(activity);
         this.bootAnimation = new BootAnimation(activity);
@@ -50,6 +48,8 @@ public class EnjoySDK {
     public void openAutoTime() { mTimeManagement.openAutoTime(); }
     public void closeAutoTime() { mTimeManagement.closeAutoTime(); }
     public void toggleAutoTime() { mTimeManagement.toggleAutoTime(); }
+    public void setTime(int hour,int minute,int second){mTimeManagement.setTime(hour,minute,second);}
+    public void setDate(int year,int month,int day){mTimeManagement.setDate(year,month,day);}
 
     //日志记录
     public int enableLogRecorder(boolean enable){return mlogDumper.enableLogRecorder(enable);}
@@ -93,9 +93,6 @@ public class EnjoySDK {
     public int deleteScheduleToTouchWake(String start,String end,boolean enable){return powerManagement.deleteScheduleToTouchWake(start,end,enable);}
     public int cancelTimedToTouchWake(){return powerManagement.cancleTimedTouchWake();}
     public int getTimedTouchWakeState(){return powerManagement.getTimedTouchWakeState();}
-    //时间设置
-    public void setTime(int hour,int minute,int second){timeUtil.setTime(hour,minute,second);}
-    public void setDate(int year,int month,int day){timeUtil.setDate(year,month,day);}
 
     //固件信息
     public String getFactoryInfo(){return deviceInfoUtil.getFactoryInfo();}
