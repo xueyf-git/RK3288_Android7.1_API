@@ -90,10 +90,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BootAnimationActivity"
+            android:name=".NetWorkActivity"
             android:exported="true" />
         <activity
-            android:name=".EthernetConfigActivity"
+            android:name=".BootAnimationActivity"
             android:exported="true" />
         <activity
             android:name=".TimeTestActivity"
@@ -106,9 +106,6 @@
             android:exported="true" />
         <activity
             android:name=".PowerManagementTest"
-            android:exported="true" />
-        <activity
-            android:name=".Wifi"
             android:exported="true" />
         <activity
             android:name=".DeviceInfoUtilActivity"

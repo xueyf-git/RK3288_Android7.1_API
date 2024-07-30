@@ -1,13 +1,20 @@
 package com.example.apiDemo;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -20,18 +27,84 @@ import com.example.sdk.EthernetConfigure;
 import com.example.sdk.EthernetManagement;
 import com.example.sdk.McErrorCode;
 import com.example.sdk.QYSDK;
+import com.example.sdk.WlanManagement;
 
-import org.w3c.dom.Text;
+import java.util.List;
 
-public class EthernetConfigActivity extends AppCompatActivity {
+public class NetWorkActivity extends AppCompatActivity {
+    private ListView wifiListView;
+    private List<String> wifiList;
+    QYSDK qySDK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_ethernet_config);
+        setContentView(R.layout.activity_net_work);
+        qySDK = new QYSDK(this);
 
-        QYSDK qysdk = new QYSDK(this);
+
+        @SuppressLint("UseSwitchCompatOrMaterialCode") Switch wifiSwitch = findViewById(R.id.wifi_switch);
+        wifiSwitch.setChecked(true);
+
+        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                qySDK.enableWiFi(isChecked);
+                if (isChecked) {
+                    wifiListView.setVisibility(View.VISIBLE);
+                } else {
+                    wifiListView.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+        wifiListView = findViewById(R.id.wifi_list_view);
+        wifiList = qySDK.getWiFiList();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wifiList);
+        wifiListView.setAdapter(adapter);
+
+
+        wifiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final String selectedSSID = wifiList.get(position);
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(NetWorkActivity.this);
+                dialogBuilder.setTitle("输入 WiFi 密码");
+
+                final EditText input = new EditText(NetWorkActivity.this);
+                dialogBuilder.setView(input);
+
+                dialogBuilder.setPositiveButton("连接", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String password = input.getText().toString();
+                        qySDK.connectToWiFi(selectedSSID, password);
+                    }
+                });
+
+                dialogBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                dialogBuilder.show();
+            }
+        });
+
+        Button refreshWifi = findViewById(R.id.refreshWifi);
+        refreshWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                wifiList = qySDK.refreshWiFiList();
+                showWiFiInfo();
+            }
+        });
+
         EthernetManagement ethernetManagement = new EthernetManagement(this);
         EthernetConfigure ethernetConfig = ethernetManagement.getEthernetConfig("eth0");
 
@@ -40,7 +113,7 @@ public class EthernetConfigActivity extends AppCompatActivity {
         switchEthernet_enable_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int ans = qysdk.switchEthernet(true,"eth0");
+                int ans = qySDK.switchEthernet(true,"eth0");
             }
         });
 
@@ -49,7 +122,7 @@ public class EthernetConfigActivity extends AppCompatActivity {
         switchEthernet_disable_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int ans = qysdk.switchEthernet(false,"eth0");
+                int ans = qySDK.switchEthernet(false,"eth0");
             }
         });
 
@@ -58,7 +131,7 @@ public class EthernetConfigActivity extends AppCompatActivity {
         isEthernetEnable_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean ans = qysdk.isEthernetEnable("eth0");
+                boolean ans = qySDK.isEthernetEnable("eth0");
                 isEthernetEnable_tv.setText("当前Ethernet开关状态为："+ans);
             }
         });
@@ -85,7 +158,7 @@ public class EthernetConfigActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EthernetConfigure eth = new EthernetConfigure("DHCP",null,null,null,null,null);
-                int a = qysdk.setEthernetConfig(eth,"eth0");
+                int a = qySDK.setEthernetConfig(eth,"eth0");
                 if(a == McErrorCode.ENJOY_COMMON_SUCCESSFUL){
                     Log.d("EthernetConfig","DHCP configuration applied successfully");
                 } else{
@@ -104,7 +177,7 @@ public class EthernetConfigActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String ifname = getEthernetMacAddress_et.getText().toString().trim();
                 if (!ifname.isEmpty()) {
-                    String mac = qysdk.getEthernetMacAddress(ifname);
+                    String mac = qySDK.getEthernetMacAddress(ifname);
                     getEthernetMacAddress_tv.setText(mac);
                 } else {
                     // 如果 EditText 为空，可以提示用户输入内容
@@ -123,7 +196,7 @@ public class EthernetConfigActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String ifname = getEthernetStatus_et.getText().toString().trim();
                 if (!ifname.isEmpty()) {
-                    String mac = qysdk.getEthernetConnectState(ifname);
+                    String mac = qySDK.getEthernetConnectState(ifname);
                     getEthernetStatus_tv.setText(mac);
                 } else {
                     // 如果 EditText 为空，可以提示用户输入内容
@@ -138,7 +211,7 @@ public class EthernetConfigActivity extends AppCompatActivity {
         getEthernetDevices_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] ethernetDevices = qysdk.getEthernetDevices();
+                String[] ethernetDevices = qySDK.getEthernetDevices();
                 StringBuilder arrayContent = new StringBuilder();
 
                 if (ethernetDevices != null) {
@@ -152,15 +225,36 @@ public class EthernetConfigActivity extends AppCompatActivity {
             }
         });
 
-
         ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EthernetConfigActivity.this, MainActivity.class));
+                startActivity(new Intent(NetWorkActivity.this, MainActivity.class));
             }
         });
 
-
     }
+
+    private void showWiFiInfo() {
+        List<WlanManagement.WiFiInfo> result = qySDK.showConnectedWiFiInfo();
+
+        StringBuilder infoBuilder = new StringBuilder();
+        for (WlanManagement.WiFiInfo wifiInfo : result) {
+            infoBuilder.append("SSID: ").append(wifiInfo.getSsid()).append("\n");
+            infoBuilder.append("BSSID: ").append(wifiInfo.getBssid()).append("\n");
+            infoBuilder.append("IP Address: ").append(wifiInfo.getIpAddress()).append("\n");
+            infoBuilder.append("Gateway: ").append(wifiInfo.getGateway()).append("\n");
+            infoBuilder.append("Netmask: ").append(wifiInfo.getNetmask()).append("\n");
+            infoBuilder.append("DNS1: ").append(wifiInfo.getDns1()).append("\n");
+            infoBuilder.append("DNS2: ").append(wifiInfo.getDns2()).append("\n");
+            infoBuilder.append("MAC Address: ").append(wifiInfo.getMacAddress()).append("\n");
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("WiFi Information");
+        builder.setMessage(infoBuilder.toString());
+        builder.setPositiveButton("OK", null);
+        builder.show();
+    }
+
 }

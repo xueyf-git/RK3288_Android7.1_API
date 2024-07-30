@@ -11,7 +11,7 @@
         android:id="@+id/messageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Waiting for message..."
+        android:text="QyAPI"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
@@ -58,12 +58,12 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_wifi"
-                    android:contentDescription="wifi"
+                    android:contentDescription="网络配置"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="WiFi"
+                    android:text="网络配置"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
@@ -154,12 +154,12 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_time"
-                    android:contentDescription="ntp校时测试"
+                    android:contentDescription="时间设置"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ntp校时测试"
+                    android:text="时间设置"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
@@ -322,12 +322,12 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_power_management"
-                    android:contentDescription="powermanagement测试"
+                    android:contentDescription="电源管理"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="powermanagement测试"
+                    android:text="电源管理"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
@@ -347,39 +347,16 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_device_util"
-                    android:contentDescription="固件信息测试"
+                    android:contentDescription="固件信息"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="固件信息测试"
+                    android:text="固件信息"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:layout_margin="16dp">
-
-                <ImageButton
-                    android:id="@+id/EthernetConfigTest_bt"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_ethernet_config"
-                    android:contentDescription="EthernetConfig测试"
-                    android:background="?android:attr/selectableItemBackground" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="EthernetConfig测试"
-                    android:textSize="18sp"
-                    android:gravity="center_horizontal" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -395,12 +372,12 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_boot_animation"
-                    android:contentDescription="开机动画测试"
+                    android:contentDescription="开机动画"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="开机动画测试"
+                    android:text="开机动画"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
@@ -419,12 +396,12 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_screen_rotation"
-                    android:contentDescription="屏幕旋转测试"
+                    android:contentDescription="屏幕旋转"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="屏幕旋转测试"
+                    android:text="屏幕旋转"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>

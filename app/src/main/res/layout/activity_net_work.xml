@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Network Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NetWork"
+                    android:textSize="30sp"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/mainMenuButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="主界面"
+                    android:src="@drawable/ic_mainmenu" />
+            </LinearLayout>
+
+            <!-- WiFi Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wifi Configure"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WiFi 开启"
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText" />
+
+                <Switch
+                    android:id="@+id/wifi_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/refreshWifi"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:text="wifi信息"
+                    tools:ignore="MissingConstraints" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ListView
+                    android:id="@+id/wifi_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+            </LinearLayout>
+
+
+            <!-- Ethernet Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ethernet Configure"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#EEEEEE"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/switchEthernet_enable_bt"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="Ethernet启用" />
+
+                    <Button
+                        android:id="@+id/switchEthernet_disable_bt"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="Ethernet禁用" />
+
+                    <Button
+                        android:id="@+id/isEthernetEnbale_bt"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="获取Ethernet状态" />
+
+                    <Button
+                        android:id="@+id/getEthernetConfig_bt"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="获取Ethernet配置" />
+
+                    <Button
+                        android:id="@+id/setEthernetConfig_bt"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="设置Ethernet配置" />
+
+                    <Button
+                        android:id="@+id/getEthernetMACAddress_bt"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="获取MAC地址" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp" />
+
+                    <Button
+                        android:id="@+id/getEthernetStatus_bt"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="获取Ethernet状态" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp" />
+
+                    <Button
+                        android:id="@+id/getEthernetDevices_bt"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="获取Ethernet设备" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp" />
+
+                    <TextView
+                        android:id="@+id/isEthernetEnbale_tv"
+                        android:layout_width="150dp"
+                        android:layout_height="80dp"
+                        android:text="Ethernet状态"
+                        android:textAlignment="center" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp" />
+
+                    <EditText
+                        android:id="@+id/getEthernetMACAddress_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:hint="press name"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/getEthernetMACAddress_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:text="Mac地址" />
+
+                    <EditText
+                        android:id="@+id/getEthernetStatus_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:hint="press name"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/getEthernetStatus_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:text="链接状态" />
+
+                    <TextView
+                        android:id="@+id/getEthernetDevices_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:text="Ethernet设备" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

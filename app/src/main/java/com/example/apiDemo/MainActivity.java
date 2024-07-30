@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
         wifiShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Wifi.class));
+                startActivity(new Intent(MainActivity.this, NetWorkActivity.class));
             }
         });
 
@@ -79,16 +79,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, PowerManagementTest.class));
-            }
-        });
-
-        // 以太网配置按钮
-        ImageButton ethernetConfig_bt = findViewById(R.id.EthernetConfigTest_bt);
-        ethernetConfig_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 创建 LogRecorderActivity 活动
-                startActivity(new Intent(MainActivity.this, EthernetConfigActivity.class));
             }
         });
 

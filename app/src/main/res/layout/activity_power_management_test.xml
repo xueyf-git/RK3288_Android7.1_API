@@ -136,7 +136,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="开机动画测试"
+                    android:contentDescription="主界面"
                     android:src="@drawable/ic_mainmenu" />
 
             </LinearLayout>
