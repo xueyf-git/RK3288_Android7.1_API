@@ -63,3 +63,14 @@ dependencies {
     compileOnly files('libs/classes.jar')
 }
 
+
+
+task makeJar(type: Copy) {
+    delete 'build/outputs/jar'
+    from('build/intermediates/aar_main_jar/debug/syncDebugLibJars')
+    into('build/outputs/jar')
+    include('classes.jar')
+    rename('classes.jar', 'QYSDK.jar')
+}
+
+makeJar.dependsOn(build)
