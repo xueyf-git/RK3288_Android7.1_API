@@ -183,7 +183,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="状态栏"
+                    android:text="系统UI"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
@@ -202,84 +202,12 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_get_package"
-                    android:contentDescription="获取当前lunch名称"
+                    android:contentDescription="launcher"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="获取当前lunch名称"
-                    android:textSize="18sp"
-                    android:gravity="center_horizontal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:layout_margin="16dp">
-
-                <ImageButton
-                    android:id="@+id/setPackage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_set_package"
-                    android:contentDescription="设置当前桌面lunch"
-                    android:background="?android:attr/selectableItemBackground" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="设置当前桌面lunch"
-                    android:textSize="18sp"
-                    android:gravity="center_horizontal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:layout_margin="16dp">
-
-                <ImageButton
-                    android:id="@+id/launcherButton"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_launcher"
-                    android:contentDescription="lunch测试"
-                    android:background="?android:attr/selectableItemBackground" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="lunch测试"
-                    android:textSize="18sp"
-                    android:gravity="center_horizontal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:layout_margin="16dp">
-
-                <ImageButton
-                    android:id="@+id/launcher3Button"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_launcher3"
-                    android:contentDescription="HOME lunch"
-                    android:background="?android:attr/selectableItemBackground" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="HOME lunch"
+                    android:text="launcher"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
@@ -357,7 +285,7 @@
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
-            
+
 
         </GridLayout>
     </ScrollView>
