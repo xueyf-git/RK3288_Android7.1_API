@@ -25,15 +25,6 @@ public class MainActivity extends Activity {
         Application context = (Application) getApplicationContext();
 
 
-        //屏幕旋转测试
-        ImageButton ScreenRotation_bt = findViewById(R.id.ScreenRotationTest_bt);
-        ScreenRotation_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ScreenRotationActivity.class));
-            }
-        });
-
         //开机动画测试
         ImageButton BootAnimation_bt = findViewById(R.id.BootAnimationTest_bt);
         BootAnimation_bt.setOnClickListener(new View.OnClickListener() {
@@ -113,12 +104,12 @@ public class MainActivity extends Activity {
             }
         });
 
-        //状态栏 导航栏 显示/隐藏 按钮
-        ImageButton barShow = findViewById(R.id.barShow);
+        //系统UI
+        ImageButton barShow = findViewById(R.id.systemUI);
         barShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, BarShowActivity.class));
+                startActivity(new Intent(MainActivity.this, SystemUIActivity.class));
             }
         });
 
