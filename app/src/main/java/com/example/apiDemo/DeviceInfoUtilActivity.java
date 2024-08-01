@@ -1,5 +1,6 @@
 package com.example.apiDemo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,11 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sdk.QYSDK;
 
-public class DeviceInfoUtilActivity extends AppCompatActivity {
+public class DeviceInfoUtilActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_device_info_util_test);
         QYSDK enjoySDK = new QYSDK(this);
         TextView textView = findViewById(R.id.textView);

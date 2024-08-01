@@ -1,5 +1,6 @@
 package com.example.apiDemo;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +18,11 @@ import com.example.sdk.QYSDK;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KeepAliveActivity extends AppCompatActivity {
+public class KeepAliveActivity extends Activity {
     QYSDK qySDK;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_keep_alive);
         qySDK = new QYSDK(this);
 

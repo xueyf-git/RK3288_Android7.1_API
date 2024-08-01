@@ -27,6 +27,7 @@ public class ScreenRotation {
      */
     public int setSystemRotation(int rotation) {
         String command;
+        executeRootCommand("settings put system accelerometer_rotation 0");
         switch (rotation) {
             case 0:
                 command = "settings put system user_rotation 0";

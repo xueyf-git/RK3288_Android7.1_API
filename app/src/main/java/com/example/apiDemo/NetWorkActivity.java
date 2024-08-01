@@ -1,6 +1,7 @@
 package com.example.apiDemo;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,12 +17,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.sdk.EthernetConfigure;
 import com.example.sdk.EthernetManagement;
@@ -31,18 +34,22 @@ import com.example.sdk.WlanManagement;
 
 import java.util.List;
 
-public class NetWorkActivity extends AppCompatActivity {
+public class NetWorkActivity extends AppCompatActivity implements com.example.apiDemo.InputDialogFragment.OnInputListener {
     private ListView wifiListView;
     private List<String> wifiList;
     QYSDK qySDK;
+    EthernetManagement ethernetManagement;
+    EthernetConfigure ethernetConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_net_work);
         qySDK = new QYSDK(this);
+        ethernetManagement = new EthernetManagement(this);
+        ethernetConfig = ethernetManagement.getEthernetConfig("eth0");
 
+        //Wifi模块
 
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch wifiSwitch = findViewById(R.id.wifi_switch);
         wifiSwitch.setChecked(true);
@@ -105,109 +112,90 @@ public class NetWorkActivity extends AppCompatActivity {
             }
         });
 
-        EthernetManagement ethernetManagement = new EthernetManagement(this);
-        EthernetConfigure ethernetConfig = ethernetManagement.getEthernetConfig("eth0");
+        //Ethernet模块
+        TextView getEthernetMacAddress_tv;
+        TextView getEthernetStatus_tv;
 
-        //设置eth0网口ethernet开
-        Button switchEthernet_enable_bt = findViewById(R.id.switchEthernet_enable_bt);
-        switchEthernet_enable_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int ans = qySDK.switchEthernet(true,"eth0");
-            }
-        });
+        //获取Ethernet状态
+        boolean eth_state = qySDK.isEthernetEnable("eth0");
 
-        //设置eth0网口ethernet关
-        Button switchEthernet_disable_bt = findViewById(R.id.switchEthernet_disable_bt);
-        switchEthernet_disable_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int ans = qySDK.switchEthernet(false,"eth0");
-            }
-        });
+        //获取Mac地址
 
-        Button isEthernetEnable_bt = findViewById(R.id.isEthernetEnbale_bt);
-        TextView isEthernetEnable_tv = findViewById(R.id.isEthernetEnbale_tv);
-        isEthernetEnable_bt.setOnClickListener(new View.OnClickListener() {
+        getEthernetMacAddress_tv = findViewById(R.id.macAddress_tv);
+        String mac = qySDK.getEthernetMacAddress("eth0");
+        getEthernetMacAddress_tv.setText(mac);
+
+        //获取Ethernet连接状态
+        getEthernetStatus_tv = findViewById(R.id.ethernetConnectionState_tv);
+        String eth_st = qySDK.getEthernetConnectState("eth0");
+        getEthernetStatus_tv.setText(eth_st);
+
+        //设置Ethernet开关
+        Switch switchEthernet = findViewById(R.id.ethernet_switch);
+        switchEthernet.setChecked(eth_state);
+        switchEthernet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                boolean ans = qySDK.isEthernetEnable("eth0");
-                isEthernetEnable_tv.setText("当前Ethernet开关状态为："+ans);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int ans = qySDK.switchEthernet(isChecked, "eth0");
+                if (ans == McErrorCode.ENJOY_COMMON_SUCCESSFUL) {
+                    Toast.makeText(NetWorkActivity.this,
+                            isChecked ? "Ethernet启用成功" : "Ethernet禁用成功",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(NetWorkActivity.this,
+                            isChecked ? "Ethernet启用失败" : "Ethernet禁用失败",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         //获取EthernetConfig
-        Button getEthernetConfig_bt = findViewById(R.id.getEthernetConfig_bt);
-        getEthernetConfig_bt.setOnClickListener(new View.OnClickListener() {
+        TextView ipAddress_tv = findViewById(R.id.ipAddress_tv);
+        TextView subNetMask_tv = findViewById(R.id.subNetMask_tv);
+        TextView gateway_tv =findViewById(R.id.gateway_tv);
+        TextView DNS_tv = findViewById(R.id.DNS_tv);
+        TextView backupDNS_tv = findViewById(R.id.backupDNS_tv);
+        TextView mode_tv = findViewById(R.id.mode_tv);
+
+        // 使用获取的Ethernet配置
+        ipAddress_tv.setText(""+ethernetConfig.getIPv4Address());
+        subNetMask_tv.setText(""+ethernetConfig.getSubnetMask());
+        gateway_tv.setText(""+ethernetConfig.getGateway());
+        DNS_tv.setText(""+ethernetConfig.getDns());
+        backupDNS_tv.setText(""+ethernetConfig.getBackupDns());
+        mode_tv.setText(""+ethernetConfig.getMode());
+
+        //刷新
+        ImageButton ethernetRefresh_bt = findViewById(R.id.ethernetRefresh_bt);
+        ethernetRefresh_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 使用获取的Ethernet配置
-                Log.d("EthernetConfig", "IP Address: " + ethernetConfig.getIPv4Address());
-                Log.d("EthernetConfig", "Subnet Mask: " + ethernetConfig.getSubnetMask());
-                Log.d("EthernetConfig", "Gateway: " + ethernetConfig.getGateway());
-                Log.d("EthernetConfig", "DNS: " + ethernetConfig.getDns());
-                Log.d("EthernetConfig", "Backup DNS: " + ethernetConfig.getBackupDns());
-                Log.d("EthernetConfig","mode:"+ethernetConfig.getMode());
-//                qysdk.DHCP();
+                qySDK.getEthernetConfig("eth0");
+                ipAddress_tv.setText(""+ethernetConfig.getIPv4Address());
+                subNetMask_tv.setText(""+ethernetConfig.getSubnetMask());
+                gateway_tv.setText(""+ethernetConfig.getGateway());
+                DNS_tv.setText(""+ethernetConfig.getDns());
+                backupDNS_tv.setText(""+ethernetConfig.getBackupDns());
+                mode_tv.setText(""+ethernetConfig.getMode());
+                getEthernetStatus_tv.setText(""+qySDK.getEthernetConnectState("eth0"));
             }
         });
 
-        //设置EthernetConfig
-        Button setEthernetConfig_bt = findViewById(R.id.setEthernetConfig_bt);
-        setEthernetConfig_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EthernetConfigure eth = new EthernetConfigure("DHCP",null,null,null,null,null);
-                int a = qySDK.setEthernetConfig(eth,"eth0");
-                if(a == McErrorCode.ENJOY_COMMON_SUCCESSFUL){
-                    Log.d("EthernetConfig","DHCP configuration applied successfully");
-                } else{
-                    Log.e("EthernetConfig","Failed to apply DHCP configuration");
-                }
-            }
+        Button getEthernetConfigure_bt = findViewById(R.id.getEthernetConfigure_bt);
+        getEthernetConfigure_bt.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            com.example.apiDemo.InputDialogFragment inputDialogFragment = new com.example.apiDemo.InputDialogFragment();
+            inputDialogFragment.show(fragmentManager, "InputDialogFragment");
         });
 
-        //获取Mac地址
-        Button getEthernetMacAddress_bt = findViewById(R.id.getEthernetMACAddress_bt);
-        EditText getEthernetMacAddress_et = findViewById(R.id.getEthernetMACAddress_et);
-        TextView getEthernetMacAddress_tv = findViewById(R.id.getEthernetMACAddress_tv);
 
-        getEthernetMacAddress_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String ifname = getEthernetMacAddress_et.getText().toString().trim();
-                if (!ifname.isEmpty()) {
-                    String mac = qySDK.getEthernetMacAddress(ifname);
-                    getEthernetMacAddress_tv.setText(mac);
-                } else {
-                    // 如果 EditText 为空，可以提示用户输入内容
-                    getEthernetMacAddress_et.setText("输入不能为空！请重新输入！");
-                }
-            }
-        });
 
-        //获取Ethernet连接状态
-        Button getEthernetStatus_bt = findViewById(R.id.getEthernetStatus_bt);
-        EditText getEthernetStatus_et = findViewById(R.id.getEthernetStatus_et);
-        TextView getEthernetStatus_tv = findViewById(R.id.getEthernetStatus_tv);
-
-        getEthernetStatus_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String ifname = getEthernetStatus_et.getText().toString().trim();
-                if (!ifname.isEmpty()) {
-                    String mac = qySDK.getEthernetConnectState(ifname);
-                    getEthernetStatus_tv.setText(mac);
-                } else {
-                    // 如果 EditText 为空，可以提示用户输入内容
-                    getEthernetStatus_et.setText("输入不能为空！请重新输入！");
-                }
-            }
-        });
 
         //获取所有以太网连接设备
-        Button getEthernetDevices_bt = findViewById(R.id.getEthernetDevices_bt);
-        TextView getEthernetDevices_tv = findViewById(R.id.getEthernetDevices_tv);
+
+        Button getEthernetDevices_bt = findViewById(R.id.getEthernetDevice_bt);
+        TextView getEthernetDevices_tv = findViewById(R.id.ethernetDevice_tv);
         getEthernetDevices_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,7 +220,18 @@ public class NetWorkActivity extends AppCompatActivity {
                 startActivity(new Intent(NetWorkActivity.this, MainActivity.class));
             }
         });
+    }
 
+    public void sendInput(String IdAddress, String SubnetMask,String Gateway,String DNS,String BackupDNS,String Mode) {
+
+        ethernetConfig.setIPv4Address(IdAddress);
+        ethernetConfig.setSubnetMask(SubnetMask);
+        ethernetConfig.setGateway(Gateway);
+        ethernetConfig.setDns(DNS);
+        ethernetConfig.setBackupDns(BackupDNS);
+        ethernetConfig.setMode(Mode);
+        qySDK.setEthernetConfig(ethernetConfig,"eth0");
+        Toast.makeText(this,IdAddress+"\n"+SubnetMask+"\n"+Gateway+"\n"+DNS+"\n"+BackupDNS+"\n"+Mode+"\n",Toast.LENGTH_SHORT).show();
     }
 
     private void showWiFiInfo() {

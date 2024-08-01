@@ -10,13 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="80dp"
         android:orientation="horizontal"
         android:background="#EEEEEE"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -33,49 +32,10 @@
                     android:textSize="30sp"
                     tools:ignore="HardcodedText" />
 
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/setBootAnimation_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="设置开机动画" />
-
-            <TextView
-                android:id="@+id/setBootAnimationSuccess_tv"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:text="设置开机动画：" />
-
-            <Button
-                android:id="@+id/resetBootAnimation_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="重置开机动画" />
-
-            <TextView
-                android:id="@+id/resetBootAnimationSuccess_tv"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:text="重置开机动画：" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
                 <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
                 <ImageButton
                     android:id="@+id/mainMenuButton"
@@ -85,17 +45,43 @@
                     android:contentDescription="主界面"
                     android:src="@drawable/ic_mainmenu" />
 
-            </LinearLayout>
 
-            <EditText
-                android:id="@+id/setBootAnimation_et"
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:hint="path/to/your/file"
-                android:textAlignment="center" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="输入开机动画路径"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/setBootAnimation_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:hint="path/to/your/file"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/setBootAnimation_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="设置开机动画" />
+
+
+            <Button
+                android:id="@+id/resetBootAnimation_bt"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:text="重置开机动画" />
 
 
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

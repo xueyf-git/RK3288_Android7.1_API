@@ -1,5 +1,6 @@
 package com.example.apiDemo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,12 +17,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.sdk.QYSDK;
 
-public class SystemUIActivity extends AppCompatActivity {
+public class SystemUIActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_system_uiactivity);
         QYSDK qySDK = new QYSDK(this);
 

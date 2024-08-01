@@ -1,6 +1,8 @@
 package com.example.apiDemo;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,12 +16,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.sdk.QYSDK;
 
-public class launcher_activity extends AppCompatActivity {
+public class launcher_activity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_launcher);
         QYSDK qySDK = new QYSDK(this);
         Application context = (Application) getApplicationContext();
@@ -58,6 +59,14 @@ public class launcher_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 qySDK.setHomePackage("com.android.launcher3");
+            }
+        });
+
+        ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(launcher_activity.this, MainActivity.class));
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.apiDemo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,14 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sdk.McErrorCode;
 import com.example.sdk.QYSDK;
 
-public class PowerManagementTest extends AppCompatActivity {
+public class PowerManagementTest extends Activity {
 
     QYSDK qySDK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_power_management_test);
 
         qySDK = new QYSDK(this);
