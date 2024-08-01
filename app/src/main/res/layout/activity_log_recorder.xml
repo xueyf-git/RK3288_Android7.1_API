@@ -7,156 +7,143 @@
     android:layout_height="match_parent"
     tools:context=".LogRecorderActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日志记录"
+                android:textSize="30sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/mainMenuButton"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="日志记录"
-                    android:textSize="30sp"
-                    tools:ignore="HardcodedText" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/enableLogRecorder"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:text="开启日志记录"
-                android:background="@color/blue" />
-
-            <Button
-                android:id="@+id/disableLogRecorder"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:text="禁用日志记录"
-                android:background="@color/blue" />
-
-            <Button
-                android:id="@+id/isLogRecorderEnable"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:text="返回日志记录状态"
-                android:background="@color/blue" />
-
-            <Button
-                android:id="@+id/getLogRecorderTime"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:text="返回日志记录工作时间"
-                android:background="@color/blue" />
-
-            <Button
-                android:id="@+id/setLogRecorderTime"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:text="设置日志记录工作时间"
-                android:background="@color/blue" />
-
-            <Button
-                android:id="@+id/exportLog"
-                android:layout_width="160dp"
-                android:layout_height="100dp"
-                android:text="导出日志"
-                android:background="@color/blue" />
-
-
-
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="主界面"
+                android:src="@drawable/ic_mainmenu" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日志记录开启"
+                android:textSize="25sp"
+                tools:ignore="HardcodedText" />
+
+            <Switch
+                android:id="@+id/logDumper_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前日志记录工作时长:"
+                android:textSize="18sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logDumperTime_tv"/>
+
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+            <Button
+                android:layout_width="180dp"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <ImageButton
-                    android:id="@+id/mainMenuButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="主界面"
-                    android:src="@drawable/ic_mainmenu" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:orientation="vertical">
-
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/isLogRecorderEnable_tv"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:text="日志记录状态信息"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/logRecorderTime_tv"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:text="日志记录时间信息"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:text="设置日志工作时长/h"
+                android:id="@+id/setLogRecorderTime_bt"/>
+            
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <EditText
                 android:id="@+id/setLogRecorderTime_ev"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:hint="Enter a number"
                 android:inputType="number"
                 android:textAlignment="center" />
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/exportLog"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:text="导出日志"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
 
             <TextView
                 android:id="@+id/exportLog_tv"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="日志导出信息"
-                android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-
-
+                android:textColor="@color/black"/>
         </LinearLayout>
+
+
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -79,6 +79,14 @@ public class SystemUIActivity extends Activity {
             }
         });
 
+        //获取屏幕旋转角度
+
+        TextView getSystemRotation_tv = findViewById(R.id.getSystemRotation_tv);
+
+        int rotation = qySDK.getSystemRotation();
+
+        getSystemRotation_tv.setText(""+rotation);
+
         //设置屏幕旋转角度
         Button setScreenRotation_bt = findViewById(R.id.setScreenRotate_bt);
         EditText setScreenRotation_et = findViewById(R.id.setScreenRotation_et);
@@ -91,7 +99,7 @@ public class SystemUIActivity extends Activity {
                         // 将文本内容转换为整数（如果输入的确实是数字）
                         int rotation = Integer.parseInt(rotation_str);
                         qySDK.setScreenRotation(rotation);
-
+                        getSystemRotation_tv.setText(""+qySDK.getSystemRotation());
                     } catch (NumberFormatException e) {
                         setScreenRotation_et.setText("输入的数字不规范！请重新输入！");
                     }
@@ -102,16 +110,8 @@ public class SystemUIActivity extends Activity {
             }
         });
 
-        //获取屏幕旋转角度
-        Button getSystemRotation_bt = findViewById(R.id.getSystemRotation_bt);
-        TextView getSystemRotation_tv = findViewById(R.id.getSystemRotation_tv);
-        getSystemRotation_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int rotation = qySDK.getSystemRotation();
-                getSystemRotation_tv.setText("当前屏幕旋转角度："+rotation);
-            }
-        });
+
+
 
         ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(new View.OnClickListener() {

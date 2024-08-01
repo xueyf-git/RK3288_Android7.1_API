@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.sdk.McErrorCode;
 import com.example.sdk.QYSDK;
 
 public class LogRecorderActivity extends Activity {
@@ -18,53 +22,36 @@ public class LogRecorderActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_recorder);
         QYSDK qySDK = new QYSDK(this);
+        boolean log_state = qySDK.isLogRecorderEnabled();
 
-        // 获取 enableLogRecorder 按钮
-        Button enableLogRecorderButton = findViewById(R.id.enableLogRecorder);
-        enableLogRecorderButton.setOnClickListener(new View.OnClickListener() {
+        //设置日志记录开关
+        Switch switchEthernet = findViewById(R.id.logDumper_switch);
+        switchEthernet.setChecked(log_state);
+        switchEthernet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                // 调用 qySDK 中的 enableLogRecorder 方法
-                qySDK.enableLogRecorder(true);
-            }
-        });
-
-        // 获取 disableLogRecorder 按钮
-        Button disableLogRecorderButton = findViewById(R.id.disableLogRecorder);
-        disableLogRecorderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 调用 qySDK 中的 enableLogRecorder 方法
-                qySDK.enableLogRecorder(false);
-            }
-        });
-
-        // 获取 getLogRecorderButton 按钮
-        Button getLogRecorderButton = findViewById(R.id.isLogRecorderEnable);
-        TextView getLogRecorder_tv = findViewById(R.id.isLogRecorderEnable_tv);
-        getLogRecorderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 调用 qySDK 中的 isLogRecorderEnabled 方法
-                boolean recStatus = qySDK.isLogRecorderEnabled();
-                getLogRecorder_tv.setText(String.valueOf(recStatus));
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int ans = qySDK.enableLogRecorder(isChecked);
+                if (ans == McErrorCode.ENJOY_COMMON_SUCCESSFUL) {
+                    Toast.makeText(LogRecorderActivity.this,
+                            isChecked ? "日志记录启用成功" : "日志记录禁用成功",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LogRecorderActivity.this,
+                            isChecked ? "日志记录启用失败" : "日志记录禁用失败",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         // 获取 getLogRecorderTime 按钮
-        Button getLogRecorderTime = findViewById(R.id.getLogRecorderTime);
-        TextView getLogRecorderTime_tv = findViewById(R.id.logRecorderTime_tv);
-        getLogRecorderTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 调用 qySDK 中的 getRecorderTime 方法
-                int recTime = qySDK.getRecorderTime();
-                getLogRecorderTime_tv.setText(String.valueOf(recTime));
-            }
-        });
+
+        TextView getLogRecorderTime_tv = findViewById(R.id.logDumperTime_tv);
+        int recTime = qySDK.getRecorderTime();
+        getLogRecorderTime_tv.setText(String.valueOf(recTime)+"h");
 
         // 获取 setLogRecorderTime 按钮
-        Button setLogRecorderTime = findViewById(R.id.setLogRecorderTime);
+
+        Button setLogRecorderTime = findViewById(R.id.setLogRecorderTime_bt);
         EditText setLogReocrderTime_ev = findViewById(R.id.setLogRecorderTime_ev);
         setLogRecorderTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,8 +64,12 @@ public class LogRecorderActivity extends Activity {
                         // 将文本内容转换为整数（如果输入的确实是数字）
                         int hour = Integer.parseInt(numberText);
                         // 调用 qySDK 中的 setRecorderTime 方法
-                        qySDK.setRecorderTime(hour);
-
+                        int ans = qySDK.setRecorderTime(hour);
+                        if (ans == McErrorCode.ENJOY_COMMON_SUCCESSFUL) {
+                            Toast.makeText(LogRecorderActivity.this, "时间设置成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(LogRecorderActivity.this, "时间设置失败", Toast.LENGTH_SHORT).show();
+                        }
                     } catch (NumberFormatException e) {
                         setLogReocrderTime_ev.setText("输入的数字不规范！请重新输入！");
                     }

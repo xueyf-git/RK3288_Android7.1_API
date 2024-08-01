@@ -54,37 +54,37 @@
 
         <Button
             android:id="@+id/BarAndNavigationShow"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="状态栏导航栏同时显示"/>
 
         <Button
             android:id="@+id/BarAndNavigationHide"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="状态栏导航栏同时隐藏"/>
 
         <Button
             android:id="@+id/BarShow"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="状态栏显示" />
 
         <Button
             android:id="@+id/BarHide"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="状态栏隐藏" />
 
         <Button
             android:id="@+id/NavigationShow"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="导航栏显示" />
 
         <Button
             android:id="@+id/NavigationHide"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="导航栏隐藏" />
 
@@ -104,49 +104,55 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
 
                 <Button
                     android:id="@+id/setScreenRotate_bt"
-                    android:layout_width="150dp"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="旋转" />
 
-                <Button
-                    android:id="@+id/getSystemRotation_bt"
-                    android:layout_width="150dp"
-                    android:layout_height="80dp"
-                    android:text="获取当前屏幕旋转角度" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
                 <EditText
                     android:id="@+id/setScreenRotation_et"
-                    android:layout_width="160dp"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:hint="Enter a number"
                     android:inputType="number"
                     android:textAlignment="center" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/getSystemRotation_tv"
-                    android:layout_width="150dp"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="当前屏幕旋转角度"
+                    android:textSize="18sp"
                     android:textAlignment="center" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/getSystemRotation_tv" />
 
             </LinearLayout>
 

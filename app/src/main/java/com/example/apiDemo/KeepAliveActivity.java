@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -29,7 +30,7 @@ public class KeepAliveActivity extends Activity {
         List<String> stringList = new ArrayList<>();
         stringList.add("com.example.myapplication");
 
-        ImageButton keepaliveButton = findViewById(R.id.keepalive);
+        Button keepaliveButton = findViewById(R.id.keepalive);
         keepaliveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,7 +39,7 @@ public class KeepAliveActivity extends Activity {
             }
         });
 
-        ImageButton testButton = findViewById(R.id.test);
+        Button testButton = findViewById(R.id.test);
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

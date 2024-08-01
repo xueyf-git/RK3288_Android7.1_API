@@ -52,50 +52,26 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:layout_margin="16dp">
+                android:layout_height="wrap_content">
 
-                <ImageButton
+                <Button
                     android:id="@+id/keepalive"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_keepalive"
-                    android:contentDescription="keepalive"
-                    android:background="?android:attr/selectableItemBackground" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Keepalive"
-                    android:textSize="18sp"
-                    android:gravity="center_horizontal" />
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:text="应用保活"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:layout_margin="16dp">
+                android:layout_height="wrap_content">
 
-                <ImageButton
+                <Button
                     android:id="@+id/test"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_test"
-                    android:contentDescription="test"
-                    android:background="?android:attr/selectableItemBackground" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CancelKeepAlive"
-                    android:textSize="18sp"
-                    android:gravity="center_horizontal" />
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:text="取消保活"/>
+
             </LinearLayout>
 
         </LinearLayout>

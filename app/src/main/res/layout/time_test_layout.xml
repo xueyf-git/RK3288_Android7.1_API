@@ -36,44 +36,55 @@
                 android:src="@drawable/ic_mainmenu" />
         </LinearLayout>
 
-    <Button
-        android:id="@+id/switchAutoTimeButton"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:text="切换ntp自动校时"
-        android:background="@color/red" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/openNTP"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:text="打开ntp自动校时"
-        android:background="@color/green" />
+            <Button
+                android:id="@+id/switchAutoTimeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="切换ntp自动校时"/>
 
-    <Button
-        android:id="@+id/closeNTP"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:text="关闭ntp自动校时"
-        android:background="@color/blue" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/openNTP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="打开ntp自动校时" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/closeNTP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关闭ntp自动校时" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
-
             <Button
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/setTime_bt"
                 android:text="设置时间"/>
 
             <EditText
                 android:id="@+id/setTime_et"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:hint="hh:mm:ss"
                 android:textAlignment="center" />
 
@@ -84,18 +95,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
-
             <Button
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/setDate_bt"
                 android:text="设置日期"/>
+
 
             <EditText
                 android:id="@+id/setDate_et"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:hint="yyyy-MM-dd"
                 android:textAlignment="center" />
 
