@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.sdk.QYSDK;
 
@@ -62,12 +63,16 @@ public class TimeTestActivity extends Activity {
                 String numberText = setTime_et.getText().toString().trim();
                 String[] timeParts = numberText.split(":");
 
-                int hour = Integer.parseInt(timeParts[0]);
-                int minute = Integer.parseInt(timeParts[1]);
-                int second = Integer.parseInt(timeParts[2]);
+
 
                 if (!numberText.isEmpty()) {
+                    int hour = Integer.parseInt(timeParts[0]);
+                    int minute = Integer.parseInt(timeParts[1]);
+                    int second = Integer.parseInt(timeParts[2]);
                     qySDK.setTime(hour,minute,second);
+                    Toast.makeText(TimeTestActivity.this,
+                            "时间设置成功",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     // 如果 EditText 为空，可以提示用户输入内容
                     setTime_et.setText("输入不能为空！请重新输入！");
@@ -83,12 +88,16 @@ public class TimeTestActivity extends Activity {
                 String numberText = setDate_et.getText().toString().trim();
                 String[] timeParts = numberText.split("-");
 
-                int year = Integer.parseInt(timeParts[0]);
-                int month = Integer.parseInt(timeParts[1]);
-                int day = Integer.parseInt(timeParts[2]);
+
 
                 if (!numberText.isEmpty()) {
+                    int year = Integer.parseInt(timeParts[0]);
+                    int month = Integer.parseInt(timeParts[1]);
+                    int day = Integer.parseInt(timeParts[2]);
                     qySDK.setDate(year,month-1,day);
+                    Toast.makeText(TimeTestActivity.this,
+                            "日期设置成功",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     // 如果 EditText 为空，可以提示用户输入内容
                     setTime_et.setText("输入不能为空！请重新输入！");

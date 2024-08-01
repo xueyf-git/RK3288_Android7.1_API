@@ -57,7 +57,7 @@
                     android:id="@+id/wifiShow"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_wifi"
+                    android:src="@drawable/ic_network"
                     android:contentDescription="网络配置"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
@@ -177,7 +177,7 @@
                     android:id="@+id/systemUI"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_bar"
+                    android:src="@drawable/ic_systemui"
                     android:contentDescription="系统UI"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView

@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class launcher_activity extends Activity {
         Application context = (Application) getApplicationContext();
 
         // 获取当前lunch名称
-        ImageButton getPackage = findViewById(R.id.getPackage);
+        Button getPackage = findViewById(R.id.getPackage);
         getPackage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +37,7 @@ public class launcher_activity extends Activity {
         });
 
         // 切换当前桌面lunch
-        ImageButton setPackage = findViewById(R.id.setPackage);
+        Button setPackage = findViewById(R.id.setPackage);
         setPackage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +46,7 @@ public class launcher_activity extends Activity {
         });
 
         // 传参方式发送page包名
-        ImageButton launcherButton = findViewById(R.id.launcherButton);
+        Button launcherButton = findViewById(R.id.launcherButton);
         launcherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +55,7 @@ public class launcher_activity extends Activity {
         });
 
         // 传参方式发送page包名设置原来的luncher
-        ImageButton launcher3Button = findViewById(R.id.launcher3Button);
+        Button launcher3Button = findViewById(R.id.launcher3Button);
         launcher3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

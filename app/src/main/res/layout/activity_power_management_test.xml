@@ -8,26 +8,25 @@
     android:layout_height="match_parent"
     tools:context="com.example.apiDemo.PowerManagementTest">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="#EEEEEE"
-        tools:ignore="MissingConstraints">
-
-
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#EEEEEE">
 
+            <!-- 顶部标题 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="@drawable/border">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -36,94 +35,6 @@
                     android:textSize="30sp"
                     tools:ignore="HardcodedText" />
 
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/reboot_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="reboot" />
-
-            <Button
-                android:id="@+id/shutdown_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="Shutdown" />
-
-            <Button
-                android:id="@+id/isLBW_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="切换低电量警告状态" />
-
-            <TextView
-                android:id="@+id/screenBrightness_tv"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="屏幕亮度"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/disableSystemGoToSleep_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="禁用系统休眠" />
-
-            <Button
-                android:id="@+id/setScreenOffTimeout_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="设置系统休眠时间" />
-
-            <Button
-                android:id="@+id/enableTouchWake_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="启用触摸唤醒" />
-
-            <Button
-                android:id="@+id/enableTimedToTouchWake_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="启用定时触摸唤醒"/>
-
-            <Button
-                android:id="@+id/addScheduleToTouchWake_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="增加定时唤醒计划" />
-
-            <Button
-                android:id="@+id/deleteScheduleToTouchWake_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="删除定时唤醒计划" />
-
-            <Button
-                android:id="@+id/cancelTimedToWake"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="清除定时唤醒计划" />
-
-            <Button
-                android:id="@+id/getTimedToWakeState_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="获取定时唤醒状态" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -136,119 +47,518 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:contentDescription="主界面"
                     android:src="@drawable/ic_mainmenu" />
-
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/batteryLevel_tv"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="当前电量"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/chargingStatus_tv"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="充电状态"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:id="@+id/isLowBatteryStatus_tv"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="是否低电量警告状态"
-                android:textAlignment="center"/>
-
-            <SeekBar
-                android:id="@+id/screenBrightnessCtl"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:max="255" />
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
 
-            <Button
-                android:id="@+id/enableSystemGoToSleep_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="启用系统休眠" />
-
-
-            <EditText
-                android:id="@+id/setScreenOffTimeout_ed"
-                android:layout_width="160dp"
-                android:layout_height="80dp"
-                android:hint="Enter a number"
-                android:inputType="number"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/disableTouchWake_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="禁用触摸唤醒" />
-
-            <Button
-                android:id="@+id/disableTimedToTouchWake_bt"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="禁用定时触摸唤醒"/>
-
+            <!-- 当前电量 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal">
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="当前电量："
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/batteryLevel_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 当前充电状态 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="当前充电状态："
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/chargingStatus_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 当前低电量警告状态 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="当前低电量警告状态："
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/isLowBatteryStatus_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 屏幕亮度 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:id="@+id/screenBrightness_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="屏幕亮度"
+                    android:textSize="18sp"
+                    android:textAlignment="center"/>
+
+                <SeekBar
+                    android:id="@+id/screenBrightnessCtl"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:max="255"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Reboot -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/reboot_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="reboot"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Shutdown -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/shutdown_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="Shutdown"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 切换低电量警告状态 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/isLBW_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="切换低电量警告状态"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 启用系统休眠 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/enableSystemGoToSleep_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="启用系统休眠"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+
+
+            <!-- 禁用系统休眠 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/disableSystemGoToSleep_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="禁用系统休眠"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 设置系统休眠时间 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/setScreenOffTimeout_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="设置系统休眠时间"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:id="@+id/setScreenOffTimeout_ed"
+                    android:layout_width="160dp"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:hint="Enter a number"
+                    android:inputType="number"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 启用定时触摸唤醒 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/enableTimedToTouchWake_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="启用定时触摸唤醒"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 禁用定时触摸唤醒 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/disableTimedToTouchWake_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="禁用定时触摸唤醒"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 启用触摸唤醒 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/enableTouchWake_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="启用触摸唤醒"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 禁用触摸唤醒 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/disableTouchWake_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="禁用触摸唤醒"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 增加定时唤醒计划 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/addScheduleToTouchWake_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="增加定时唤醒计划"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
                 <EditText
                     android:id="@+id/addStartToTouchWake_ev"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
+                    android:background="@android:color/white"
                     android:hint="输入起始时间"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/addEndToTouchWake_ev"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
+                    android:background="@android:color/white"
                     android:hint="输入结束时间"
-                    android:textAlignment="center" />
-
+                    android:textAlignment="center"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 删除定时唤醒计划 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/deleteScheduleToTouchWake_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="删除定时唤醒计划"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
                 <EditText
                     android:id="@+id/deleteStartToTouchWake_ev"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
+                    android:background="@android:color/white"
                     android:hint="输入起始时间"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/deleteEndToTouchWake_ev"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
+                    android:background="@android:color/white"
                     android:hint="输入结束时间"
-                    android:textAlignment="center" />
-
+                    android:textAlignment="center"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 清除定时唤醒计划 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal"/>
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
 
-            <TextView
-                android:id="@+id/getTimedTouchWakeState_tv"
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:text="获取定时触摸唤醒状态"
-                android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/cancelTimedToWake"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="清除定时唤醒计划"/>
+            </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 获取定时唤醒状态 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <Button
+                    android:id="@+id/getTimedToWakeState_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:background="@android:color/white"
+                    android:text="获取定时唤醒状态"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/getTimedTouchWakeState_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
 
         </LinearLayout>
-
-    </LinearLayout>
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

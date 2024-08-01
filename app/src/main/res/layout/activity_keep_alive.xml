@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".KeepAliveActivity">
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -22,11 +23,14 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- 顶部标题 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="@drawable/border">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -47,34 +51,53 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:contentDescription="主界面"
                     android:src="@drawable/ic_mainmenu" />
-
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 应用保活 -->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
 
                 <Button
                     android:id="@+id/keepalive"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
                     android:text="应用保活"/>
-
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 取消保活 -->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
 
                 <Button
                     android:id="@+id/test"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
                     android:text="取消保活"/>
-
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
