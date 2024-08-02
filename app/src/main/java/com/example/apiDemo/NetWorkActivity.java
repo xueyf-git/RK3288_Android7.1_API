@@ -44,7 +44,14 @@ public class NetWorkActivity extends AppCompatActivity implements com.example.ap
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_net_work);
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         qySDK = new QYSDK(this);
         ethernetManagement = new EthernetManagement(this);
         ethernetConfig = ethernetManagement.getEthernetConfig("eth0");

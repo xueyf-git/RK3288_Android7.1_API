@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -55,19 +56,21 @@
                 android:layout_marginBottom="8dp"/>
 
             <!-- 获取当前 lunch 名称 -->
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/border">
-
                 <Button
                     android:id="@+id/getPackage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    android:text="获取当前 lunch 名称"/>
-            </LinearLayout>
+                    android:padding="16dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="获取当前 lunch 名称"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -77,19 +80,21 @@
                 android:layout_marginBottom="8dp"/>
 
             <!-- 设置当前桌面 lunch -->
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/border">
-
                 <Button
                     android:id="@+id/setPackage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    android:text="设置当前桌面 lunch"/>
-            </LinearLayout>
+                    android:padding="16dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="设置当前桌面 lunch"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -99,19 +104,21 @@
                 android:layout_marginBottom="8dp"/>
 
             <!-- lunch 测试 -->
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/border">
-
                 <Button
                     android:id="@+id/launcherButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    android:text="lunch 测试"/>
-            </LinearLayout>
+                    android:padding="16dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="lunch 测试"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -121,19 +128,21 @@
                 android:layout_marginBottom="8dp"/>
 
             <!-- HOME lunch -->
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/border">
-
                 <Button
                     android:id="@+id/launcher3Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    android:text="HOME lunch"/>
-            </LinearLayout>
+                    android:padding="16dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="HOME lunch"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>

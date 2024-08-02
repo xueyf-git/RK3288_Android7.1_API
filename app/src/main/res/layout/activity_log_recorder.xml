@@ -132,7 +132,8 @@
                     android:layout_width="180dp"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="设置日志工作时长/h"/>
+                    android:text="设置日志工作时长/h"
+                    android:textColor="@android:color/black"/>
 
 
                 <View
@@ -169,7 +170,7 @@
                     android:layout_width="180dp"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"
-
+                    android:textColor="@android:color/black"
                     android:text="导出日志"/>
             </LinearLayout>
 

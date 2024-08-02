@@ -89,7 +89,8 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="状态栏导航栏同时显示"/>
+                    android:text="状态栏导航栏同时显示"
+                    android:textColor="@android:color/black"/>
             </FrameLayout>
 
             <FrameLayout
@@ -104,7 +105,8 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="状态栏导航栏同时隐藏"/>
+                    android:text="状态栏导航栏同时隐藏"
+                    android:textColor="@android:color/black"/>
             </FrameLayout>
 
             <FrameLayout
@@ -119,7 +121,8 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="状态栏显示"/>
+                    android:text="状态栏显示"
+                    android:textColor="@android:color/black"/>
             </FrameLayout>
 
             <FrameLayout
@@ -134,7 +137,8 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="状态栏隐藏"/>
+                    android:text="状态栏隐藏"
+                    android:textColor="@android:color/black"/>
             </FrameLayout>
 
             <FrameLayout
@@ -149,7 +153,8 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="导航栏显示"/>
+                    android:text="导航栏显示"
+                    android:textColor="@android:color/black"/>
             </FrameLayout>
 
             <FrameLayout
@@ -164,7 +169,8 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="导航栏隐藏"/>
+                    android:text="导航栏隐藏"
+                    android:textColor="@android:color/black"/>
             </FrameLayout>
 
             <View
@@ -215,7 +221,8 @@
                         android:layout_height="wrap_content"
                         android:padding="16dp"
                         android:background="?android:attr/selectableItemBackground"
-                        android:text="旋转" />
+                        android:text="旋转"
+                        android:textColor="@android:color/black"/>
 
                     <View
                         android:layout_width="0dp"

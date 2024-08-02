@@ -9,20 +9,28 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.sdk.QYSDK;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         QYSDK qySDK = new QYSDK(this);
 
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         //开机动画测试
         ImageButton BootAnimation_bt = findViewById(R.id.BootAnimationTest_bt);

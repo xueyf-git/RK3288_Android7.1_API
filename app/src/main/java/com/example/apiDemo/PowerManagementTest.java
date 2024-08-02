@@ -16,14 +16,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sdk.McErrorCode;
 import com.example.sdk.QYSDK;
 
-public class PowerManagementTest extends Activity {
+public class PowerManagementTest extends AppCompatActivity {
 
     QYSDK qySDK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_power_management_test);
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         qySDK = new QYSDK(this);
         //注册低电量警告

@@ -201,7 +201,7 @@
                     android:id="@+id/getPackage"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_get_package"
+                    android:src="@drawable/ic_launcher"
                     android:contentDescription="launcher"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView

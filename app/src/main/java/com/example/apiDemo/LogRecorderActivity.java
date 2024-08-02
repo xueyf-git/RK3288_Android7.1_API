@@ -12,17 +12,26 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.sdk.McErrorCode;
 import com.example.sdk.QYSDK;
 
-public class LogRecorderActivity extends Activity {
+public class LogRecorderActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_log_recorder);
         QYSDK qySDK = new QYSDK(this);
         boolean log_state = qySDK.isLogRecorderEnabled();
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         //设置日志记录开关
         Switch switchEthernet = findViewById(R.id.logDumper_switch);

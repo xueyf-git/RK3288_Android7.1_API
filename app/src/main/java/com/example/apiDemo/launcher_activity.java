@@ -17,14 +17,20 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.sdk.QYSDK;
 
-public class launcher_activity extends Activity {
+public class launcher_activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_launcher);
         QYSDK qySDK = new QYSDK(this);
         Application context = (Application) getApplicationContext();
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         // 获取当前lunch名称
         Button getPackage = findViewById(R.id.getPackage);

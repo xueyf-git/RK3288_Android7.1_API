@@ -196,8 +196,9 @@
                     android:id="@+id/reboot_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="reboot"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="reboot"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -218,8 +219,9 @@
                     android:id="@+id/shutdown_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="Shutdown"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="Shutdown"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -240,8 +242,9 @@
                     android:id="@+id/isLBW_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="切换低电量警告状态"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="切换低电量警告状态"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -262,8 +265,9 @@
                     android:id="@+id/enableSystemGoToSleep_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="启用系统休眠"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="启用系统休眠"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -272,8 +276,6 @@
                 android:background="@android:color/darker_gray"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
-
-
 
             <!-- 禁用系统休眠 -->
             <LinearLayout
@@ -286,8 +288,9 @@
                     android:id="@+id/disableSystemGoToSleep_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="禁用系统休眠"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="禁用系统休眠"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -309,8 +312,9 @@
                     android:id="@+id/setScreenOffTimeout_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="设置系统休眠时间"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="设置系统休眠时间"
+                    android:textColor="@android:color/black"/>
 
                 <View
                     android:layout_width="0dp"
@@ -321,7 +325,7 @@
                     android:id="@+id/setScreenOffTimeout_ed"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
+                    android:background="?android:attr/selectableItemBackground"
                     android:hint="Enter a number"
                     android:inputType="number"
                     android:textAlignment="center"/>
@@ -345,8 +349,9 @@
                     android:id="@+id/enableTimedToTouchWake_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="启用定时触摸唤醒"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="启用定时触摸唤醒"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -367,8 +372,9 @@
                     android:id="@+id/disableTimedToTouchWake_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="禁用定时触摸唤醒"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="禁用定时触摸唤醒"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -389,8 +395,9 @@
                     android:id="@+id/enableTouchWake_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="启用触摸唤醒"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="启用触摸唤醒"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -411,8 +418,9 @@
                     android:id="@+id/disableTouchWake_bt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="禁用触摸唤醒"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="禁用触摸唤醒"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -434,8 +442,9 @@
                     android:id="@+id/addScheduleToTouchWake_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="增加定时唤醒计划"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="增加定时唤醒计划"
+                    android:textColor="@android:color/black"/>
 
                 <View
                     android:layout_width="0dp"
@@ -446,7 +455,7 @@
                     android:id="@+id/addStartToTouchWake_ev"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
+                    android:background="?android:attr/selectableItemBackground"
                     android:hint="输入起始时间"
                     android:textAlignment="center"/>
 
@@ -454,7 +463,7 @@
                     android:id="@+id/addEndToTouchWake_ev"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
+                    android:background="?android:attr/selectableItemBackground"
                     android:hint="输入结束时间"
                     android:textAlignment="center"/>
             </LinearLayout>
@@ -478,8 +487,9 @@
                     android:id="@+id/deleteScheduleToTouchWake_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="删除定时唤醒计划"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="删除定时唤醒计划"
+                    android:textColor="@android:color/black"/>
 
                 <View
                     android:layout_width="0dp"
@@ -490,7 +500,7 @@
                     android:id="@+id/deleteStartToTouchWake_ev"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
+                    android:background="?android:attr/selectableItemBackground"
                     android:hint="输入起始时间"
                     android:textAlignment="center"/>
 
@@ -498,7 +508,7 @@
                     android:id="@+id/deleteEndToTouchWake_ev"
                     android:layout_width="160dp"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
+                    android:background="?android:attr/selectableItemBackground"
                     android:hint="输入结束时间"
                     android:textAlignment="center"/>
             </LinearLayout>
@@ -521,8 +531,9 @@
                     android:id="@+id/cancelTimedToWake"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="清除定时唤醒计划"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="清除定时唤醒计划"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <View
@@ -544,8 +555,9 @@
                     android:id="@+id/getTimedToWakeState_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
-                    android:background="@android:color/white"
-                    android:text="获取定时唤醒状态"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="获取定时唤醒状态"
+                    android:textColor="@android:color/black"/>
 
                 <View
                     android:layout_width="0dp"

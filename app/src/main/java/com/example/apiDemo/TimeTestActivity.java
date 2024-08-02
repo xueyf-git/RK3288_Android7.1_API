@@ -9,16 +9,25 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.sdk.QYSDK;
 
 
-public class TimeTestActivity extends Activity {
+public class TimeTestActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.time_test_layout);
         QYSDK qySDK = new QYSDK(this);
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         // 获取 switchAutoTimeButton 按钮
         Button switchAutoTimeButton = findViewById(R.id.switchAutoTimeButton);

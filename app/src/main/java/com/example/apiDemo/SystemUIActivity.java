@@ -17,13 +17,19 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.sdk.QYSDK;
 
-public class SystemUIActivity extends Activity {
+public class SystemUIActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_system_uiactivity);
         QYSDK qySDK = new QYSDK(this);
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         // 同时显示状态栏导航栏按钮
         Button statusBarBarAndNavigationShow = findViewById(R.id.BarAndNavigationShow);

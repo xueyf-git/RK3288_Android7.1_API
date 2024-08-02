@@ -19,13 +19,19 @@ import com.example.sdk.QYSDK;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KeepAliveActivity extends Activity {
+public class KeepAliveActivity extends AppCompatActivity {
     QYSDK qySDK;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_keep_alive);
         qySDK = new QYSDK(this);
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         List<String> stringList = new ArrayList<>();
         stringList.add("com.example.myapplication");

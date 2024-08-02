@@ -19,13 +19,19 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.sdk.McErrorCode;
 import com.example.sdk.QYSDK;
 
-public class BootAnimationActivity extends Activity {
+public class BootAnimationActivity extends AppCompatActivity {
     QYSDK qysdk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_boot_animation);
         qysdk = new QYSDK(this);
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         //设置开机动画
         Button setBootAnimation_bt = findViewById(R.id.setBootAnimation_bt);

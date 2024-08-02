@@ -14,12 +14,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sdk.QYSDK;
 
-public class DeviceInfoUtilActivity extends Activity {
+public class DeviceInfoUtilActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_device_info_util_test);
         QYSDK enjoySDK = new QYSDK(this);
+
+        //去除顶部显示应用名称栏目
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         //获取生产商信息
         TextView getFactoryInfo = findViewById(R.id.getFactoryInfo_tv);
