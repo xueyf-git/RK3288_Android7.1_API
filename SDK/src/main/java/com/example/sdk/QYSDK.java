@@ -19,6 +19,7 @@ public class QYSDK {
     private final EthernetManagement ethernetManagement;
     private final BootAnimation bootAnimation;
     private final ScreenRotation screenRotation;
+    private final HardwareState hardwareState;
 
     public QYSDK(Activity activity) {
         this.mSystemUI = new SystemUI(activity);
@@ -33,6 +34,7 @@ public class QYSDK {
         this.ethernetManagement = new EthernetManagement(activity);
         this.bootAnimation = new BootAnimation(activity);
         this.screenRotation = new ScreenRotation(activity);
+        this.hardwareState = new HardwareState(activity);
     }
 
     // 系统UI
@@ -133,4 +135,9 @@ public class QYSDK {
     //屏幕旋转
     public int setScreenRotation(int rotation){return screenRotation.setSystemRotation(rotation);}
     public int getSystemRotation(){return screenRotation.getSystemRotation();}
+
+    //硬件状态
+    public String getCPUState(){return hardwareState.getCPUState();}
+    public long getUpTime(){return hardwareState.getUptime();}
+
 }
