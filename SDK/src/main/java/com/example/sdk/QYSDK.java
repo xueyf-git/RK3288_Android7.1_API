@@ -122,7 +122,8 @@ public class QYSDK {
     //以太网设置
     public int switchEthernet(boolean enable,String ifname){return ethernetManagement.switchEthernet(enable,ifname);}
     public boolean isEthernetEnable(String ifname){return ethernetManagement.isEthernetEnable(ifname);}
-    public int setEthernetConfig(EthernetConfigure ethernetConfigure,String ifname){return ethernetManagement.setEthernetConfig(ethernetConfigure,ifname);}
+    public boolean setDynamicIp(Activity activity){return ethernetManagement.setDynamicIp(activity);}
+    public boolean setEthernetStaticIp(Activity activity,String address, String mask, String gate, String dns, String dns2){return ethernetManagement.setEthernetStaticIp(activity, address, mask, gate, dns, dns2);}
     public EthernetConfigure getEthernetConfig(String ifname){return  ethernetManagement.getEthernetConfig(ifname);}
     public String getEthernetMacAddress(String ifname){return ethernetManagement.getEthernetMacAddress(ifname);}
     public String getEthernetConnectState(String ifname){return ethernetManagement.getEthernetConnectState(ifname);}

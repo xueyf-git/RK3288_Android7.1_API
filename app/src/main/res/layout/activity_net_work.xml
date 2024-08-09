@@ -323,13 +323,28 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <Button
-                        android:layout_width="200dp"
-                        android:layout_height="50dp"
-                        android:id="@+id/getEthernetConfigure_bt"
-                        android:text="配置Ethernet"/>
+                    <RadioGroup
+                        android:id="@+id/ethernet_option_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/DHCP_bt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DHCP" />
+
+                        <RadioButton
+                            android:id="@+id/STATIC_bt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="STATIC" />
+                    </RadioGroup>
+
 
                 </LinearLayout>
 

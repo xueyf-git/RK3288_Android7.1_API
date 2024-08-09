@@ -308,7 +308,10 @@
                     android:text="硬件状态"
                     android:textSize="18sp"
                     android:gravity="center_horizontal" />
+
+
             </LinearLayout>
+
 
 
         </GridLayout>

@@ -17,7 +17,7 @@ import com.example.apiDemo.R;
 public class InputDialogFragment extends DialogFragment {
 
     public interface OnInputListener {
-        void sendInput(String IdAddress, String SubnetMask,String Gateway,String DNS,String BackupDNS,String Mode);
+        void sendInput(String IdAddress, String SubnetMask,String Gateway,String DNS,String BackupDNS);
 
         }
 
@@ -33,7 +33,6 @@ public class InputDialogFragment extends DialogFragment {
         EditText Gateway = view.findViewById(R.id.configureGateway_et);
         EditText DNS = view.findViewById(R.id.configureDNS_tv);
         EditText BackupDNS = view.findViewById(R.id.configureBackupDNS_tv);
-        EditText Mode = view.findViewById(R.id.configureMode_tv);
 
         Button submitButton = view.findViewById(R.id.submitButton);
 
@@ -43,9 +42,8 @@ public class InputDialogFragment extends DialogFragment {
             String Gateway_st = Gateway.getText().toString();
             String DNS_st = DNS.getText().toString();
             String BackupDNS_st = BackupDNS.getText().toString();
-            String Mode_st = Mode.getText().toString();
 
-            onInputListener.sendInput(IpAddress_st, SubnetMask_st,Gateway_st,DNS_st,BackupDNS_st,Mode_st);
+            onInputListener.sendInput(IpAddress_st, SubnetMask_st,Gateway_st,DNS_st,BackupDNS_st);
             dismiss(); // Close the dialog
         });
 

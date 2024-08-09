@@ -15,6 +15,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -178,7 +180,7 @@ public class NetWorkActivity extends AppCompatActivity implements com.example.ap
             @Override
             public void onClick(View view) {
                 // 使用获取的Ethernet配置
-                qySDK.getEthernetConfig("eth0");
+                ethernetConfig = qySDK.getEthernetConfig("eth0");
                 ipAddress_tv.setText(""+ethernetConfig.getIPv4Address());
                 subNetMask_tv.setText(""+ethernetConfig.getSubnetMask());
                 gateway_tv.setText(""+ethernetConfig.getGateway());
@@ -189,15 +191,20 @@ public class NetWorkActivity extends AppCompatActivity implements com.example.ap
             }
         });
 
-        Button getEthernetConfigure_bt = findViewById(R.id.getEthernetConfigure_bt);
-        getEthernetConfigure_bt.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            com.example.apiDemo.InputDialogFragment inputDialogFragment = new com.example.apiDemo.InputDialogFragment();
-            inputDialogFragment.show(fragmentManager, "InputDialogFragment");
+        //配置Ethernet
+        RadioGroup radioGroup = findViewById(R.id.ethernet_option_group);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.STATIC_bt) {
+                    // 设置静态IP
+                    showStaticIpDialog();
+                } else if (checkedId == R.id.DHCP_bt) {
+                    // 设置动态IP
+                    setDynamicIp();
+                }
+            }
         });
-
-
-
 
         //获取所有以太网连接设备
 
@@ -229,16 +236,29 @@ public class NetWorkActivity extends AppCompatActivity implements com.example.ap
         });
     }
 
-    public void sendInput(String IdAddress, String SubnetMask,String Gateway,String DNS,String BackupDNS,String Mode) {
+    //设置动态IP
+    private void setDynamicIp() {
+        qySDK.setDynamicIp(NetWorkActivity.this);
 
-        ethernetConfig.setIPv4Address(IdAddress);
+    }
+
+    //设置静态IP
+    private void showStaticIpDialog() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        InputDialogFragment inputDialogFragment = new InputDialogFragment();
+        inputDialogFragment.show(fragmentManager, "InputDialogFragment");
+    }
+
+
+    public void sendInput(String IpAddress, String SubnetMask,String Gateway,String DNS,String BackupDNS) {
+
+        ethernetConfig.setIPv4Address(IpAddress);
         ethernetConfig.setSubnetMask(SubnetMask);
         ethernetConfig.setGateway(Gateway);
         ethernetConfig.setDns(DNS);
         ethernetConfig.setBackupDns(BackupDNS);
-        ethernetConfig.setMode(Mode);
-        qySDK.setEthernetConfig(ethernetConfig,"eth0");
-        Toast.makeText(this,IdAddress+"\n"+SubnetMask+"\n"+Gateway+"\n"+DNS+"\n"+BackupDNS+"\n"+Mode+"\n",Toast.LENGTH_SHORT).show();
+        qySDK.setEthernetStaticIp(this,IpAddress,SubnetMask,Gateway,DNS,BackupDNS);
+        Toast.makeText(this,IpAddress+"\n"+SubnetMask+"\n"+Gateway+"\n"+DNS+"\n"+BackupDNS+"\n",Toast.LENGTH_SHORT).show();
     }
 
     private void showWiFiInfo() {
