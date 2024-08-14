@@ -18,9 +18,7 @@ public class HardwareState {
     }
 
     // 获取CPU状态
-    public String getCPUState(){
-        String res = "";
-        // 获取CPU使用率
+    public String getCpuUsage() {
         try (RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r")) {
             String load = reader.readLine();
             String[] toks = load.split("\\s+");
@@ -28,7 +26,7 @@ public class HardwareState {
             long idle1 = Long.parseLong(toks[4]);
             long cpu1 = Long.parseLong(toks[1]) + Long.parseLong(toks[2]) + Long.parseLong(toks[3]) +
                     Long.parseLong(toks[5]) + Long.parseLong(toks[6]) + Long.parseLong(toks[7]);
-            Log.d("HardwareState","idle1="+idle1+"\ncpu1="+cpu1);
+//            Log.d("HardwareState", "idle1=" + idle1 + "\ncpu1=" + cpu1);
 
             try {
                 Thread.sleep(1000);
@@ -45,32 +43,31 @@ public class HardwareState {
             long idle2 = Long.parseLong(toks[4]);
             long cpu2 = Long.parseLong(toks[1]) + Long.parseLong(toks[2]) + Long.parseLong(toks[3]) +
                     Long.parseLong(toks[5]) + Long.parseLong(toks[6]) + Long.parseLong(toks[7]);
-            Log.d("HardwareState","idle2="+idle2+"\ncpu2="+cpu2);
+//            Log.d("HardwareState", "idle2=" + idle2 + "\ncpu2=" + cpu2);
 
             double cpuUsage = (double) (cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1)) * 100.0;
-            Log.d("HardwareState","res:"+cpuUsage);
-            res +="Cpu 使用率：";
-            res += cpuUsage;
+//            Log.d("HardwareState", "Cpu 使用率：" + cpuUsage);
+            return String.format("%.2f", cpuUsage)+"%";
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Log.d("HardwareState","Cpu 使用率："+res);
+    }
 
-        //获取cpu温度
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("/sys/class/thermal/thermal_zone0/temp"));
+    //获取CPU温度
+    public String getCpuTemperature() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("/sys/class/thermal/thermal_zone0/temp"))) {
             String line = reader.readLine();
-            reader.close();
-            if(line!=null){
-                res+="Cpu温度："+Double.parseDouble(line) / 1000.0;
-                Log.d("HardwareState","Cpu温度："+Double.parseDouble(line) / 1000.0);
+            if (line != null) {
+                double temperature = Double.parseDouble(line) / 1000.0;
+//                Log.d("HardwareState", "Cpu 温度：" + temperature);
+                return String.format("%.2f", temperature) +"℃";
             }
+            return "无法获取 Cpu 温度";
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return res;
     }
 
     //获取设备运行时间
@@ -85,8 +82,4 @@ public class HardwareState {
         return uptimeSeconds;
     }
 
-    //设置风扇启动温度
-    public int setFanStartTemperature(int temperature){
-        return 0;
-    }
 }

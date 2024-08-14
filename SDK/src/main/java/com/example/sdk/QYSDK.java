@@ -138,7 +138,8 @@ public class QYSDK {
     public int getSystemRotation(){return screenRotation.getSystemRotation();}
 
     //硬件状态
-    public String getCPUState(){return hardwareState.getCPUState();}
+    public String getCPUUsage(){return hardwareState.getCpuUsage();}
+    public String getCPUTemperature(){return hardwareState.getCpuTemperature();}
     public long getUpTime(){return hardwareState.getUptime();}
 
 }
