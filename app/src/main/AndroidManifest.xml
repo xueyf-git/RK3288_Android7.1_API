@@ -2,7 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.apiDemo"
-    android:sharedUserId="android.uid.system">
+    android:sharedUserId="android.uid.system"
+    tools:ignore="Deprecated">
+
+    <!-- 声明受保护的广播 -->
+    <permission
+        android:name="com.example.apiDemo.SEND_CUSTOM_BROADCAST"
+        android:protectionLevel="signature" />
+
+    <permission
+        android:name="com.example.apiDemo.RECEIVE_CUSTOM_BROADCAST"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.intent.action.HIDE_STATUS_BAR" />
+    <uses-permission android:name="android.intent.action.SHOW_STATUS_BAR" />
+    <uses-permission android:name="android.intent.action.HIDE_NAVIGATION_BAR" />
+    <uses-permission android:name="android.intent.action.SHOW_NAVIGATION_BAR" />
 
     <permission
         android:name="com.example.apiDemo.permission.SEND_ALARM"

@@ -51,8 +51,13 @@ public class PowerManagementTest extends AppCompatActivity {
             }
         });
 
+        // 获取当前系统亮度
+        int currentBrightness = qySDK.getScreenBrightness();
+
         //屏幕亮度调整
         SeekBar seekBarBrightness = findViewById(R.id.screenBrightnessCtl);
+        seekBarBrightness.setProgress(currentBrightness);
+
         seekBarBrightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -70,6 +75,8 @@ public class PowerManagementTest extends AppCompatActivity {
                 // 当用户停止拖动 SeekBar 时的处理
             }
         });
+
+
 
 
         //系统重启reboot
@@ -102,12 +109,19 @@ public class PowerManagementTest extends AppCompatActivity {
             }
         });
 
+
+        //获取自动休眠状态
+        TextView getWakeupState = findViewById(R.id.getWakeupState_tv);
+        String wakeupState = qySDK.getScreenOffTimeout();
+        getWakeupState.setText(wakeupState);
+
         //禁用系统休眠
         Button disableSystemGoToSleep_bt = findViewById(R.id.disableSystemGoToSleep_bt);
         disableSystemGoToSleep_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 qySDK.enableScreenOn();
+                getWakeupState.setText(qySDK.getScreenOffTimeout());
             }
         });
 
@@ -117,6 +131,7 @@ public class PowerManagementTest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 qySDK.disableScreenOn();
+                getWakeupState.setText(qySDK.getScreenOffTimeout());
             }
         });
 
@@ -134,6 +149,7 @@ public class PowerManagementTest extends AppCompatActivity {
                         int timeout = Integer.parseInt(numberText);
                         // 调用 qySDK 中的 setRecorderTime 方法
                         qySDK.setScreenOffTimeout(timeout);
+                        getWakeupState.setText(qySDK.getScreenOffTimeout());
 
                     } catch (NumberFormatException e) {
                         setScreenOffTimeout_ed.setText("输入的数字不规范！请重新输入！");
@@ -145,30 +161,50 @@ public class PowerManagementTest extends AppCompatActivity {
             }
         });
 
-        //启用触摸唤醒
-        Button enableTouchWake_bt = findViewById(R.id.enableTouchWake_bt);
-        enableTouchWake_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int a = qySDK.setTouchWake(true);
-            }
-        });
+//
+//        //启用触摸唤醒
+//        Button enableTouchWake_bt = findViewById(R.id.enableTouchWake_bt);
+//        enableTouchWake_bt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int a = qySDK.setTouchWake(true);
+//            }
+//        });
+//
+//        //禁用触摸唤醒
+//        Button disableTouchWake_bt = findViewById(R.id.disableTouchWake_bt);
+//        disableTouchWake_bt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int a = qySDK.setTouchWake(false);
+//            }
+//        });
 
-        //禁用触摸唤醒
-        Button disableTouchWake_bt = findViewById(R.id.disableTouchWake_bt);
-        disableTouchWake_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int a = qySDK.setTouchWake(false);
-            }
-        });
+
+        //获取定时触摸计划状态
+        TextView getTimedTouchWakeState_tv = findViewById(R.id.getTimedTouchWakeState_tv);
+
+        int timedTouchWakeState_ans = qySDK.getTimedTouchWakeState();
+        if (timedTouchWakeState_ans == McErrorCode.ENJOY_COMMON_SUCCESSFUL) {
+            getTimedTouchWakeState_tv.setText("启用");
+        }
+        if (timedTouchWakeState_ans == McErrorCode.ENJOY_COMMON_ERROR_SDK_NOT_SUPPORT) {
+            getTimedTouchWakeState_tv.setText("未启用");
+        }
 
         //启用定时触摸唤醒
         Button enableTimedToTouchWake = findViewById(R.id.enableTimedToTouchWake_bt);
         enableTimedToTouchWake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = qySDK.setTimedTouchWake(true);
+                qySDK.setTimedTouchWake(true);
+                int timedTouchWakeState_ans = qySDK.getTimedTouchWakeState();
+                if (timedTouchWakeState_ans == McErrorCode.ENJOY_COMMON_SUCCESSFUL) {
+                    getTimedTouchWakeState_tv.setText("启用");
+                }
+                if (timedTouchWakeState_ans == McErrorCode.ENJOY_COMMON_ERROR_SDK_NOT_SUPPORT) {
+                    getTimedTouchWakeState_tv.setText("未启用");
+                }
             }
         });
 
@@ -177,7 +213,14 @@ public class PowerManagementTest extends AppCompatActivity {
         disableTimedToTouchWake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = qySDK.setTimedTouchWake(false);
+                qySDK.setTimedTouchWake(false);
+                int timedTouchWakeState_ans = qySDK.getTimedTouchWakeState();
+                if (timedTouchWakeState_ans == McErrorCode.ENJOY_COMMON_SUCCESSFUL) {
+                    getTimedTouchWakeState_tv.setText("启用");
+                }
+                if (timedTouchWakeState_ans == McErrorCode.ENJOY_COMMON_ERROR_SDK_NOT_SUPPORT) {
+                    getTimedTouchWakeState_tv.setText("未启用");
+                }
             }
         });
 
@@ -196,6 +239,17 @@ public class PowerManagementTest extends AppCompatActivity {
                 }else {
                     addEndToTouchWake_ev.setText("两个输入都不能为空，请重输！");
                 }
+            }
+        });
+
+        //获取定时触摸唤醒计划
+        Button getSchedule_bt = findViewById(R.id.getSchedule_bt);
+        TextView getSchedule_tv = findViewById(R.id.getSchedule_tv);
+        getSchedule_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String schedule = qySDK.getTouchWakeSchedules();
+                getSchedule_tv.setText(schedule);
             }
         });
 
@@ -225,23 +279,11 @@ public class PowerManagementTest extends AppCompatActivity {
             }
         });
 
-        //获取定时触摸计划状态
-        Button getTimedTouchWakeState_bt = findViewById(R.id.getTimedToWakeState_bt);
-        TextView getTimedTouchWakeState_tv = findViewById(R.id.getTimedTouchWakeState_tv);
-        getTimedTouchWakeState_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int a = qySDK.getTimedTouchWakeState();
-                if (a == McErrorCode.ENJOY_COMMON_SUCCESSFUL) {
-                    getTimedTouchWakeState_tv.setText("定时触摸计划已启用");
-                }
-                if (a == McErrorCode.ENJOY_COMMON_ERROR_SDK_NOT_SUPPORT) {
-                    getTimedTouchWakeState_tv.setText("定时触摸计划未启用");
-                }
-            }
-        });
 
 
+
+
+        //返回主界面
         ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override

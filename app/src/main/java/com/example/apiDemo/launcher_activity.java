@@ -69,6 +69,15 @@ public class launcher_activity extends AppCompatActivity {
             }
         });
 
+        // 传参方式发送page包名设置原来的luncher
+        Button setAppLauncher = findViewById(R.id.setAppLauncher_bt);
+        setAppLauncher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qySDK.setHomePackage("com.hl.expirydate.paster");
+            }
+        });
+
         ImageButton mainMenuButton = findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override

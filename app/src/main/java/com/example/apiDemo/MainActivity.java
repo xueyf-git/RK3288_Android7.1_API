@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         HardwareStateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,HardwareStateActivity.class));
+                startActivity(new Intent(MainActivity.this, HardwareStateActivity.class));
             }
         });
 

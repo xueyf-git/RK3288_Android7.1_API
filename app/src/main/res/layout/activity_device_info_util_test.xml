@@ -59,7 +59,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getFactoryInfo_tv"/>
+                android:id="@+id/getFactoryInfo_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -82,7 +84,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getProductInfo_tv"/>
+                android:id="@+id/getProductInfo_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -105,7 +109,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getSpecialInfo_tv" />
+                android:id="@+id/getSpecialInfo_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -128,7 +134,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getCPUTypeInfo_tv"/>
+                android:id="@+id/getCPUTypeInfo_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -151,7 +159,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getCPUSerial_tv"/>
+                android:id="@+id/getCPUSerial_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -174,7 +184,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getAndroidVersionInfo_tv"/>
+                android:id="@+id/getAndroidVersionInfo_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -197,7 +209,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getPlatformVersionInfo_tv"/>
+                android:id="@+id/getPlatformVersionInfo_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -220,7 +234,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getSystemVersionInfo_tv"/>
+                android:id="@+id/getSystemVersionInfo_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -243,7 +259,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getBootVersion_tv"/>
+                android:id="@+id/getBootVersion_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -266,7 +284,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getOemVersion_tv"/>
+                android:id="@+id/getOemVersion_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -289,7 +309,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getFirmwareVersion_tv"/>
+                android:id="@+id/getFirmwareVersion_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 
@@ -312,7 +334,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/getFirmwareVersionCode_tv"/>
+                android:id="@+id/getFirmwareVersionCode_tv"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="25dp"/>
 
         </LinearLayout>
 

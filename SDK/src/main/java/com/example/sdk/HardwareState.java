@@ -78,7 +78,7 @@ public class HardwareState {
         long uptimeSeconds = uptimeMilllis/ 1000;
 //        long elapsedRealtimeSeconds = elapsedRealtimeMillis/ 1000;
 
-        Log.d("HardwareState","设备运行时间为："+uptimeSeconds);
+//        Log.d("HardwareState","设备运行时间为："+uptimeSeconds);
         return uptimeSeconds;
     }
 

@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Launcher"
+                    android:text="Launcher(Test for update)"
                     android:textSize="30sp"
                     tools:ignore="HardcodedText" />
 
@@ -141,6 +141,30 @@
                     android:padding="16dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:text="HOME lunch"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- HOME lunch -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/border">
+                <Button
+                    android:id="@+id/setAppLauncher_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="设置app为launcher"
                     android:textColor="@android:color/black"/>
             </FrameLayout>
 

@@ -32,11 +32,11 @@ public class BootAnimation {
         }
 
         try {
-            // 强制重新挂载 /system 为读写
-            if (!remountSystemRW()) {
-                Log.e("BootAnimation", "/system remount as read-write failed.");
-                return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
-            }
+//            // 强制重新挂载 /system 为读写
+//            if (!remountSystemRW()) {
+//                Log.e("BootAnimation", "/system remount as read-write failed.");
+//                return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
+//            }
 
             // 确保目标路径存在并设置权限
             executeRootCommand("mkdir -p /system/media");
@@ -71,11 +71,11 @@ public class BootAnimation {
         }
 
         try {
-            // 强制重新挂载 /system 为读写
-            if (!remountSystemRW()) {
-                Log.e("BootAnimation", "/system remount as read-write failed.");
-                return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
-            }
+//            // 强制重新挂载 /system 为读写
+//            if (!remountSystemRW()) {
+//                Log.e("BootAnimation", "/system remount as read-write failed.");
+//                return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;
+//            }
 
             // 删除开机动画文件
             boolean success = executeRootCommand("rm " + targetPath);

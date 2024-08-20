@@ -100,49 +100,69 @@ public class EthernetManagement {
         String backupDns = null;
         String mode = "STATIC";
 
-        // 获取当前的IP配置方式（静态或DHCP）
-        if (isDhcp) {
-            mode = "DHCP";
-        }
+        try {
+            // 获取 EthernetManager 实例
+            Class<?> ethernetManagerCls = Class.forName("android.net.EthernetManager");
+            //noinspection ResourceType
+            Object ethernetManager = mActivity.getSystemService("ethernet");
 
-        // 获取IP地址和子网掩码
-        String ifconfigOutput = executeCommandAndGetOutput("ifconfig " + ifname);
-        if (ifconfigOutput != null) {
-            String[] lines = ifconfigOutput.split("\n");
-            for (String line : lines) {
-                if (line.trim().startsWith("inet addr:")) {
-                    String[] parts = line.trim().split("\\s+");
-                    for (String part : parts) {
-                        if (part.startsWith("addr:")) {
-                            ipAddress = part.split(":")[1];
-                        } else if (part.startsWith("Mask:")) {
-                            subnetMask = part.split(":")[1];
+            // 获取当前 IpConfiguration
+            Method getConfigurationMethod = ethernetManagerCls.getDeclaredMethod("getConfiguration");
+            Object ipConfiguration = getConfigurationMethod.invoke(ethernetManager);
+
+            // 获取 IpAssignment 属性
+            Field ipAssignmentField = ipConfiguration.getClass().getField("ipAssignment");
+            Object ipAssignment = ipAssignmentField.get(ipConfiguration);
+
+            if (ipAssignment.toString().equals("DHCP")) {
+                mode = "DHCP";
+            } else if (ipAssignment.toString().equals("STATIC")) {
+                mode = "STATIC";
+            }
+
+            // 获取 IP 地址和子网掩码
+            String ifconfigOutput = executeCommandAndGetOutput("ifconfig " + ifname);
+            if (ifconfigOutput != null) {
+                String[] lines = ifconfigOutput.split("\n");
+                for (String line : lines) {
+                    if (line.trim().startsWith("inet addr:")) {
+                        String[] parts = line.trim().split("\\s+");
+                        for (String part : parts) {
+                            if (part.startsWith("addr:")) {
+                                ipAddress = part.split(":")[1];
+                            } else if (part.startsWith("Mask:")) {
+                                subnetMask = part.split(":")[1];
+                            }
                         }
                     }
                 }
             }
-        }
 
-        // 获取网关
-        String routeOutput = executeCommandAndGetOutput("ip route");
-        Log.d("EthernetConfig", "Route output: " + routeOutput);
-        if (routeOutput != null) {
-            String[] lines = routeOutput.split("\n");
-            for (String line : lines) {
-                if (line.startsWith("default via ")) {
-                    gateway = line.split("\\s+")[2];
-                    break;
+            // 获取网关
+            String routeOutput = executeCommandAndGetOutput("ip route");
+            Log.d("EthernetConfig", "Route output: " + routeOutput);
+            if (routeOutput != null) {
+                String[] lines = routeOutput.split("\n");
+                for (String line : lines) {
+                    if (line.startsWith("default via ")) {
+                        gateway = line.split("\\s+")[2];
+                        break;
+                    }
                 }
             }
-        }
 
-        // 获取 DNS
-        dns = executeCommandAndGetOutput("getprop net.dns1");
-        backupDns = executeCommandAndGetOutput("getprop net.dns2");
+            // 获取 DNS
+            dns = executeCommandAndGetOutput("getprop net.dns1");
+            backupDns = executeCommandAndGetOutput("getprop net.dns2");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return new EthernetConfigure(mode, ipAddress, subnetMask, gateway, dns, backupDns);
     }
-    
+
+
     // 获取以太网MAC地址
     public String getEthernetMacAddress(String ifname){
 

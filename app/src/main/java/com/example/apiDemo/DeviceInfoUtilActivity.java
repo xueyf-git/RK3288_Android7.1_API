@@ -54,7 +54,7 @@ public class DeviceInfoUtilActivity extends AppCompatActivity {
         //获取获取平台版本信息
         TextView getPlatformVersionInfo = findViewById(R.id.getPlatformVersionInfo_tv);
         String res = enjoySDK.getPlatformVersionInfo();
-        getAndroidVersionInfo.setText(""+enjoySDK.getAndroidVersionInfo());
+        getPlatformVersionInfo.setText(""+enjoySDK.getPlatformVersionInfo());
 
         //获取获取系统版本信息
         TextView getSystemVersionInfo = findViewById(R.id.getSystemVersionInfo_tv);

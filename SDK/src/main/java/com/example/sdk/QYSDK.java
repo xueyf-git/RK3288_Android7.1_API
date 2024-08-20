@@ -91,13 +91,16 @@ public class QYSDK {
     public boolean getIsLowBatteryWarning(){return powerManagement.getIsLowBatteryWarning();}
     public void setIsLowBatteryWarning(boolean isLBW){powerManagement.isLowBatteryWarning(isLBW);}
     public void setScreenBrightness(int inputBrightness){powerManagement.setScreenBrightness(inputBrightness);}
+    public int getScreenBrightness(){return powerManagement.getSystemBrightness();}
     public void enableScreenOn(){powerManagement.setScreenAlwaysOn();}
     public void disableScreenOn(){powerManagement.restoreScreenTimeout();}
     public void setScreenOffTimeout(int time){powerManagement.setScreenOffTimeout(time);}
+    public String getScreenOffTimeout(){return powerManagement.getScreenOffTimeout();}
     public int setTouchWake(boolean enable){return powerManagement.setTouchWake(enable);}
     public int getTouchWakeState(){return powerManagement.getTouchWakeState();}
     public int setTimedTouchWake(boolean enable){return powerManagement.setTimedTouchWake(enable);}
     public int addScheduleToTouchWake(String start,String end,boolean enable){return powerManagement.addScheduleToTouchWake(start,end,enable);}
+    public String getTouchWakeSchedules(){return powerManagement.getTouchWakeSchedules();}
     public int deleteScheduleToTouchWake(String start,String end,boolean enable){return powerManagement.deleteScheduleToTouchWake(start,end,enable);}
     public int cancelTimedToTouchWake(){return powerManagement.cancleTimedTouchWake();}
     public int getTimedTouchWakeState(){return powerManagement.getTimedTouchWakeState();}

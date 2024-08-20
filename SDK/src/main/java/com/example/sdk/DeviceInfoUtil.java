@@ -133,7 +133,25 @@ public class DeviceInfoUtil {
             requestPermission(mActivity,"android.permission.READ_PHONE_STATE",DEVICEINFOUTIL_PERMISSION_REQUIRECODE);
         }
 
-        return Build.DISPLAY;
+        // 优先尝试获取 Build.DISPLAY
+        String platformVersion = Build.DISPLAY;
+
+        // 如果 Build.DISPLAY 为空，尝试其他字段
+        if (platformVersion == null || platformVersion.isEmpty()) {
+            platformVersion = Build.ID; // 使用 Build.ID 作为备选
+        }
+
+        // 如果平台版本仍然为空，尝试从系统属性获取
+        if (platformVersion == null || platformVersion.isEmpty()) {
+            platformVersion = getSystemProperty("ro.build.display.id"); // 从系统属性获取
+        }
+
+        // 最后，若依然无法获取，返回一个默认值
+        if (platformVersion == null || platformVersion.isEmpty()) {
+            platformVersion = "Unknown Platform Version";
+        }
+
+        return platformVersion;
     }
 
     // 获取系统版本信息
@@ -149,7 +167,7 @@ public class DeviceInfoUtil {
         return Build.VERSION.INCREMENTAL;
     }
 
-    // 获取 Boot 版本信息（仅支持V2设备）
+    // 获取 Boot 版本信息
     public String getBootVersion() {
         if(mActivity == null){
             throw  new IllegalStateException("No activity provided.");
@@ -159,11 +177,17 @@ public class DeviceInfoUtil {
             requestPermission(mActivity,"android.permission.READ_PHONE_STATE",DEVICEINFOUTIL_PERMISSION_REQUIRECODE);
         }
 
-        String bootVersion = getSystemProperty("ro.bootloader");
+        // 使用 Build.BOOTLOADER 获取 Bootloader 版本
+        String bootVersion = Build.BOOTLOADER;
+
+//        // 检查返回值，如果为空或未知，给出相应提示
+//        if (bootVersion == null || bootVersion.equalsIgnoreCase("unknown")) {
+//            bootVersion = "无法获取Boot版本信息";
+//        }
         return bootVersion;
     }
 
-    // 获取 OEM 版本信息（仅支持V2设备）
+    // 获取 OEM 版本信息
     public String getOemVersion() {
         if(mActivity == null){
             throw  new IllegalStateException("No activity provided.");
@@ -256,37 +280,49 @@ public class DeviceInfoUtil {
             requestPermission(mActivity,"android.permission.READ_PHONE_STATE",DEVICEINFOUTIL_PERMISSION_REQUIRECODE);
         }
 
-        // 这里返回一个固件版本号
-        return firmwareVersionCode;
+        // 从系统属性获取固件版本号
+        String firmwareVersionStr = getSystemProperty("ro.build.version.incremental");
+        if (firmwareVersionStr != null && !firmwareVersionStr.isEmpty()) {
+            try {
+                return Integer.parseInt(firmwareVersionStr);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                // 处理转换错误，返回一个默认值或者标记为未知
+                return -1;
+            }
+        }
+
+        // 如果无法获取到，返回一个默认值
+        return -1;
     }
 
-    //测试输出各种信息
-    public String getFirmwareInfo() {
-        StringBuilder info = new StringBuilder();
-
-        // Android 版本
-        info.append("Android Version: ").append(Build.VERSION.RELEASE).append("\n");
-
-        // 内核版本
-        info.append("Kernel Version: ").append(System.getProperty("os.version")).append("\n");
-
-        // 基带版本
-        info.append("Baseband Version: ").append(getSystemProperty("gsm.version.baseband")).append("\n");
-
-        // 构建号
-        info.append("Build Number: ").append(Build.DISPLAY).append("\n");
-
-        // 引导加载程序版本
-        info.append("Bootloader Version: ").append(Build.BOOTLOADER).append("\n");
-
-        // 系统版本
-        info.append("System Version: ").append(Build.ID).append("\n");
-
-        // OEM 版本
-        info.append("OEM Version: ").append(getSystemProperty("ro.oem.version")).append("\n");
-
-        return info.toString();
-    }
+//    //测试
+//    public String getFirmwareInfo() {
+//        StringBuilder info = new StringBuilder();
+//
+//        // Android 版本
+//        info.append("Android Version: ").append(Build.VERSION.RELEASE).append("\n");
+//
+//        // 内核版本
+//        info.append("Kernel Version: ").append(System.getProperty("os.version")).append("\n");
+//
+//        // 基带版本
+//        info.append("Baseband Version: ").append(getSystemProperty("gsm.version.baseband")).append("\n");
+//
+//        // 构建号
+//        info.append("Build Number: ").append(Build.DISPLAY).append("\n");
+//
+//        // 引导加载程序版本
+//        info.append("Bootloader Version: ").append(Build.BOOTLOADER).append("\n");
+//
+//        // 系统版本
+//        info.append("System Version: ").append(Build.ID).append("\n");
+//
+//        // OEM 版本
+//        info.append("OEM Version: ").append(getSystemProperty("ro.oem.version")).append("\n");
+//
+//        return info.toString();
+//    }
 
     // 获取SystemProperties中的属性
     public static String getSystemProperty(String key) {

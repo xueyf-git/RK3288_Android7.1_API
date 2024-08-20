@@ -3,6 +3,7 @@ package com.example.sdk;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
@@ -23,8 +24,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class LogDumper implements Runnable {
+    private static final String PREFS_NAME = "LogDumperPrefs";
+    private static final String KEY_LOGGING_ENABLED = "logging_enabled";
+
     private Thread logThread = null;
-    private boolean isRunning = false;                                                              //判断是否运行的标志
+    private static boolean isRunning = false;                                                              //判断是否运行的标志
     String timeStamp = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());    //获取当前日期以生成log的文件名
     private final String log_FileName = "log_"+timeStamp+".txt";                                    // 日志文件名称
     private final String dmesg_FileName = "dmesg_"+timeStamp+".txt";
@@ -36,6 +40,7 @@ public class LogDumper implements Runnable {
 
     public LogDumper(Activity activity) {     //默认生成方法
         this.mActivity = activity;
+        isRunning = getLoggingEnabled();
     }
 
     /**
@@ -58,7 +63,9 @@ public class LogDumper implements Runnable {
 
             } else {
                 stop();
-            }             // 成功
+            }
+            // 保存状态到 SharedPreferences
+            saveLoggingEnabled(enable);
             return  McErrorCode.ENJOY_COMMON_SUCCESSFUL;
         } catch (Exception e) {
             Log.e("EnableLogRecorder", "Error while toggling log recorder", e);
@@ -99,7 +106,7 @@ public class LogDumper implements Runnable {
 
         }catch (Exception e){
             Log.e("isLogRecorderEnabled", "Error checking log recorder status", e);
-            throw new IllegalStateException("Error while checking log recorder status.", e);        //暂时没想好怎么抛出异常
+            throw new IllegalStateException("Error while checking log recorder status.", e);
         }
     }                                                                                               //返回日志记录运行状态
 
@@ -153,8 +160,8 @@ public class LogDumper implements Runnable {
             copyFile(mActivity.getExternalFilesDir(null) + "/" + log_FileName, file_log.getPath());            //以下代码主要实现将应用内的日志文件拷贝至目标路径；
             copyFile(mActivity.getExternalFilesDir(null) + "/" + dmesg_FileName, file_dmesg.getPath());        //当日志记录未启用时，不能输出最近的日志记录，只能输出日志记录关闭前的所有日志
 
-            logcatPath = filepath_ep+tsp+"-log.txt";
-            dmesgPath = filepath_ep+tsp+"-dmesg.txt";
+            logcatPath = file_log.getPath().replace("/storage/emulated/0/","/sdcard/");
+            dmesgPath = file_dmesg.getPath().replace("/storage/emulated/0/","/sdcard/");
 
             return "Logcat导出路径："+logcatPath+"\nDmesg导出路径："+dmesgPath;
 
@@ -227,6 +234,18 @@ public class LogDumper implements Runnable {
         } catch (Exception e) {
             Log.e("LogDumper", "Error in LogDumper: " + e.getMessage());
         }
+    }
+
+    private boolean getLoggingEnabled() {
+        SharedPreferences prefs = mActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(KEY_LOGGING_ENABLED, false);
+    }
+
+    private void saveLoggingEnabled(boolean enabled) {
+        SharedPreferences prefs = mActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(KEY_LOGGING_ENABLED, enabled);
+        editor.apply();
     }
 
     /* ------------------------------------------------------- */

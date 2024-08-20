@@ -155,6 +155,70 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
 
+            <!-- 定时唤醒状态 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="定时唤醒启用状态："
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/getTimedTouchWakeState_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 定时唤醒状态 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="自动休眠状态："
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/getWakeupState_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
             <!-- 屏幕亮度 -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -350,7 +414,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="启用定时触摸唤醒"
+                    android:text="启用定时唤醒"
                     android:textColor="@android:color/black"/>
             </LinearLayout>
 
@@ -373,7 +437,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="禁用定时触摸唤醒"
+                    android:text="禁用定时唤醒"
                     android:textColor="@android:color/black"/>
             </LinearLayout>
 
@@ -384,51 +448,51 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- 启用触摸唤醒 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:background="@drawable/border">
+<!--            &lt;!&ndash; 启用触摸唤醒 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="8dp"-->
+<!--                android:background="@drawable/border">-->
 
-                <Button
-                    android:id="@+id/enableTouchWake_bt"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:text="启用触摸唤醒"
-                    android:textColor="@android:color/black"/>
-            </LinearLayout>
+<!--                <Button-->
+<!--                    android:id="@+id/enableTouchWake_bt"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:background="?android:attr/selectableItemBackground"-->
+<!--                    android:text="启用触摸唤醒"-->
+<!--                    android:textColor="@android:color/black"/>-->
+<!--            </LinearLayout>-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="@android:color/darker_gray"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginBottom="8dp"/>-->
 
-            <!-- 禁用触摸唤醒 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:background="@drawable/border">
+<!--            &lt;!&ndash; 禁用触摸唤醒 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="8dp"-->
+<!--                android:background="@drawable/border">-->
 
-                <Button
-                    android:id="@+id/disableTouchWake_bt"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:text="禁用触摸唤醒"
-                    android:textColor="@android:color/black"/>
-            </LinearLayout>
+<!--                <Button-->
+<!--                    android:id="@+id/disableTouchWake_bt"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:background="?android:attr/selectableItemBackground"-->
+<!--                    android:text="禁用触摸唤醒"-->
+<!--                    android:textColor="@android:color/black"/>-->
+<!--            </LinearLayout>-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="@android:color/darker_gray"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginBottom="8dp"/>-->
 
             <!-- 增加定时唤醒计划 -->
             <LinearLayout
@@ -543,33 +607,45 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- 获取定时唤醒状态 -->
+            <!-- 获取定时唤醒计划 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:padding="8dp"
                 android:background="@drawable/border">
 
                 <Button
-                    android:id="@+id/getTimedToWakeState_bt"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/getSchedule_bt"
+                    android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="获取定时唤醒状态"
+                    android:text="获取定时唤醒计划"
                     android:textColor="@android:color/black"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/getTimedTouchWakeState_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 获取定时唤醒计划 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:id="@+id/getSchedule_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"/>
+
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

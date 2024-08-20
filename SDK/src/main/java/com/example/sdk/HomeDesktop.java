@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.util.Log;
 
 
 public class HomeDesktop {
@@ -24,6 +25,7 @@ public class HomeDesktop {
             intent.addCategory("android.intent.category.DEFAULT");
             intent.putExtra("packageName", packageName);
             mActivity.startActivity(intent);
+            Log.i("testForUpdate","set homepage successfully.");
             return EnjoyErrorCode.ENJOY_COMMON_SUCCESSFUL;
         } catch (Exception e) {
             return EnjoyErrorCode.ENJOY_COMMON_ERROR_UNKNOWN;

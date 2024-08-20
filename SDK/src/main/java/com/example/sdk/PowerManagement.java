@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.BatteryManager;
@@ -41,8 +42,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class PowerManagement {
+    private static final String PREFS_NAME = "PowerManagementPrefs";
+    private static final String KEY_SCHEDULE_WAKE = "schedule_wake";
+
     private final Activity mActivity;
     private boolean lowBatteryWarning = true;                                                       //是否进行低电量警告标志
     private final LowBatteryReceiver lowBatteryReceiver;
@@ -50,8 +56,8 @@ public class PowerManagement {
     private PowerManager.WakeLock wakeLock;
     private DevicePolicyManager devicePolicyManager;
     private ComponentName componentName;
-    private boolean touchWakeState = false;
-    private boolean timedTouchWakeState = false;
+    private static boolean wakestate = false;
+    private static boolean timedTouchWakeState = false;
     private static final String TOUCH_WAKE_PROP = "persist.sys.touch_wake";
     private PowerManager powerManager;
     private int timeToSleep = 60000;
@@ -70,7 +76,7 @@ public class PowerManagement {
         powerManager = (PowerManager) mActivity.getSystemService(Context.POWER_SERVICE);
         alarmManager = (AlarmManager) mActivity.getSystemService(Context.ALARM_SERVICE);
         this.pendingIntents = new ArrayList<>();
-
+        timedTouchWakeState = getScheduleWake();
     }
 
     // 重启设备
@@ -242,6 +248,17 @@ public class PowerManagement {
         }
     }
 
+    // 获取系统当前屏幕亮度的方法
+    public int getSystemBrightness() {
+        int brightness = 0;
+        try {
+            brightness = Settings.System.getInt(mActivity.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
+        } catch (Settings.SettingNotFoundException e) {
+            Log.e("EnjoySDK", "Failed to get screen brightness", e);
+        }
+        return brightness;
+    }
+
     // 在Activity中处理权限请求结果的方法
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RQ_WRITE_SETTINGS) {
@@ -301,12 +318,14 @@ public class PowerManagement {
     public void setScreenAlwaysOn() {
         executeRootCommand("settings put system screen_off_timeout 2147483647"); // 2147483647 是 Integer.MAX_VALUE
         executeRootCommand("setprop poweroff.disabled 1");
+        wakestate = false;
     }
 
     // 使用root权限恢复系统屏幕超时时间
     public void restoreScreenTimeout() {
-        executeRootCommand("settings put system screen_off_timeout "+timeToSleep); // 恢复为 1 分钟
+        executeRootCommand("settings put system screen_off_timeout "+timeToSleep);
         executeRootCommand("setprop poweroff.disabled 0");
+        wakestate = true;
     }
 
     // Set the screen off timeout
@@ -329,7 +348,37 @@ public class PowerManagement {
         }
     }
 
-    //使设备唤醒
+    // 获取系统休眠超时时间的方法
+    public String getScreenOffTimeout() {
+        int timeout = 0;
+        String output;
+
+        try {
+            // 获取系统的屏幕超时时间
+            timeout = Settings.System.getInt(mActivity.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT);
+
+            if (timeout == Integer.MAX_VALUE) {
+                // 如果屏幕超时时间设置为 Integer.MAX_VALUE，表示屏幕永不休眠
+                output = "屏幕不休眠";
+                wakestate = false;
+            } else {
+                // 否则，根据实际的超时时间返回休眠信息
+                output = "屏幕休眠 " + (timeout / 1000) + "s";
+                wakestate = true;
+            }
+        } catch (Settings.SettingNotFoundException e) {
+            Log.e("PowerManagement", "Failed to get screen off timeout", e);
+            output = "无法获取屏幕休眠状态";
+        }
+
+        // 持久化存储 output
+        saveScreenOffTimeout(output);
+
+        return output;
+    }
+
+
+    //设备唤醒
     public int wakeup() {
         try {
             // 使用反射调用 wakeUp 方法
@@ -397,6 +446,7 @@ public class PowerManagement {
         // Here you should add the logic to enable/disable timed touch wake
         // This is a placeholder implementation
         this.timedTouchWakeState = enable;
+        saveScheduleWake(enable);
         return McErrorCode.ENJOY_COMMON_SUCCESSFUL;
     }
 
@@ -423,13 +473,49 @@ public class PowerManagement {
 
     }
 
+    // 获取定时唤醒计划
+    public String getTouchWakeSchedules() {
+        SharedPreferences prefs = mActivity.getSharedPreferences("TouchWakeSchedules", Context.MODE_PRIVATE);
+        Map<String, ?> allSchedules = prefs.getAll();
+
+        if (allSchedules.isEmpty()) {
+            return "当前没有设置任何定时唤醒计划。";
+        }
+
+        StringBuilder schedules = new StringBuilder();
+        schedules.append("当前定时触摸唤醒计划:\n");
+
+        for (Map.Entry<String, ?> entry : allSchedules.entrySet()) {
+            String key = entry.getKey();
+            long triggerTime = (Long) entry.getValue();
+
+            String type = key.contains("START") ? "START" : "END";
+            String formattedTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(triggerTime));
+
+            schedules.append(String.format("类型: %s, 触发时间: %s\n", type, formattedTime));
+        }
+
+        return schedules.toString();
+    }
+
+
     //取消定时唤醒计划
     public int deleteScheduleToTouchWake(String start, String end, boolean enable) {
         try {
             Calendar startCal = getCalendarFromTime(start);
             Calendar endCal = getCalendarFromTime(end);
-            cancelAlarm(startCal, "START", enable);
-            cancelAlarm(endCal, "END", enable);
+
+            int startRequestCode = (int) (startCal.getTimeInMillis() / 1000);
+            int endRequestCode = (int) (endCal.getTimeInMillis() / 1000);
+
+            // 取消定时唤醒计划
+            cancelAlarm(startCal, "START", startRequestCode);
+            cancelAlarm(endCal, "END", endRequestCode);
+
+            // 从 SharedPreferences 中移除该计划
+            removeTouchWakeSchedule("START_" + startCal.getTimeInMillis());
+            removeTouchWakeSchedule("END_" + endCal.getTimeInMillis());
+
             return McErrorCode.ENJOY_COMMON_SUCCESSFUL; // Success
         } catch (Exception e) {
             e.printStackTrace();
@@ -437,17 +523,23 @@ public class PowerManagement {
         }
     }
 
+
     //取消所有定时唤醒计划
     public int cancleTimedTouchWake() {
         try {
+            // 取消所有 PendingIntent
             for (PendingIntent pendingIntent : pendingIntents) {
                 alarmManager.cancel(pendingIntent);
             }
-            pendingIntents.clear();
-            return 0; // Success
+            pendingIntents.clear(); // 清空 pendingIntents 列表
+
+            // 清空 SharedPreferences 中的所有定时计划
+            clearAllTouchWakeSchedules();
+
+            return McErrorCode.ENJOY_COMMON_SUCCESSFUL; // Success
         } catch (Exception e) {
             e.printStackTrace();
-            return -1; // Error
+            return McErrorCode.ENJOY_COMMON_ERROR_UNKNOWN; // Error
         }
     }
 
@@ -472,48 +564,111 @@ public class PowerManagement {
         return calendar;
     }
 
-    //在alarmManager中设置alarm
-    private void setAlarm(Calendar calendar, String type, boolean enable,int requestCode) {
+    //设置alarm
+    private void setAlarm(Calendar calendar, String type, boolean enable, int requestCode) {
         Log.d(TAG, "Setting alarm for type: " + type + " at time: " + calendar.getTime());
 
         Intent intent = new Intent(mActivity, AlarmReceiver.class);
         intent.setAction("com.example.apiDemo.ALARM_RECEIVER");
         intent.putExtra("type", type);
         intent.putExtra("enable", enable);
+        intent.putExtra("triggerTime", calendar.getTimeInMillis());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (alarmManager != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                Log.d(TAG, "Alarm set with setExactAndAllowWhileIdle for type: " + type);
-
             } else {
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                Log.d(TAG, "Alarm set with setExact for type: " + type);
-
             }
-            pendingIntents.add(pendingIntent); // Track the pending intent
-            Log.d(TAG, "Alarm set successfully.");
+            pendingIntents.add(pendingIntent);
+
+            // 保存定时计划
+            saveTouchWakeSchedule(type, calendar.getTimeInMillis());
         } else {
             Log.e(TAG, "Failed to set alarm: AlarmManager is null.");
         }
     }
 
     //取消alarm
-    private void cancelAlarm(Calendar calendar, String type, boolean enable) {
+    private void cancelAlarm(Calendar calendar, String type, int requestCode) {
         Intent intent = new Intent(mActivity, AlarmReceiver.class);
         intent.setAction("com.example.apiDemo.ALARM_RECEIVER");
         intent.putExtra("type", type);
-        intent.putExtra("enable", enable);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, type.equals("START") ? 0 : 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
-            pendingIntents.remove(pendingIntent); // Remove the pending intent from tracking
-            Log.d(TAG, "Alarm cancelled successfully.");
+            pendingIntents.remove(pendingIntent);
+
+            // 移除对应的定时计划
+            SharedPreferences prefs = mActivity.getSharedPreferences("TouchWakeSchedules", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove(type + "_" + calendar.getTimeInMillis());
+            editor.apply();
         } else {
             Log.e(TAG, "Failed to cancel alarm: AlarmManager is null.");
         }
+    }
+
+
+    /* ------------------------------------------------------ */
+    /*        以下为持久化存储模块                                */
+    /* ------------------------------------------------------ */
+
+    //存储定时唤醒开关状态
+    private boolean getScheduleWake() {
+        SharedPreferences prefs = mActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(KEY_SCHEDULE_WAKE, false);
+    }
+
+    private void saveScheduleWake(boolean enabled) {
+        SharedPreferences prefs = mActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(KEY_SCHEDULE_WAKE, enabled);
+        editor.apply();
+    }
+
+    //存储定时计划表
+    private void saveTouchWakeSchedule(String type, long triggerTime) {
+        SharedPreferences prefs = mActivity.getSharedPreferences("TouchWakeSchedules", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // 使用触发时间作为唯一键
+        String uniqueKey = type + "_" + triggerTime;
+        editor.putLong(uniqueKey, triggerTime);
+        editor.apply();
+    }
+
+    // 从 SharedPreferences 中移除计划的方法
+    private void removeTouchWakeSchedule(String key) {
+        SharedPreferences prefs = mActivity.getSharedPreferences("TouchWakeSchedules", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
+    // 清空 SharedPreferences 中的所有定时计划
+    private void clearAllTouchWakeSchedules() {
+        SharedPreferences prefs = mActivity.getSharedPreferences("TouchWakeSchedules", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear(); // 清空所有存储的定时计划
+        editor.apply();
+    }
+
+    // 保存屏幕超时时间设置到 SharedPreferences
+    private void saveScreenOffTimeout(String output) {
+        SharedPreferences prefs = mActivity.getSharedPreferences("PowerManagementPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("screenOffTimeout", output);
+        editor.apply();
+    }
+
+    // 从 SharedPreferences 中获取屏幕超时时间设置
+    public String loadScreenOffTimeout() {
+        SharedPreferences prefs = mActivity.getSharedPreferences("PowerManagementPrefs", Context.MODE_PRIVATE);
+        return prefs.getString("screenOffTimeout", "未设置");
     }
 
     /* ------------------------------------------------------- */

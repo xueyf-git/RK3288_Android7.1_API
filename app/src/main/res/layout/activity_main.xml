@@ -299,7 +299,7 @@
                     android:id="@+id/HardwareStateButton"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_boot_animation"
+                    android:src="@drawable/ic_hardware"
                     android:contentDescription="硬件状态"
                     android:background="?android:attr/selectableItemBackground" />
                 <TextView
