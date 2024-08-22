@@ -393,6 +393,14 @@
                     android:hint="Enter a number"
                     android:inputType="number"
                     android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="ms"
+                    android:textColor="@android:color/black" />
+
             </LinearLayout>
 
             <View

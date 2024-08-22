@@ -4,14 +4,22 @@ import android.app.Activity;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.kongqw.serialportlibrary.Device;
+import com.kongqw.serialportlibrary.SerialPortFinder;
+import com.kongqw.serialportlibrary.SerialPortManager;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class HardwareState {
     private final Activity activity;
+
+
 
     public HardwareState(Activity activity){
         this.activity = activity;
@@ -81,5 +89,7 @@ public class HardwareState {
 //        Log.d("HardwareState","设备运行时间为："+uptimeSeconds);
         return uptimeSeconds;
     }
+
+
 
 }

@@ -28,3 +28,4 @@ dependencyResolutionManagement {
 rootProject.name = "apiDemo"
 include ':app'
 include ':SDK'
+include ':SDK:SerialPortLibrary'

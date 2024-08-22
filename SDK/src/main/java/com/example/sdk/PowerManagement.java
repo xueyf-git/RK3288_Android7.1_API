@@ -316,15 +316,13 @@ public class PowerManagement {
 
     // 使用root权限设置系统屏幕超时时间
     public void setScreenAlwaysOn() {
-        executeRootCommand("settings put system screen_off_timeout 2147483647"); // 2147483647 是 Integer.MAX_VALUE
-        executeRootCommand("setprop poweroff.disabled 1");
+        Settings.System.putInt(mActivity.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 2147483647);
         wakestate = false;
     }
 
     // 使用root权限恢复系统屏幕超时时间
     public void restoreScreenTimeout() {
-        executeRootCommand("settings put system screen_off_timeout "+timeToSleep);
-        executeRootCommand("setprop poweroff.disabled 0");
+        Settings.System.putInt(mActivity.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeToSleep);
         wakestate = true;
     }
 
@@ -777,9 +775,16 @@ public class PowerManagement {
         Process process = null;
         DataOutputStream os = null;
         try {
-            process = Runtime.getRuntime().exec("su");
+//            process = Runtime.getRuntime().exec("su");
+//            os = new DataOutputStream(process.getOutputStream());
+//            os.writeBytes(command + "\n");
+//            os.writeBytes("exit\n");
+//            os.flush();
+//            process.waitFor();
+
+            // 直接执行命令，而不获取 su 权限
+            process = Runtime.getRuntime().exec(command);
             os = new DataOutputStream(process.getOutputStream());
-            os.writeBytes(command + "\n");
             os.writeBytes("exit\n");
             os.flush();
             process.waitFor();

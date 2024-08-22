@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sdk.QYSDK;
 
+import java.nio.channels.SelectionKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,6 +136,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, HardwareStateActivity.class));
+            }
+        });
+
+        //硬件状态
+        ImageButton SerialPort = findViewById(R.id.SerialPortButton);
+        SerialPort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SelectSerialPortActivity.class));
             }
         });
 
